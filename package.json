@@ -1,0 +1,33 @@
+{
+  "name": "multilayer-mt",
+  "version": "0.1.0",
+  "description": "MultilayerMT: multi-layer (DOM, network, test-script) runtime mutation testing for Playwright E2E test suites",
+  "license": "MIT",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
+  "bin": {
+    "mlmt": "dist/src/cli.js"
+  },
+  "files": [
+    "dist/src"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "npm run build && node --test dist/test/*.test.js",
+    "operators": "node dist/src/cli.js operators",
+    "demo": "npm run build && node dist/src/cli.js run -c examples/todo-app/mlmt.config.json"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "typescript": "^5.4.0"
+  },
+  "peerDependencies": {
+    "@playwright/test": ">=1.40.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.63.0",
+    "@types/node": "^20.11.0"
+  }
+}

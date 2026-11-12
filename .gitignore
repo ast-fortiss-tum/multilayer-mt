@@ -216,3 +216,10 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Node / MultilayerMT
+node_modules/
+.mlmt/
+.mutants/
+test-results/
+playwright-report/

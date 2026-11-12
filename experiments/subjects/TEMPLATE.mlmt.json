@@ -1,0 +1,16 @@
+{
+  "app": "<subject name, e.g. MediaWiki>",
+  "projectRoot": "<path to the subject's Playwright project (contains package.json / node_modules)>",
+  "playwrightConfig": "playwright.config.ts",
+  "testDir": "tests",
+  "maxPwe": 8,
+  "workers": 4,
+  "layers": ["dom", "network", "test"],
+  "pageKeyQuery": "all",
+  "network": { "resourceTypes": ["xhr", "fetch", "document"] },
+  "test": { "maxSitesPerOperator": 5 },
+  "testSelection": "covering",
+  "mutantTimeoutMs": 300000,
+  "playwrightArgs": ["--project=chromium"],
+  "keepWebServer": false
+}
