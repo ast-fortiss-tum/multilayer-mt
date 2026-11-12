@@ -1,15 +1,37 @@
 {
+  "$schema": "../../docs/config.schema.json",
   "app": "todo-app",
   "projectRoot": ".",
   "playwrightConfig": "playwright.config.ts",
   "testDir": "tests",
   "maxPwe": 8,
   "workers": 4,
-  "layers": ["dom", "network", "test"],
+  "layers": [
+    "dom",
+    "network",
+    "test"
+  ],
   "pageKeyQuery": "none",
-  "network": { "resourceTypes": ["xhr", "fetch", "document"] },
-  "test": { "maxSitesPerOperator": 3 },
+  "network": {
+    "resourceTypes": [
+      "xhr",
+      "fetch",
+      "document"
+    ]
+  },
+  "test": {
+    "maxSitesPerOperator": 3
+  },
   "testSelection": "covering",
   "mutantTimeoutMs": 120000,
-  "server": { "command": "node server.js", "url": "http://localhost:3123", "timeoutMs": 20000 }
+  "server": {
+    "command": "node server.js",
+    "url": "http://localhost:3123",
+    "timeoutMs": 20000
+  },
+  "reporters": [
+    "json",
+    "html",
+    "console"
+  ]
 }

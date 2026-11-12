@@ -25,13 +25,14 @@ baseline run of the suite.
 ```
 config + Playwright suite + running app
             │
-     MutationEngine ───────────── src/engine/engine.ts
+     runMutationAnalysis() ────── src/api.ts
+     MutationEngine ───────────── src/engine/engine.ts (typed events)
       │        │
-      │   trace run (runtime fixture, recorder)   src/runtime/fixture.ts, src/browser/recorder.ts
+      │   trace run (fixture → instrumentation)   src/runtime/{fixture,instrument}.ts, src/browser/recorder.ts
       │        │
   PWE selector (scoring, top-N per page)          src/pwe/pwe.ts
       │
-  mutant generator                                src/engine/generator.ts
+  mutant generator + operator registry/plugins    src/engine/generator.ts, src/operators/registry.ts
       │      DOM ops      src/browser/domMutator.ts
       │      network ops  src/operators/network/{payload,runtime}.ts
       │      test ops     src/operators/test/astMutator.ts
@@ -40,7 +41,9 @@ config + Playwright suite + running app
       │
   result classifier (KILLED/SURVIVED/SKIPPED/…)   src/engine/classifier.ts
       │
-  reporter (JSON + HTML, aggregate tables)        src/report/report.ts
+  reporters (json/html/markdown/console/custom)   src/report/{report,reporters}.ts
+      │
+  CLI                                             src/cli.ts
 ```
 
 ## Installation
@@ -48,53 +51,61 @@ config + Playwright suite + running app
 Requirements: Node.js ≥ 18 and a project that uses `@playwright/test` (≥ 1.40).
 
 ```bash
-npm ci
-npm run build
-npm test            # unit tests + all 32 DOM operators exercised in Chromium
+# as a dependency of another project (built on install)
+npm install --save-dev github:ast-fortiss-tum/multilayer-mt
+
+# or for development of MultilayerMT itself
+npm ci && npm run build
+npm test            # unit + integration tests (incl. all DOM operators in Chromium)
+npm run test:e2e    # full pipeline on the demo app through the programmatic API
 ```
 
-## Usage
+## Quick start (CLI)
 
-1. Make sure the application under test is running and the Playwright suite passes.
-2. Create a config (see [`examples/todo-app/mlmt.config.json`](examples/todo-app/mlmt.config.json)
-   and [`src/config.ts`](src/config.ts) for all options):
-
-   ```json
-   {
-     "app": "my-app",
-     "projectRoot": ".",
-     "playwrightConfig": "playwright.config.ts",
-     "testDir": "tests",
-     "maxPwe": 8,
-     "workers": 4
-   }
-   ```
-
-3. Run the pipeline:
-
-   ```bash
-   npx mlmt run -c mlmt.config.json            # trace → PWE → generate → execute → report
-   npx mlmt run -c mlmt.config.json --max-pwe 16 --reuse-trace
-   ```
-
-Other commands:
+```bash
+npx mlmt init                     # writes mlmt.config.json (detects playwright config + test dir)
+# start the application under test, then:
+npx mlmt run                      # trace -> PWE -> generate -> execute -> report
+npx mlmt run --max-pwe 16 --reuse-trace --layers dom,network
+npx mlmt run --threshold 60 --json > result.json   # CI gate: exit code 3 below 60%
+```
 
 | Command | Purpose |
 |---|---|
-| `mlmt operators` | list the 51 operators |
-| `mlmt trace` | baseline run + trace run → `.mlmt/trace.json` |
-| `mlmt pwe` | print the PWE ranking per page |
-| `mlmt generate` | write mutant descriptors without executing them |
+| `mlmt init` | scaffold a config |
+| `mlmt run` | full pipeline |
+| `mlmt trace` / `pwe` / `generate` | individual stages |
+| `mlmt operators [--plugin m.js]` | list operators (built-in + plugins) |
+| `mlmt sites <test>` / `mlmt mutate <test> --operator X --site n` | test-script mutations on single files |
 | `mlmt report <report.json>` | re-render the HTML report |
-| `mlmt aggregate <r1.json> <r2.json> …` | Markdown tables of thesis Ch. 5 across runs |
+| `mlmt aggregate <r1.json> …` | Markdown tables of thesis Ch. 5 across runs |
 
-Useful options: `--layers dom,network`, `--operators SVM,NSO.status.override`,
-`--max-mutants 200` (seeded sample), `--all-tests` (run the full suite per
-mutant), `--keep-sandboxes`.
+Every command supports `--json`. Exit codes: 0 ok, 1 error, 2 usage/config, 3 below threshold, 130 interrupted.
+
+## Library use
+
+```ts
+import { runMutationAnalysis, evaluateTestSuite, applyDomMutation, attachRecorder } from 'multilayer-mt';
+
+// whole pipeline
+const report = await runMutationAnalysis({ config: 'mlmt.config.json', onResult: (r) => console.log(r.mutant.id, r.status) });
+
+// score generated tests without writing them into the project
+const r2 = await evaluateTestSuite({ 'gen/a.spec.ts': source }, { config: 'mlmt.config.json', onlyInline: true });
+
+// building blocks for crawlers / agents / custom harnesses
+const rec = await attachRecorder(context);                                   // traces -> PWE model
+await applyDomMutation(page, { operator: 'SVM.display.none', selector: '#save' });
+```
+
+The library also offers custom operators through plugins on all three layers,
+pluggable reporters, a typed event-emitting `MutationEngine`, AbortSignal
+support, and config files in JSON/JS/MJS with a JSON Schema. See
+**[docs/API.md](docs/API.md)**.
 
 Outputs (in `.mlmt/` by default): `trace.json`, `pwe-<N>.json`,
-`mutants-pwe<N>.json`, `report-pwe<N>.json`, `report-pwe<N>.html`, and
-per-mutant folders under `runs/` (mutant descriptor, mutated test file, result).
+`mutants-pwe<N>.json`, `report-pwe<N>.{json,html}`, and per-mutant folders under
+`runs/` (mutant descriptor, mutated test file, result).
 
 ## How a mutant is executed
 
@@ -119,7 +130,7 @@ login + client-side todo list on a JSON API) with an 8-test Playwright suite:
 
 ```bash
 npm run build
-cd examples/todo-app && node ../../dist/src/cli.js run -c mlmt.config.json
+cd examples/todo-app && node ../../dist/src/cli.js run
 ```
 
 ## Empirical study

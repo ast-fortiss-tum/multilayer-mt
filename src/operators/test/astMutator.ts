@@ -1,4 +1,5 @@
 import * as ts from 'typescript';
+import { registry, TestOperatorDef } from '../registry';
 
 /**
  * Test-script layer operators (thesis Sec. 4.2.1, "Test-Script Layer Operators").
@@ -426,9 +427,12 @@ export function parse(fileName: string, source: string): ts.SourceFile {
 
 /** Pre-check: list all mutation sites of `operator` in `source`. */
 export function findSites(operator: string, fileName: string, source: string, params: Params = {}): Site[] {
+  const sf = parse(fileName, source);
   const finder = finders[operator];
-  if (!finder) throw new Error(`Not a test-script operator: ${operator}`);
-  return finder(parse(fileName, source), params);
+  if (finder) return finder(sf, params);
+  const def = registry.has(operator) ? (registry.get(operator) as TestOperatorDef) : null;
+  if (def?.layer === 'test' && def.findSites) return def.findSites(sf, params, ts);
+  throw new Error(`not a test-script operator: ${operator}`);
 }
 
 export function applyEdits(source: string, edits: TextEdit[]): string {

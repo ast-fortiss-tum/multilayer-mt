@@ -8,7 +8,7 @@ import { ensureDir, isInside, rmrf, SOURCE_EXT, walk } from '../util/fs';
  * Sandboxing of the test suite (thesis Sec. 4.1, "Runtime-first design").
  *
  * The original test sources are never modified. Every execution runs against a
- * temporary copy under `<root>/.mutants/<name>/` in which
+ * temporary copy under `<sandboxDir>/<run>/<name>/` (default `.mutants/`) in which
  *   - imports of `@playwright/test` are redirected to the MultilayerMT runtime
  *     fixture (which registers DOM / network mutations through Playwright hooks),
  *   - relative imports that leave the test directory are made absolute,
@@ -108,25 +108,36 @@ export default {
 }
 
 /**
- * Create a sandbox copy of the test directory.
- * @param replace optional { relPath -> new source } (already-mutated test files)
+ * Create a sandbox copy of the test directory at `<sandboxDir>/<name>`.
+ * @param files extra or replacing sources { relPath -> source } (mutated test
+ *              files, in-memory generated tests)
  */
-export function createSandbox(cfg: ResolvedConfig, name: string, replace: Record<string, string> = {}): Sandbox {
-  const dir = path.join(cfg.abs.root, '.mutants', name);
+export function createSandbox(cfg: ResolvedConfig, name: string, files: Record<string, string> = {}): Sandbox {
+  const dir = path.join(cfg.abs.sandboxDir, name);
   rmrf(dir);
   const testDir = path.join(dir, path.basename(cfg.abs.testDir) || 'tests');
   ensureDir(testDir);
-  for (const rel of walk(cfg.abs.testDir)) {
-    const src = path.join(cfg.abs.testDir, rel);
-    const dst = path.join(testDir, rel);
+  const written = new Set<string>();
+  const writeSource = (relPosix: string, source: string) => {
+    const dst = path.join(testDir, relPosix);
     ensureDir(path.dirname(dst));
-    if (SOURCE_EXT.test(rel)) {
-      const relPosix = toPosix(rel);
-      const source = replace[relPosix] ?? fs.readFileSync(src, 'utf8');
-      fs.writeFileSync(dst, rewriteImports(source, dst, src, cfg.abs.testDir));
-    } else {
+    fs.writeFileSync(dst, rewriteImports(source, dst, path.join(cfg.abs.testDir, relPosix), cfg.abs.testDir));
+    written.add(relPosix);
+  };
+  for (const rel of walk(cfg.abs.testDir)) {
+    const relPosix = toPosix(rel);
+    const src = path.join(cfg.abs.testDir, rel);
+    if (SOURCE_EXT.test(rel)) writeSource(relPosix, files[relPosix] ?? fs.readFileSync(src, 'utf8'));
+    else {
+      const dst = path.join(testDir, rel);
+      ensureDir(path.dirname(dst));
       fs.copyFileSync(src, dst);
     }
+  }
+  for (const [rel, source] of Object.entries(files)) {
+    const relPosix = toPosix(rel);
+    if (relPosix.startsWith('..') || path.isAbsolute(relPosix)) throw new Error(`test file path must be relative to testDir: ${rel}`);
+    if (!written.has(relPosix)) writeSource(relPosix, source);
   }
   const configFile = path.join(dir, 'playwright.mlmt.config.ts');
   fs.writeFileSync(configFile, wrapperConfig(cfg, testDir));

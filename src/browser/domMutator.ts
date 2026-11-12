@@ -13,12 +13,21 @@ export interface DomMutationSpec {
   resourceUrl?: string;
   params: Record<string, any>;
   seed: number;
+  /** element (default) or page */
+  scope?: 'element' | 'page';
+  /** name of the exposed binding that receives application reports */
+  bindingName?: string;
 }
 
-export function mlmtDomMutator(spec: DomMutationSpec): void {
+/** Signature of a custom (plugin) DOM operator, see operators/registry.ts. */
+export type CustomDomApply = (el: Element, params: Record<string, any>, helpers: { rand: () => number }) => string | null;
+
+export function mlmtDomMutator(spec: DomMutationSpec, custom?: CustomDomApply | null): void {
   const w = window as any;
-  if (w.__mlmtDomMutatorInstalled) return;
-  w.__mlmtDomMutatorInstalled = true;
+  const installKey = [spec.operator, spec.selector || '', spec.resourceUrl || '', spec.bindingName || ''].join('|');
+  w.__mlmtMutators = w.__mlmtMutators || {};
+  if (w.__mlmtMutators[installKey]) return;
+  w.__mlmtMutators[installKey] = true;
 
   const MARK = 'data-mlmt-mutated';
   const P = spec.params || {};
@@ -35,7 +44,7 @@ export function mlmtDomMutator(spec: DomMutationSpec): void {
   }
 
   if (window.top !== window) return; // only the main frame
-  if (pageKeyOf(location.href, spec.pageKeyQuery) !== spec.pageKey) return;
+  if (spec.pageKey !== '*' && pageKeyOf(location.href, spec.pageKeyQuery) !== spec.pageKey) return;
 
   let seed = spec.seed >>> 0 || 1;
   function rand(): number {
@@ -54,7 +63,7 @@ export function mlmtDomMutator(spec: DomMutationSpec): void {
   function report(detail: string): void {
     applications++;
     try {
-      const fn = w.__mlmtApplied;
+      const fn = w[spec.bindingName || '__mlmtApplied'];
       if (typeof fn === 'function') fn({ operator: spec.operator, detail, applications });
     } catch {
       /* ignore */
@@ -442,7 +451,17 @@ export function mlmtDomMutator(spec: DomMutationSpec): void {
   };
 
   // --------------------------------------------------------- page operators
+  let customPageDone = false;
   function applyPageOp(): void {
+    if (custom && spec.scope === 'page') {
+      if (customPageDone) return;
+      const d = custom(document.documentElement, P, { rand });
+      if (d) {
+        customPageDone = true;
+        report(d);
+      }
+      return;
+    }
     if (spec.operator === 'TIM.node.removeSafe') {
       const sels: string[] = Array.isArray(P.selectors) ? P.selectors : ['footer', 'aside'];
       let removed = 0;
@@ -494,7 +513,8 @@ export function mlmtDomMutator(spec: DomMutationSpec): void {
         if (fresh) report(`css rule injected for ${fresh} element(s)`);
         return;
       }
-      const fn = elementOps[spec.operator];
+      const fn: Apply | undefined =
+        elementOps[spec.operator] || (custom && spec.scope !== 'page' ? (el: Element) => custom(el, P, { rand }) : undefined);
       if (fn) {
         if (!spec.selector) return;
         document.querySelectorAll(spec.selector).forEach((el) => {

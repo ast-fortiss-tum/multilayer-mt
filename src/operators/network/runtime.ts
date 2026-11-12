@@ -2,6 +2,7 @@ import type { BrowserContext, Route, Request } from '@playwright/test';
 import type { MutantDescriptor, NetworkTarget } from '../../types';
 import { addField, changeType, dropField, invalidEnum, renameField, reorderArrays, Transformed } from './payload';
 import { mulberry32 } from '../../util/random';
+import { registry, NetworkOperatorDef } from '../registry';
 
 export type AppliedCallback = (detail: string) => void;
 
@@ -116,8 +117,11 @@ export async function installNetworkMutation(
           cached = { status: response.status(), headers: strippedHeaders(response.headers()), body: await response.body() };
           return route.fulfill({ response });
         }
-        default:
+        default: {
+          const def = registry.has(mutant.operator) ? (registry.get(mutant.operator) as NetworkOperatorDef) : null;
+          if (def?.handle) return await def.handle({ route, request, params: p, applied: onApplied, rand });
           return route.fallback();
+        }
       }
     } catch (e) {
       // the context may be closing; never crash the test because of the handler

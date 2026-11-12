@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import type { ResolvedConfig } from '../config';
-import { DOM_OPERATORS, NETWORK_OPERATORS, TEST_OPERATORS } from '../operators/catalog';
+import { registry as defaultRegistry, OperatorRegistry, DomOperatorDef } from '../operators/registry';
 import { findSites } from '../operators/test/astMutator';
 import type { ElementInfo, JsonShape, MutantDescriptor, NetworkRecord, OperatorInfo, PwePage, SuiteTrace } from '../types';
 import { walk } from '../util/fs';
@@ -93,8 +93,8 @@ const FORM_SCOPED = new Set(['TIM.form.reorderFields', 'EVD.submit.delay']);
 const SAFE_NODE_TAGS = ['footer', 'aside'];
 const SAFE_NODE_ROLES = ['banner', 'contentinfo', 'complementary'];
 
-function generateDom(cfg: ResolvedConfig, pwe: PwePage[], trace: SuiteTrace): Omit<MutantDescriptor, 'id'>[] {
-  const ops = enabledOperators(cfg, DOM_OPERATORS);
+function generateDom(cfg: ResolvedConfig, pwe: PwePage[], trace: SuiteTrace, reg: OperatorRegistry): Omit<MutantDescriptor, 'id'>[] {
+  const ops = enabledOperators(cfg, reg.list('dom')) as DomOperatorDef[];
   const out: Omit<MutantDescriptor, 'id'>[] = [];
   const seen = new Set<string>();
   const push = (m: Omit<MutantDescriptor, 'id'>, key: string) => {
@@ -125,7 +125,10 @@ function generateDom(cfg: ResolvedConfig, pwe: PwePage[], trace: SuiteTrace): Om
       const el = pweEl.element;
       for (const op of ops.filter((o) => o.scope === 'element')) {
         const params = paramsFor(cfg, op);
-        if (!domApplicable(op.id, el, params.mapping as Record<string, string> | undefined)) continue;
+        const ok = reg.isBuiltin(op.id)
+          ? domApplicable(op.id, el, params.mapping as Record<string, string> | undefined)
+          : op.applicable ? op.applicable(el, params) : true;
+        if (!ok) continue;
         let selector = el.selector;
         if (FORM_SCOPED.has(op.id) && el.tag !== 'form' && el.facts.formSelector) selector = el.facts.formSelector;
         push(
@@ -144,7 +147,12 @@ function generateDom(cfg: ResolvedConfig, pwe: PwePage[], trace: SuiteTrace): Om
     const els = pageSnap.get(page.pageKey) || [];
     for (const op of ops.filter((o) => o.scope === 'page')) {
       const params = paramsFor(cfg, op);
-      if (op.id === 'TIM.node.removeSafe') {
+      if (!reg.isBuiltin(op.id)) {
+        push(
+          { operator: op.id, layer: 'dom', target: { kind: 'dom', pageKey: page.pageKey, description: `page ${page.pageKey}` }, params, testFiles: files },
+          `${op.id}|${page.pageKey}`,
+        );
+      } else if (op.id === 'TIM.node.removeSafe') {
         const has = els.some((e) => SAFE_NODE_TAGS.includes(e.tag) || SAFE_NODE_ROLES.includes(e.attrs.role || '') || /\bbanner\b/.test(e.attrs.class || ''));
         push(
           {
@@ -231,8 +239,8 @@ export function inferNetworkParams(opId: string, defaults: Record<string, unknow
   }
 }
 
-function generateNetwork(cfg: ResolvedConfig, trace: SuiteTrace): Omit<MutantDescriptor, 'id'>[] {
-  const ops = enabledOperators(cfg, NETWORK_OPERATORS);
+function generateNetwork(cfg: ResolvedConfig, trace: SuiteTrace, reg: OperatorRegistry): Omit<MutantDescriptor, 'id'>[] {
+  const ops = enabledOperators(cfg, reg.list('network'));
   const include = cfg.network.include ? new RegExp(cfg.network.include) : null;
   const exclude = cfg.network.exclude ? new RegExp(cfg.network.exclude) : null;
   const pageOrigins = new Set<string>();
@@ -243,7 +251,7 @@ function generateNetwork(cfg: ResolvedConfig, trace: SuiteTrace): Omit<MutantDes
     for (const r of t.network) {
       if (!cfg.network.resourceTypes.includes(r.resourceType)) continue;
       const u = new URL(r.url);
-      if (pageOrigins.size && !pageOrigins.has(u.origin)) continue;
+      if (!cfg.network.thirdParty && pageOrigins.size && !pageOrigins.has(u.origin)) continue;
       if (include && !include.test(r.endpoint)) continue;
       if (exclude && exclude.test(r.endpoint)) continue;
       const e = endpoints.get(r.endpoint);
@@ -279,19 +287,23 @@ function generateNetwork(cfg: ResolvedConfig, trace: SuiteTrace): Omit<MutantDes
 
 /* --------------------------------------------------------------- test */
 
-export function listTestFiles(cfg: ResolvedConfig): string[] {
+export function listTestFiles(cfg: ResolvedConfig, extra: string[] = []): string[] {
   const re = new RegExp(cfg.testFilePattern);
-  return walk(cfg.abs.testDir)
-    .map((f) => f.split(path.sep).join('/'))
-    .filter((f) => re.test(f))
-    .sort();
+  const onDisk = walk(cfg.abs.testDir).map((f) => f.split(path.sep).join('/'));
+  return [...new Set([...onDisk, ...extra])].filter((f) => re.test(f)).sort();
 }
 
-function generateTest(cfg: ResolvedConfig): Omit<MutantDescriptor, 'id'>[] {
-  const ops = enabledOperators(cfg, TEST_OPERATORS);
+/** Sources of all test files: on-disk files overlaid with in-memory ones. */
+export function readTestSources(cfg: ResolvedConfig, inline: Record<string, string> = {}): Record<string, string> {
+  const out: Record<string, string> = {};
+  for (const f of listTestFiles(cfg, Object.keys(inline))) out[f] = inline[f] ?? fs.readFileSync(path.join(cfg.abs.testDir, f), 'utf8');
+  return out;
+}
+
+function generateTest(cfg: ResolvedConfig, sources: Record<string, string>, reg: OperatorRegistry): Omit<MutantDescriptor, 'id'>[] {
+  const ops = enabledOperators(cfg, reg.list('test'));
   const out: Omit<MutantDescriptor, 'id'>[] = [];
-  for (const file of listTestFiles(cfg)) {
-    const source = fs.readFileSync(path.join(cfg.abs.testDir, file), 'utf8');
+  for (const [file, source] of Object.entries(sources)) {
     for (const op of ops) {
       const params = paramsFor(cfg, op);
       const sites = findSites(op.id, file, source, params);
@@ -322,11 +334,19 @@ function generateTest(cfg: ResolvedConfig): Omit<MutantDescriptor, 'id'>[] {
 
 /* ---------------------------------------------------------------- all */
 
-export function generateMutants(cfg: ResolvedConfig, pwe: PwePage[], trace: SuiteTrace): MutantDescriptor[] {
+export interface GenerateOptions {
+  /** Test sources (relative path -> source); default: read from testDir. */
+  testSources?: Record<string, string>;
+  registry?: OperatorRegistry;
+}
+
+/** Generate the mutant descriptors of all enabled layers (deterministic ids D/N/T0001...). */
+export function generateMutants(cfg: ResolvedConfig, pwe: PwePage[], trace: SuiteTrace, opts: GenerateOptions = {}): MutantDescriptor[] {
+  const reg = opts.registry ?? defaultRegistry;
   const all = [
-    ...(cfg.layers.includes('dom') ? generateDom(cfg, pwe, trace) : []),
-    ...(cfg.layers.includes('network') ? generateNetwork(cfg, trace) : []),
-    ...(cfg.layers.includes('test') ? generateTest(cfg) : []),
+    ...(cfg.layers.includes('dom') ? generateDom(cfg, pwe, trace, reg) : []),
+    ...(cfg.layers.includes('network') ? generateNetwork(cfg, trace, reg) : []),
+    ...(cfg.layers.includes('test') ? generateTest(cfg, opts.testSources ?? readTestSources(cfg), reg) : []),
   ];
   const prefix = { dom: 'D', network: 'N', test: 'T' } as const;
   const counters = { dom: 0, network: 0, test: 0 };

@@ -6,7 +6,7 @@ import type { ResolvedConfig } from '../config';
 import type { TestOutcome } from '../types';
 import type { Sandbox } from './sandbox';
 import { ensureDir } from '../util/fs';
-import { log } from '../util/log';
+import { Logger, silentLogger } from '../util/log';
 
 /**
  * Test Executor (thesis Sec. 4.2): runs the Playwright test runner on a sandbox
@@ -22,6 +22,8 @@ export interface RunOptions {
   timeoutMs: number;
   /** unique run id (output folders) */
   runId: string;
+  signal?: AbortSignal;
+  logger?: Logger;
 }
 
 export interface RunOutcome {
@@ -33,6 +35,7 @@ export interface RunOutcome {
   errors: string[];
   reportFound: boolean;
   stderr: string;
+  aborted?: boolean;
 }
 
 function playwrightCli(root: string): string {
@@ -106,9 +109,10 @@ export async function runPlaywright(cfg: ResolvedConfig, opts: RunOptions): Prom
     MLMT_NET_TYPES: JSON.stringify(cfg.network.resourceTypes),
     MLMT_MAX_ELEMENTS: String(cfg.maxElementsPerSnapshot),
     MLMT_SEED: String(cfg.seed),
+    MLMT_PLUGINS: JSON.stringify(cfg.abs.plugins),
     FORCE_COLOR: '0',
   };
-  log.debug('spawn', process.execPath, args.join(' '));
+  (opts.logger || silentLogger).debug('spawn', process.execPath, args.join(' '));
 
   const started = Date.now();
   return await new Promise<RunOutcome>((resolve) => {
@@ -118,17 +122,30 @@ export async function runPlaywright(cfg: ResolvedConfig, opts: RunOptions): Prom
       if (stderr.length < 20_000) stderr += d.toString();
     });
     let timedOut = false;
-    const timer = setTimeout(() => {
-      timedOut = true;
+    let aborted = false;
+    const kill = () => {
       try {
         if (child.pid && process.platform !== 'win32') process.kill(-child.pid, 'SIGKILL');
         else child.kill('SIGKILL');
       } catch {
         child.kill('SIGKILL');
       }
+    };
+    const timer = setTimeout(() => {
+      timedOut = true;
+      kill();
     }, opts.timeoutMs);
+    const onAbort = () => {
+      aborted = true;
+      kill();
+    };
+    if (opts.signal) {
+      if (opts.signal.aborted) onAbort();
+      else opts.signal.addEventListener('abort', onAbort, { once: true });
+    }
     child.on('close', (code) => {
       clearTimeout(timer);
+      opts.signal?.removeEventListener('abort', onAbort);
       const durationMs = Date.now() - started;
       let tests: TestOutcome[] = [];
       let errors: string[] = [];
@@ -143,7 +160,7 @@ export async function runPlaywright(cfg: ResolvedConfig, opts: RunOptions): Prom
           errors = [`could not parse JSON report: ${(e as Error).message}`];
         }
       }
-      resolve({ exitCode: code, timedOut, durationMs, tests, errors, reportFound, stderr });
+      resolve({ exitCode: code, timedOut, durationMs, tests, errors, reportFound, stderr, aborted });
     });
   });
 }

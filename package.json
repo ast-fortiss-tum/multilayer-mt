@@ -2,20 +2,54 @@
   "name": "multilayer-mt",
   "version": "0.1.0",
   "description": "MultilayerMT: multi-layer (DOM, network, test-script) runtime mutation testing for Playwright E2E test suites",
+  "keywords": [
+    "mutation-testing",
+    "playwright",
+    "e2e",
+    "web-testing",
+    "test-adequacy",
+    "dom",
+    "network",
+    "testing"
+  ],
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ast-fortiss-tum/multilayer-mt.git"
+  },
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/src/index.d.ts",
+      "default": "./dist/src/index.js"
+    },
+    "./fixture": {
+      "types": "./dist/src/runtime/fixture.d.ts",
+      "default": "./dist/src/runtime/fixture.js"
+    },
+    "./browser": {
+      "types": "./dist/src/browser/index.d.ts",
+      "default": "./dist/src/browser/index.js"
+    },
+    "./package.json": "./package.json"
+  },
   "bin": {
     "mlmt": "dist/src/cli.js"
   },
   "files": [
-    "dist/src"
+    "dist/src",
+    "docs",
+    "README.md",
+    "LICENSE"
   ],
   "scripts": {
-    "build": "tsc -p tsconfig.json",
-    "test": "npm run build && node --test dist/test/*.test.js",
-    "operators": "node dist/src/cli.js operators",
-    "demo": "npm run build && node dist/src/cli.js run -c examples/todo-app/mlmt.config.json"
+    "clean": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\"",
+    "build": "npm run clean && tsc -p tsconfig.build.json",
+    "prepare": "npm run build",
+    "test": "tsc -p tsconfig.json && node --test dist/test/*.test.js",
+    "test:e2e": "tsc -p tsconfig.json && node --test dist/test/e2e/*.test.js",
+    "demo": "npm run build && cd examples/todo-app && node ../../dist/src/cli.js run"
   },
   "engines": {
     "node": ">=18"
