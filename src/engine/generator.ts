@@ -5,6 +5,7 @@ import { registry as defaultRegistry, OperatorRegistry, DomOperatorDef } from '.
 import { findSites } from '../operators/test/astMutator';
 import type { ElementInfo, JsonShape, MutantDescriptor, NetworkRecord, OperatorInfo, PwePage, SuiteTrace } from '../types';
 import { walk } from '../util/fs';
+import { normalizeKey } from '../util/pageKey';
 
 /**
  * Mutant generation (thesis Sec. 4.5, step 3): for each PWE enumerate the
@@ -274,7 +275,7 @@ function generateNetwork(cfg: ResolvedConfig, trace: SuiteTrace, reg: OperatorRe
           kind: 'network',
           endpoint,
           method: rec.method,
-          urlBase: u.origin + u.pathname,
+          urlBase: normalizeKey(u.origin + u.pathname, cfg.pageKeyNormalize),
           description: `${endpoint} [${rec.resourceType}${shape ? ', json' : ''}]`,
         },
         params,

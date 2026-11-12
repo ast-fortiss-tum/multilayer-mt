@@ -9,6 +9,8 @@ export interface DomMutationSpec {
   operator: string;
   pageKey: string;
   pageKeyQuery: 'all' | 'none' | string[];
+  /** see util/pageKey.ts KeyNormalizer */
+  pageKeyNormalize?: Array<[string, string]>;
   selector?: string;
   resourceUrl?: string;
   params: Record<string, any>;
@@ -40,7 +42,9 @@ export function mlmtDomMutator(spec: DomMutationSpec, custom?: CustomDomApply | 
     else if (Array.isArray(mode)) entries = entries.filter(([k]) => mode.includes(k));
     entries.sort((a, b) => (a[0] + '=' + a[1]).localeCompare(b[0] + '=' + b[1]));
     const q = entries.length ? '?' + entries.map(([k, v]) => k + '=' + v).join('&') : '';
-    return u.origin + u.pathname + q;
+    let key = u.origin + u.pathname + q;
+    for (const [p, r] of spec.pageKeyNormalize || []) key = key.replace(new RegExp(p, 'g'), r);
+    return key;
   }
 
   if (window.top !== window) return; // only the main frame
@@ -496,6 +500,19 @@ export function mlmtDomMutator(spec: DomMutationSpec, custom?: CustomDomApply | 
 
   // ------------------------------------------------------------- scheduler
   const doneEls = new WeakSet<Element>();
+  /**
+   * While the document is still being parsed, an element is complete once a
+   * node follows it (or one of its ancestors): the parser appends in document
+   * order. Tests can act on elements before DOMContentLoaded, so mutations
+   * must be in place by then, but never on half-parsed elements.
+   */
+  function parsed(el: Element): boolean {
+    if (document.readyState !== 'loading') return true;
+    for (let n: Node | null = el; n && n !== document.documentElement; n = n.parentNode) {
+      if (n.nextSibling) return true;
+    }
+    return false;
+  }
   function applyNow(): void {
     try {
       if (cssOps[spec.operator]) {
@@ -518,7 +535,7 @@ export function mlmtDomMutator(spec: DomMutationSpec, custom?: CustomDomApply | 
       if (fn) {
         if (!spec.selector) return;
         document.querySelectorAll(spec.selector).forEach((el) => {
-          if (doneEls.has(el) || el.hasAttribute(MARK)) return;
+          if (doneEls.has(el) || el.hasAttribute(MARK) || !parsed(el)) return;
           doneEls.add(el);
           const d = fn(el);
           if (d) {
@@ -528,7 +545,8 @@ export function mlmtDomMutator(spec: DomMutationSpec, custom?: CustomDomApply | 
         });
         return;
       }
-      applyPageOp();
+      // page-level operators restructure the document: wait until it is parsed
+      if (document.readyState !== 'loading') applyPageOp();
     } catch (e) {
       // never break the page because of the mutator itself
     }
@@ -546,8 +564,11 @@ export function mlmtDomMutator(spec: DomMutationSpec, custom?: CustomDomApply | 
 
   function start(): void {
     applyNow();
-    const obs = new MutationObserver(() => schedule());
-    obs.observe(document.documentElement, { childList: true, subtree: true });
+    // During parsing apply synchronously (observer callbacks run as microtasks,
+    // before the test can act on newly parsed elements); afterwards batch.
+    const obs = new MutationObserver(() => (document.readyState === 'loading' ? applyNow() : schedule()));
+    obs.observe(document, { childList: true, subtree: true });
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', applyNow, { once: true });
   }
 
   if (spec.operator === 'SFM.script.fail' || spec.operator === 'SFM.stylesheet.fail') {
@@ -555,6 +576,5 @@ export function mlmtDomMutator(spec: DomMutationSpec, custom?: CustomDomApply | 
     const obs = new MutationObserver(() => applyPageOp());
     obs.observe(document, { childList: true, subtree: true });
   }
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start, { once: true });
-  else start();
+  start();
 }

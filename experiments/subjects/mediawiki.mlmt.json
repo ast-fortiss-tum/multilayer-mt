@@ -1,0 +1,20 @@
+{
+  "$schema": "../../docs/config.schema.json",
+  "app": "MediaWiki",
+  "projectRoot": "mediawiki",
+  "playwrightConfig": "playwright.config.ts",
+  "testDir": "tests",
+  "outputDir": "../../results/mediawiki",
+  "maxPwe": 8,
+  "workers": 4,
+  "layers": ["dom", "network", "test"],
+  "pageKeyQuery": ["title", "action", "veaction"],
+  "pageKeyNormalize": [["Q9[0-9a-f]{8}", "Q9#"]],
+  "network": { "resourceTypes": ["xhr", "fetch", "document"] },
+  "test": { "maxSitesPerOperator": 5 },
+  "testSelection": "covering",
+  "mutantTimeoutMs": 300000,
+  "playwrightArgs": ["--project=chromium"],
+  "keepWebServer": false,
+  "reporters": ["json", "html", "console"]
+}

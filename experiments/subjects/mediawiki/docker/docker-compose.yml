@@ -1,0 +1,30 @@
+# MediaWiki 1.40.0 + MariaDB, as in BEWT (mediawiki/baseline/mediawiki-1.40.0).
+# Use ./setup.sh (not plain `docker compose up`): it runs the installer and
+# writes LocalSettings.php.
+name: mlmt-mediawiki
+services:
+  mediawiki:
+    image: mediawiki:1.40.0
+    restart: always
+    ports:
+      - "8080:80"
+    depends_on:
+      - database
+    volumes:
+      - images:/var/www/html/images
+  database:
+    image: mariadb:11.4
+    restart: always
+    # Tests create users in parallel; REPEATABLE-READ gap locks make concurrent
+    # INSERTs into `user` deadlock (Error 1213).
+    command: ["--transaction-isolation=READ-COMMITTED"]
+    environment:
+      MYSQL_DATABASE: my_wiki
+      MYSQL_USER: wikiuser
+      MYSQL_PASSWORD: example
+      MYSQL_RANDOM_ROOT_PASSWORD: "yes"
+    volumes:
+      - db:/var/lib/mysql
+volumes:
+  images:
+  db:

@@ -223,3 +223,8 @@ node_modules/
 .mutants/
 test-results/
 playwright-report/
+
+# MultilayerMT study intermediates (regenerable, large)
+experiments/results/*/trace.json
+experiments/results/*/trace-raw/
+experiments/results/*/runs/

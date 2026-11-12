@@ -9,6 +9,8 @@
  */
 export interface RecorderSpec {
   pageKeyQuery: 'all' | 'none' | string[];
+  /** see util/pageKey.ts KeyNormalizer */
+  pageKeyNormalize?: Array<[string, string]>;
   maxElements: number;
 }
 
@@ -24,7 +26,9 @@ export function mlmtRecorder(spec: RecorderSpec): void {
     else if (Array.isArray(mode)) entries = entries.filter(([k]) => mode.includes(k));
     entries.sort((a, b) => (a[0] + '=' + a[1]).localeCompare(b[0] + '=' + b[1]));
     const q = entries.length ? '?' + entries.map(([k, v]) => k + '=' + v).join('&') : '';
-    return u.origin + u.pathname + q;
+    let key = u.origin + u.pathname + q;
+    for (const [p, r] of spec.pageKeyNormalize || []) key = key.replace(new RegExp(p, 'g'), r);
+    return key;
   }
   const pageKey = () => pageKeyOf(location.href, spec.pageKeyQuery);
 

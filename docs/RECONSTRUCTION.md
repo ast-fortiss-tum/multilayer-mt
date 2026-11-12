@@ -50,6 +50,11 @@ points are normalised as follows: interaction / max interaction on the same
 page, visibility / 25, semantic / 20. Elements whose semantic tag is not listed
 (e.g. `h1`, `img`, `li`) get S = 0. Pages are identified by origin + path + the
 query parameters chosen with `pageKeyQuery`.
+Not in the thesis: `pageKeyNormalize` applies regex rewrites to page keys and
+network endpoints. Suites that create data with run-unique names (the
+MediaWiki port, `experiments/subjects/mediawiki`) put those names in URLs;
+without normalisation the trace run and the mutant runs would see different
+pages and no DOM mutant would ever be applied.
 
 ### DOM operator details
 - Element operators also re-apply to elements that appear later (SPA

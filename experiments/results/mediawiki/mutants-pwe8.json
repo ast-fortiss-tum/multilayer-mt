@@ -1,0 +1,4115 @@
+[
+  {
+    "id": "D0019",
+    "operator": "SVM.display.none",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?action=delete&title=E2E_Web_Testing_Q9#",
+      "selector": "#wpReason",
+      "description": "<input> #wpReason (PWE #2, score 0.8)"
+    },
+    "params": {},
+    "testFiles": [
+      "20-delete-page.spec.ts"
+    ]
+  },
+  {
+    "id": "D0022",
+    "operator": "FVM.required.toggle",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?action=delete&title=E2E_Web_Testing_Q9#",
+      "selector": "#wpReason",
+      "description": "<input> #wpReason (PWE #2, score 0.8)"
+    },
+    "params": {},
+    "testFiles": [
+      "20-delete-page.spec.ts"
+    ]
+  },
+  {
+    "id": "D0024",
+    "operator": "ARM.role.modify",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?action=delete&title=E2E_Web_Testing_Q9#",
+      "selector": "#wpReason",
+      "description": "<input> #wpReason (PWE #2, score 0.8)"
+    },
+    "params": {
+      "mapping": {
+        "button": "link",
+        "link": "button",
+        "checkbox": "radio",
+        "radio": "checkbox",
+        "textbox": "searchbox",
+        "searchbox": "textbox",
+        "tab": "button",
+        "menuitem": "option",
+        "option": "menuitem",
+        "navigation": "region",
+        "dialog": "region",
+        "heading": "paragraph",
+        "listitem": "none",
+        "combobox": "textbox",
+        "img": "presentation"
+      }
+    },
+    "testFiles": [
+      "20-delete-page.spec.ts"
+    ]
+  },
+  {
+    "id": "D0030",
+    "operator": "EHDM.click.remove",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?action=delete&title=E2E_Web_Testing_Q9#",
+      "selector": "#bodyContent > a:nth-of-type(1)",
+      "description": "<a> #bodyContent > a:nth-of-type(1) (PWE #3, score 0.6)"
+    },
+    "params": {},
+    "testFiles": [
+      "20-delete-page.spec.ts"
+    ]
+  },
+  {
+    "id": "D0037",
+    "operator": "TIM.wrap.div",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?action=delete&title=E2E_Web_Testing_Q9#",
+      "selector": "#bodyContent > a:nth-of-type(1)",
+      "description": "<a> #bodyContent > a:nth-of-type(1) (PWE #3, score 0.6)"
+    },
+    "params": {},
+    "testFiles": [
+      "20-delete-page.spec.ts"
+    ]
+  },
+  {
+    "id": "D0038",
+    "operator": "ARM.role.modify",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?action=delete&title=E2E_Web_Testing_Q9#",
+      "selector": "#bodyContent > a:nth-of-type(1)",
+      "description": "<a> #bodyContent > a:nth-of-type(1) (PWE #3, score 0.6)"
+    },
+    "params": {
+      "mapping": {
+        "button": "link",
+        "link": "button",
+        "checkbox": "radio",
+        "radio": "checkbox",
+        "textbox": "searchbox",
+        "searchbox": "textbox",
+        "tab": "button",
+        "menuitem": "option",
+        "option": "menuitem",
+        "navigation": "region",
+        "dialog": "region",
+        "heading": "paragraph",
+        "listitem": "none",
+        "combobox": "textbox",
+        "img": "presentation"
+      }
+    },
+    "testFiles": [
+      "20-delete-page.spec.ts"
+    ]
+  },
+  {
+    "id": "D0062",
+    "operator": "TIM.insert.ghostDiv",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?action=delete&title=E2E_Web_Testing_Q9#",
+      "selector": "#ca-delete > a",
+      "description": "<a> #ca-delete > a (PWE #5, score 0.6)"
+    },
+    "params": {},
+    "testFiles": [
+      "20-delete-page.spec.ts"
+    ]
+  },
+  {
+    "id": "D0121",
+    "operator": "CDM.text.delete",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?action=edit&title=E2E_Web_Testing_Q9#",
+      "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > span:nth-of-type(3) > a",
+      "description": "<a> div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > span:nth-of-type(3) > a (PWE #2, score 0.9)"
+    },
+    "params": {},
+    "testFiles": [
+      "04-create-and-link-page.spec.ts"
+    ]
+  },
+  {
+    "id": "D0130",
+    "operator": "TIM.insert.ghostDiv",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?action=edit&title=E2E_Web_Testing_Q9#",
+      "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > span:nth-of-type(3) > a",
+      "description": "<a> div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > span:nth-of-type(3) > a (PWE #2, score 0.9)"
+    },
+    "params": {},
+    "testFiles": [
+      "04-create-and-link-page.spec.ts"
+    ]
+  },
+  {
+    "id": "D0136",
+    "operator": "SVM.visibility.hide",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?action=edit&title=E2E_Web_Testing_Q9#",
+      "selector": "div:nth-of-type(2) > textarea",
+      "description": "<textarea> div:nth-of-type(2) > textarea (PWE #3, score 0.9)"
+    },
+    "params": {},
+    "testFiles": [
+      "04-create-and-link-page.spec.ts"
+    ]
+  },
+  {
+    "id": "D0168",
+    "operator": "CDM.text.shuffle",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?action=edit&title=E2E_Web_Testing_Q9#",
+      "selector": "body > div:nth-of-type(5) > div > div > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div > div:nth-of-type(1) > span > a",
+      "description": "<a> body > div:nth-of-type(5) > div > div > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div > div:nth-of-type(1) > span > a (PWE #6, score 0.8)"
+    },
+    "params": {},
+    "testFiles": [
+      "04-create-and-link-page.spec.ts"
+    ]
+  },
+  {
+    "id": "D0217",
+    "operator": "TIM.wrap.div",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?action=edit&title=Empty_Q9#",
+      "selector": "#wpSave",
+      "description": "<input> #wpSave (PWE #1, score 1)"
+    },
+    "params": {},
+    "testFiles": [
+      "26-create-blank-page-gets-warning.spec.ts"
+    ]
+  },
+  {
+    "id": "D0228",
+    "operator": "SVM.display.none",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?action=edit&title=Empty_Q9#",
+      "selector": "#bodyContent > a:nth-of-type(1)",
+      "description": "<a> #bodyContent > a:nth-of-type(1) (PWE #2, score 0.6)"
+    },
+    "params": {},
+    "testFiles": [
+      "26-create-blank-page-gets-warning.spec.ts"
+    ]
+  },
+  {
+    "id": "D0252",
+    "operator": "EVD.click.delay",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?action=edit&title=Empty_Q9#",
+      "selector": "#ca-edit > a",
+      "description": "<a> #ca-edit > a (PWE #4, score 0.6)"
+    },
+    "params": {
+      "minMs": 300,
+      "maxMs": 800
+    },
+    "testFiles": [
+      "26-create-blank-page-gets-warning.spec.ts"
+    ]
+  },
+  {
+    "id": "D0283",
+    "operator": "TIM.insert.ghostDiv",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?action=edit&title=Empty_Q9#",
+      "selector": "#ca-protect > a",
+      "description": "<a> #ca-protect > a (PWE #6, score 0.6)"
+    },
+    "params": {},
+    "testFiles": [
+      "26-create-blank-page-gets-warning.spec.ts"
+    ]
+  },
+  {
+    "id": "D0347",
+    "operator": "SVM.visibility.hide",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?action=edit&title=Selenium_WebDriver_Q9#",
+      "selector": "#ca-edit > a",
+      "description": "<a> #ca-edit > a (PWE #3, score 0.808)"
+    },
+    "params": {},
+    "testFiles": [
+      "08-create-page-from-source.spec.ts",
+      "09-apply-template.spec.ts"
+    ]
+  },
+  {
+    "id": "D0356",
+    "operator": "EVD.click.delay",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?action=edit&title=Selenium_WebDriver_Q9#",
+      "selector": "#wpSave",
+      "description": "<input> #wpSave (PWE #4, score 0.76)"
+    },
+    "params": {
+      "minMs": 300,
+      "maxMs": 800
+    },
+    "testFiles": [
+      "08-create-page-from-source.spec.ts",
+      "09-apply-template.spec.ts"
+    ]
+  },
+  {
+    "id": "D0381",
+    "operator": "SVM.opacity.dim",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?action=edit&title=Selenium_WebDriver_Q9#",
+      "selector": "#bodyContent > a:nth-of-type(1)",
+      "description": "<a> #bodyContent > a:nth-of-type(1) (PWE #6, score 0.6)"
+    },
+    "params": {
+      "opacity": 0.2
+    },
+    "testFiles": [
+      "08-create-page-from-source.spec.ts",
+      "09-apply-template.spec.ts"
+    ]
+  },
+  {
+    "id": "D0390",
+    "operator": "EVD.click.stopPropagation",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?action=edit&title=Selenium_WebDriver_Q9#",
+      "selector": "#bodyContent > a:nth-of-type(2)",
+      "description": "<a> #bodyContent > a:nth-of-type(2) (PWE #7, score 0.6)"
+    },
+    "params": {
+      "phase": "target"
+    },
+    "testFiles": [
+      "08-create-page-from-source.spec.ts",
+      "09-apply-template.spec.ts"
+    ]
+  },
+  {
+    "id": "D0420",
+    "operator": "SFM.stylesheet.fail",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?action=edit&title=Selenium_WebDriver_Q9#",
+      "resourceUrl": "http://localhost:8080/load.php?lang=en&modules=ext.echo.styles.badge%7Cext.visualEditor.desktopArticleTarget.noscript%7Cmediawiki.action.edit.styles%7Cmediawiki.editfont.styles%7Cmediawiki.interface.helpers.styles%7Cmediawiki.widgets.styles%7Coojs-ui-core.icons%2Cstyles%7Coojs-ui.styles.icons-alerts%2Cindicators%7Cskins.vector.styles.legacy&only=styles&skin=vector",
+      "description": "stylesheet http://localhost:8080/load.php?lang=en&modules=ext.echo.styles.badge%7Cext.visualEditor.desktopArticleTarget.noscript%7Cmediawiki.action.edit.styles%7Cmediawiki.editfont.styles%7Cmediawiki.interface.helpers.styles%7Cmediawiki.widgets.styles%7Coojs-ui-core.icons%2Cstyles%7Coojs-ui.styles.icons-alerts%2Cindicators%7Cskins.vector.styles.legacy&only=styles&skin=vector"
+    },
+    "params": {
+      "suffix": ".404.css"
+    },
+    "testFiles": [
+      "08-create-page-from-source.spec.ts",
+      "09-apply-template.spec.ts"
+    ]
+  },
+  {
+    "id": "D0424",
+    "operator": "CDM.text.leet",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?action=edit&title=Software_testing_Q9#",
+      "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > span:nth-of-type(3) > a",
+      "description": "<a> div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > span:nth-of-type(3) > a (PWE #1, score 1)"
+    },
+    "params": {
+      "probability": 0.18
+    },
+    "testFiles": [
+      "02-close-initial-editor-popup.spec.ts",
+      "03-create-page.spec.ts"
+    ]
+  },
+  {
+    "id": "D0456",
+    "operator": "SVM.force.scroll",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?action=edit&title=Software_testing_Q9#",
+      "selector": "div:nth-of-type(3) > div > span:nth-of-type(2) > a",
+      "description": "<a> div:nth-of-type(3) > div > span:nth-of-type(2) > a (PWE #3, score 0.9)"
+    },
+    "params": {
+      "maxHeightPx": 240
+    },
+    "testFiles": [
+      "02-close-initial-editor-popup.spec.ts",
+      "03-create-page.spec.ts"
+    ]
+  },
+  {
+    "id": "D0462",
+    "operator": "CDM.text.leet",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?action=edit&title=Software_testing_Q9#",
+      "selector": "body > div:nth-of-type(5) > div > div > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div > div:nth-of-type(1) > span > a",
+      "description": "<a> body > div:nth-of-type(5) > div > div > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div > div:nth-of-type(1) > span > a (PWE #4, score 0.8)"
+    },
+    "params": {
+      "probability": 0.18
+    },
+    "testFiles": [
+      "02-close-initial-editor-popup.spec.ts",
+      "03-create-page.spec.ts"
+    ]
+  },
+  {
+    "id": "D0477",
+    "operator": "EVD.click.stopPropagation",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?action=edit&title=Software_testing_Q9#",
+      "selector": "div:nth-of-type(3) > div > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(4) > div > span > a",
+      "description": "<a> div:nth-of-type(3) > div > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(4) > div > span > a (PWE #5, score 0.8)"
+    },
+    "params": {
+      "phase": "target"
+    },
+    "testFiles": [
+      "02-close-initial-editor-popup.spec.ts",
+      "03-create-page.spec.ts"
+    ]
+  },
+  {
+    "id": "D0479",
+    "operator": "SVM.visibility.hide",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?action=edit&title=Software_testing_Q9#",
+      "selector": "div:nth-of-type(3) > div > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(4) > div > span > a",
+      "description": "<a> div:nth-of-type(3) > div > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(4) > div > span > a (PWE #5, score 0.8)"
+    },
+    "params": {},
+    "testFiles": [
+      "02-close-initial-editor-popup.spec.ts",
+      "03-create-page.spec.ts"
+    ]
+  },
+  {
+    "id": "D0489",
+    "operator": "CDM.text.leet",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?action=edit&title=Software_testing_Q9#",
+      "selector": "#bodyContent > a:nth-of-type(1)",
+      "description": "<a> #bodyContent > a:nth-of-type(1) (PWE #6, score 0.6)"
+    },
+    "params": {
+      "probability": 0.18
+    },
+    "testFiles": [
+      "02-close-initial-editor-popup.spec.ts",
+      "03-create-page.spec.ts"
+    ]
+  },
+  {
+    "id": "D0501",
+    "operator": "CDM.text.shuffle",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?action=edit&title=Software_testing_Q9#",
+      "selector": "#bodyContent > a:nth-of-type(2)",
+      "description": "<a> #bodyContent > a:nth-of-type(2) (PWE #7, score 0.6)"
+    },
+    "params": {},
+    "testFiles": [
+      "02-close-initial-editor-popup.spec.ts",
+      "03-create-page.spec.ts"
+    ]
+  },
+  {
+    "id": "D0520",
+    "operator": "TIM.wrap.div",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?action=edit&title=Software_testing_Q9#",
+      "selector": "#bodyContent > div:nth-of-type(5) > div:nth-of-type(1) > div:nth-of-type(1)",
+      "description": "<div> #bodyContent > div:nth-of-type(5) > div:nth-of-type(1) > div:nth-of-type(1) (PWE #8, score 0.6)"
+    },
+    "params": {},
+    "testFiles": [
+      "02-close-initial-editor-popup.spec.ts",
+      "03-create-page.spec.ts"
+    ]
+  },
+  {
+    "id": "D0534",
+    "operator": "SVM.display.none",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?action=edit&title=Template:Software_Q9#",
+      "selector": "#wpTextbox1",
+      "description": "<textarea> #wpTextbox1 (PWE #1, score 1)"
+    },
+    "params": {},
+    "testFiles": [
+      "07-create-template.spec.ts"
+    ]
+  },
+  {
+    "id": "D0544",
+    "operator": "SVM.visibility.hide",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?action=edit&title=Template:Software_Q9#",
+      "selector": "#wpSave",
+      "description": "<input> #wpSave (PWE #2, score 0.8)"
+    },
+    "params": {},
+    "testFiles": [
+      "07-create-template.spec.ts"
+    ]
+  },
+  {
+    "id": "D0578",
+    "operator": "CDM.text.leet",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?action=edit&title=Template:Software_Q9#",
+      "selector": "#ca-edit > a",
+      "description": "<a> #ca-edit > a (PWE #5, score 0.6)"
+    },
+    "params": {
+      "probability": 0.18
+    },
+    "testFiles": [
+      "07-create-template.spec.ts"
+    ]
+  },
+  {
+    "id": "D0582",
+    "operator": "SVM.visibility.hide",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?action=edit&title=Template:Software_Q9#",
+      "selector": "#ca-edit > a",
+      "description": "<a> #ca-edit > a (PWE #5, score 0.6)"
+    },
+    "params": {},
+    "testFiles": [
+      "07-create-template.spec.ts"
+    ]
+  },
+  {
+    "id": "D0583",
+    "operator": "SVM.display.none",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?action=edit&title=Template:Software_Q9#",
+      "selector": "#ca-edit > a",
+      "description": "<a> #ca-edit > a (PWE #5, score 0.6)"
+    },
+    "params": {},
+    "testFiles": [
+      "07-create-template.spec.ts"
+    ]
+  },
+  {
+    "id": "D0588",
+    "operator": "ARM.role.modify",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?action=edit&title=Template:Software_Q9#",
+      "selector": "#ca-edit > a",
+      "description": "<a> #ca-edit > a (PWE #5, score 0.6)"
+    },
+    "params": {
+      "mapping": {
+        "button": "link",
+        "link": "button",
+        "checkbox": "radio",
+        "radio": "checkbox",
+        "textbox": "searchbox",
+        "searchbox": "textbox",
+        "tab": "button",
+        "menuitem": "option",
+        "option": "menuitem",
+        "navigation": "region",
+        "dialog": "region",
+        "heading": "paragraph",
+        "listitem": "none",
+        "combobox": "textbox",
+        "img": "presentation"
+      }
+    },
+    "testFiles": [
+      "07-create-template.spec.ts"
+    ]
+  },
+  {
+    "id": "D0595",
+    "operator": "SVM.visibility.hide",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?action=edit&title=Template:Software_Q9#",
+      "selector": "#ca-nstab-template > a",
+      "description": "<a> #ca-nstab-template > a (PWE #6, score 0.6)"
+    },
+    "params": {},
+    "testFiles": [
+      "07-create-template.spec.ts"
+    ]
+  },
+  {
+    "id": "D0628",
+    "operator": "TIM.node.removeSafe",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?action=edit&title=Template:Software_Q9#",
+      "description": "safe nodes on http://localhost:8080/index.php?action=edit&title=Template:Software_Q9#"
+    },
+    "params": {
+      "selectors": [
+        "footer",
+        "aside",
+        "[role=\"banner\"]",
+        "[role=\"contentinfo\"]",
+        "[role=\"complementary\"]",
+        ".banner"
+      ]
+    },
+    "testFiles": [
+      "07-create-template.spec.ts"
+    ]
+  },
+  {
+    "id": "D0663",
+    "operator": "SVM.force.scroll",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?action=edit&title=Testing_Q9#",
+      "selector": "div:nth-of-type(5) > div:nth-of-type(1) > div:nth-of-type(1)",
+      "description": "<div> div:nth-of-type(5) > div:nth-of-type(1) > div:nth-of-type(1) (PWE #3, score 0.7333)"
+    },
+    "params": {
+      "maxHeightPx": 240
+    },
+    "testFiles": [
+      "21-create-redirect.spec.ts"
+    ]
+  },
+  {
+    "id": "D0667",
+    "operator": "ARM.role.modify",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?action=edit&title=Testing_Q9#",
+      "selector": "div:nth-of-type(5) > div:nth-of-type(1) > div:nth-of-type(1)",
+      "description": "<div> div:nth-of-type(5) > div:nth-of-type(1) > div:nth-of-type(1) (PWE #3, score 0.7333)"
+    },
+    "params": {
+      "mapping": {
+        "button": "link",
+        "link": "button",
+        "checkbox": "radio",
+        "radio": "checkbox",
+        "textbox": "searchbox",
+        "searchbox": "textbox",
+        "tab": "button",
+        "menuitem": "option",
+        "option": "menuitem",
+        "navigation": "region",
+        "dialog": "region",
+        "heading": "paragraph",
+        "listitem": "none",
+        "combobox": "textbox",
+        "img": "presentation"
+      }
+    },
+    "testFiles": [
+      "21-create-redirect.spec.ts"
+    ]
+  },
+  {
+    "id": "D0671",
+    "operator": "CDM.text.shuffle",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?action=edit&title=Testing_Q9#",
+      "selector": "#bodyContent > a:nth-of-type(1)",
+      "description": "<a> #bodyContent > a:nth-of-type(1) (PWE #4, score 0.6)"
+    },
+    "params": {},
+    "testFiles": [
+      "21-create-redirect.spec.ts"
+    ]
+  },
+  {
+    "id": "D0702",
+    "operator": "SVM.display.none",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?action=edit&title=Testing_Q9#",
+      "selector": "#ca-nstab-main > a",
+      "description": "<a> #ca-nstab-main > a (PWE #6, score 0.6)"
+    },
+    "params": {},
+    "testFiles": [
+      "21-create-redirect.spec.ts"
+    ]
+  },
+  {
+    "id": "D0737",
+    "operator": "SFM.script.fail",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?action=edit&title=Testing_Q9#",
+      "resourceUrl": "http://localhost:8080/load.php?lang=en&modules=ext.visualEditor.articleTarget%2Cbase%2Ccore%2CdesktopArticleTarget%2CdesktopTarget%2Cdiffing%2Cicons%2Clanguage%2Cmediawiki%2Cmwalienextension%2Cmwcore%2Cmwextensions%2Cmwformatting%2Cmwgallery%2Cmwimage%2Cmwlanguage%2Cmwlink%2Cmwmeta%2Cmwsave%2Cmwsignature%2Cmwtransclusion%2Csanitize%2Cswitching%2Cwelcome%7Cext.visualEditor.core.desktop%2Cutils%7Cext.visualEditor.mwextensions.desktop%7Cext.visualEditor.mwimage.core&skin=vector&version=9431k",
+      "description": "script http://localhost:8080/load.php?lang=en&modules=ext.visualEditor.articleTarget%2Cbase%2Ccore%2CdesktopArticleTarget%2CdesktopTarget%2Cdiffing%2Cicons%2Clanguage%2Cmediawiki%2Cmwalienextension%2Cmwcore%2Cmwextensions%2Cmwformatting%2Cmwgallery%2Cmwimage%2Cmwlanguage%2Cmwlink%2Cmwmeta%2Cmwsave%2Cmwsignature%2Cmwtransclusion%2Csanitize%2Cswitching%2Cwelcome%7Cext.visualEditor.core.desktop%2Cutils%7Cext.visualEditor.mwextensions.desktop%7Cext.visualEditor.mwimage.core&skin=vector&version=9431k"
+    },
+    "params": {
+      "suffix": ".404.js"
+    },
+    "testFiles": [
+      "21-create-redirect.spec.ts"
+    ]
+  },
+  {
+    "id": "D0739",
+    "operator": "SFM.stylesheet.fail",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?action=edit&title=Testing_Q9#",
+      "resourceUrl": "http://localhost:8080/load.php?lang=en&modules=ext.echo.styles.badge%7Cext.visualEditor.desktopArticleTarget.noscript%7Coojs-ui.styles.icons-alerts%7Cskins.vector.styles.legacy&only=styles&skin=vector",
+      "description": "stylesheet http://localhost:8080/load.php?lang=en&modules=ext.echo.styles.badge%7Cext.visualEditor.desktopArticleTarget.noscript%7Coojs-ui.styles.icons-alerts%7Cskins.vector.styles.legacy&only=styles&skin=vector"
+    },
+    "params": {
+      "suffix": ".404.css"
+    },
+    "testFiles": [
+      "21-create-redirect.spec.ts"
+    ]
+  },
+  {
+    "id": "D0759",
+    "operator": "AMM.href.null",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?action=edit&title=User:UserQ9#",
+      "selector": "#bodyContent > a:nth-of-type(1)",
+      "description": "<a> #bodyContent > a:nth-of-type(1) (PWE #3, score 0.6)"
+    },
+    "params": {
+      "replacement": "#"
+    },
+    "testFiles": [
+      "17-create-user-page.spec.ts"
+    ]
+  },
+  {
+    "id": "D0771",
+    "operator": "ARM.role.modify",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?action=edit&title=User:UserQ9#",
+      "selector": "#bodyContent > a:nth-of-type(1)",
+      "description": "<a> #bodyContent > a:nth-of-type(1) (PWE #3, score 0.6)"
+    },
+    "params": {
+      "mapping": {
+        "button": "link",
+        "link": "button",
+        "checkbox": "radio",
+        "radio": "checkbox",
+        "textbox": "searchbox",
+        "searchbox": "textbox",
+        "tab": "button",
+        "menuitem": "option",
+        "option": "menuitem",
+        "navigation": "region",
+        "dialog": "region",
+        "heading": "paragraph",
+        "listitem": "none",
+        "combobox": "textbox",
+        "img": "presentation"
+      }
+    },
+    "testFiles": [
+      "17-create-user-page.spec.ts"
+    ]
+  },
+  {
+    "id": "D0777",
+    "operator": "EVD.click.stopPropagation",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?action=edit&title=User:UserQ9#",
+      "selector": "#bodyContent > a:nth-of-type(2)",
+      "description": "<a> #bodyContent > a:nth-of-type(2) (PWE #4, score 0.6)"
+    },
+    "params": {
+      "phase": "target"
+    },
+    "testFiles": [
+      "17-create-user-page.spec.ts"
+    ]
+  },
+  {
+    "id": "D0793",
+    "operator": "SVM.display.none",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?action=edit&title=User:UserQ9#",
+      "selector": "#ca-edit > a",
+      "description": "<a> #ca-edit > a (PWE #5, score 0.6)"
+    },
+    "params": {},
+    "testFiles": [
+      "17-create-user-page.spec.ts"
+    ]
+  },
+  {
+    "id": "D0799",
+    "operator": "AMM.href.null",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?action=edit&title=User:UserQ9#",
+      "selector": "#ca-nstab-user > a",
+      "description": "<a> #ca-nstab-user > a (PWE #6, score 0.6)"
+    },
+    "params": {
+      "replacement": "#"
+    },
+    "testFiles": [
+      "17-create-user-page.spec.ts"
+    ]
+  },
+  {
+    "id": "D0807",
+    "operator": "SVM.display.none",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?action=edit&title=User:UserQ9#",
+      "selector": "#ca-nstab-user > a",
+      "description": "<a> #ca-nstab-user > a (PWE #6, score 0.6)"
+    },
+    "params": {},
+    "testFiles": [
+      "17-create-user-page.spec.ts"
+    ]
+  },
+  {
+    "id": "D0818",
+    "operator": "EVD.click.delay",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?action=edit&title=User:UserQ9#",
+      "selector": "#ca-talk > a",
+      "description": "<a> #ca-talk > a (PWE #7, score 0.6)"
+    },
+    "params": {
+      "minMs": 300,
+      "maxMs": 800
+    },
+    "testFiles": [
+      "17-create-user-page.spec.ts"
+    ]
+  },
+  {
+    "id": "D0820",
+    "operator": "SVM.display.none",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?action=edit&title=User:UserQ9#",
+      "selector": "#ca-talk > a",
+      "description": "<a> #ca-talk > a (PWE #7, score 0.6)"
+    },
+    "params": {},
+    "testFiles": [
+      "17-create-user-page.spec.ts"
+    ]
+  },
+  {
+    "id": "D0892",
+    "operator": "EVD.click.delay",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?action=history&title=Selenium_WebDriver_Q9#",
+      "selector": "#ca-delete > a",
+      "description": "<a> #ca-delete > a (PWE #4, score 0.6)"
+    },
+    "params": {
+      "minMs": 300,
+      "maxMs": 800
+    },
+    "testFiles": [
+      "16-revert-last-commit.spec.ts"
+    ]
+  },
+  {
+    "id": "D0896",
+    "operator": "SVM.force.scroll",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?action=history&title=Selenium_WebDriver_Q9#",
+      "selector": "#ca-delete > a",
+      "description": "<a> #ca-delete > a (PWE #4, score 0.6)"
+    },
+    "params": {
+      "maxHeightPx": 240
+    },
+    "testFiles": [
+      "16-revert-last-commit.spec.ts"
+    ]
+  },
+  {
+    "id": "D0934",
+    "operator": "SVM.visibility.hide",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?action=history&title=Selenium_WebDriver_Q9#",
+      "selector": "#ca-move > a",
+      "description": "<a> #ca-move > a (PWE #7, score 0.6)"
+    },
+    "params": {},
+    "testFiles": [
+      "16-revert-last-commit.spec.ts"
+    ]
+  },
+  {
+    "id": "D0981",
+    "operator": "TIM.wrap.div",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?action=protect&title=Selenium_WebDriver_Q9#",
+      "selector": "#mwProtect-level-edit > div > span",
+      "description": "<span> #mwProtect-level-edit > div > span (PWE #2, score 1)"
+    },
+    "params": {},
+    "testFiles": [
+      "11-protect-page.spec.ts"
+    ]
+  },
+  {
+    "id": "D1024",
+    "operator": "CDM.text.shuffle",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?action=protect&title=Selenium_WebDriver_Q9#",
+      "selector": "#ca-edit > a",
+      "description": "<a> #ca-edit > a (PWE #6, score 0.6)"
+    },
+    "params": {},
+    "testFiles": [
+      "11-protect-page.spec.ts"
+    ]
+  },
+  {
+    "id": "D1036",
+    "operator": "AMM.href.null",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?action=protect&title=Selenium_WebDriver_Q9#",
+      "selector": "#ca-history > a",
+      "description": "<a> #ca-history > a (PWE #7, score 0.6)"
+    },
+    "params": {
+      "replacement": "#"
+    },
+    "testFiles": [
+      "11-protect-page.spec.ts"
+    ]
+  },
+  {
+    "id": "D1083",
+    "operator": "CDM.text.leet",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?action=rollback&title=Selenium_WebDriver_Q9#",
+      "selector": "#bodyContent > a:nth-of-type(1)",
+      "description": "<a> #bodyContent > a:nth-of-type(1) (PWE #2, score 0.6)"
+    },
+    "params": {
+      "probability": 0.18
+    },
+    "testFiles": [
+      "16-revert-last-commit.spec.ts"
+    ]
+  },
+  {
+    "id": "D1092",
+    "operator": "ARM.role.modify",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?action=rollback&title=Selenium_WebDriver_Q9#",
+      "selector": "#bodyContent > a:nth-of-type(1)",
+      "description": "<a> #bodyContent > a:nth-of-type(1) (PWE #2, score 0.6)"
+    },
+    "params": {
+      "mapping": {
+        "button": "link",
+        "link": "button",
+        "checkbox": "radio",
+        "radio": "checkbox",
+        "textbox": "searchbox",
+        "searchbox": "textbox",
+        "tab": "button",
+        "menuitem": "option",
+        "option": "menuitem",
+        "navigation": "region",
+        "dialog": "region",
+        "heading": "paragraph",
+        "listitem": "none",
+        "combobox": "textbox",
+        "img": "presentation"
+      }
+    },
+    "testFiles": [
+      "16-revert-last-commit.spec.ts"
+    ]
+  },
+  {
+    "id": "D1130",
+    "operator": "TIM.insert.ghostDiv",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?action=rollback&title=Selenium_WebDriver_Q9#",
+      "selector": "#ca-edit > a",
+      "description": "<a> #ca-edit > a (PWE #5, score 0.6)"
+    },
+    "params": {},
+    "testFiles": [
+      "16-revert-last-commit.spec.ts"
+    ]
+  },
+  {
+    "id": "D1138",
+    "operator": "EVD.click.stopPropagation",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?action=rollback&title=Selenium_WebDriver_Q9#",
+      "selector": "#ca-history > a",
+      "description": "<a> #ca-history > a (PWE #6, score 0.6)"
+    },
+    "params": {
+      "phase": "target"
+    },
+    "testFiles": [
+      "16-revert-last-commit.spec.ts"
+    ]
+  },
+  {
+    "id": "D1174",
+    "operator": "SFM.script.fail",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?action=rollback&title=Selenium_WebDriver_Q9#",
+      "resourceUrl": "http://localhost:8080/load.php?lang=en&modules=startup&only=scripts&raw=1&skin=vector",
+      "description": "script http://localhost:8080/load.php?lang=en&modules=startup&only=scripts&raw=1&skin=vector"
+    },
+    "params": {
+      "suffix": ".404.js"
+    },
+    "testFiles": [
+      "16-revert-last-commit.spec.ts"
+    ]
+  },
+  {
+    "id": "D1206",
+    "operator": "FVM.required.toggle",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?title=Selenium_WebDriver_Q9#&veaction=edit",
+      "selector": "input[aria-label=\"Add a category\"]",
+      "description": "<input> input[aria-label=\"Add a category\"] (PWE #3, score 0.9333)"
+    },
+    "params": {},
+    "testFiles": [
+      "10-add-category.spec.ts",
+      "12-admin-edit-protected-page-gets-warning.spec.ts",
+      "15-edit-protected-page-new-admin-success.spec.ts"
+    ]
+  },
+  {
+    "id": "D1247",
+    "operator": "CDM.text.shuffle",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?title=Selenium_WebDriver_Q9#&veaction=edit",
+      "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div > div:nth-of-type(1) > span > a",
+      "description": "<a> div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div > div:nth-of-type(1) > span > a (PWE #7, score 0.7333)"
+    },
+    "params": {},
+    "testFiles": [
+      "10-add-category.spec.ts",
+      "12-admin-edit-protected-page-gets-warning.spec.ts",
+      "15-edit-protected-page-new-admin-success.spec.ts"
+    ]
+  },
+  {
+    "id": "D1281",
+    "operator": "EHDM.click.remove",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?title=Software_testing_Q9#",
+      "selector": "#bodyContent > a:nth-of-type(1)",
+      "description": "<a> #bodyContent > a:nth-of-type(1) (PWE #1, score 0.6)"
+    },
+    "params": {},
+    "testFiles": [
+      "03-create-page.spec.ts"
+    ]
+  },
+  {
+    "id": "D1284",
+    "operator": "SVM.visibility.hide",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?title=Software_testing_Q9#",
+      "selector": "#bodyContent > a:nth-of-type(1)",
+      "description": "<a> #bodyContent > a:nth-of-type(1) (PWE #1, score 0.6)"
+    },
+    "params": {},
+    "testFiles": [
+      "03-create-page.spec.ts"
+    ]
+  },
+  {
+    "id": "D1301",
+    "operator": "TIM.wrap.div",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?title=Software_testing_Q9#",
+      "selector": "#bodyContent > a:nth-of-type(2)",
+      "description": "<a> #bodyContent > a:nth-of-type(2) (PWE #2, score 0.6)"
+    },
+    "params": {},
+    "testFiles": [
+      "03-create-page.spec.ts"
+    ]
+  },
+  {
+    "id": "D1348",
+    "operator": "EVD.click.delay",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?title=Software_testing_Q9#",
+      "selector": "#ca-talk > a",
+      "description": "<a> #ca-talk > a (PWE #6, score 0.6)"
+    },
+    "params": {
+      "minMs": 300,
+      "maxMs": 800
+    },
+    "testFiles": [
+      "03-create-page.spec.ts"
+    ]
+  },
+  {
+    "id": "D1353",
+    "operator": "TIM.insert.ghostDiv",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?title=Software_testing_Q9#",
+      "selector": "#ca-talk > a",
+      "description": "<a> #ca-talk > a (PWE #6, score 0.6)"
+    },
+    "params": {},
+    "testFiles": [
+      "03-create-page.spec.ts"
+    ]
+  },
+  {
+    "id": "D1407",
+    "operator": "EVD.click.stopPropagation",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?title=Software_testing_Q9#&veaction=edit",
+      "selector": "body > div:nth-of-type(5) > div > div > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div > div:nth-of-type(1) > span > a",
+      "description": "<a> body > div:nth-of-type(5) > div > div > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div > div:nth-of-type(1) > span > a (PWE #3, score 0.8)"
+    },
+    "params": {
+      "phase": "target"
+    },
+    "testFiles": [
+      "06-edit-page.spec.ts"
+    ]
+  },
+  {
+    "id": "D1421",
+    "operator": "EVD.click.delay",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?title=Software_testing_Q9#&veaction=edit",
+      "selector": "div:nth-of-type(3) > div > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(4) > div > span > a",
+      "description": "<a> div:nth-of-type(3) > div > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(4) > div > span > a (PWE #4, score 0.8)"
+    },
+    "params": {
+      "minMs": 300,
+      "maxMs": 800
+    },
+    "testFiles": [
+      "06-edit-page.spec.ts"
+    ]
+  },
+  {
+    "id": "D1426",
+    "operator": "TIM.insert.ghostDiv",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?title=Software_testing_Q9#&veaction=edit",
+      "selector": "div:nth-of-type(3) > div > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(4) > div > span > a",
+      "description": "<a> div:nth-of-type(3) > div > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(4) > div > span > a (PWE #4, score 0.8)"
+    },
+    "params": {},
+    "testFiles": [
+      "06-edit-page.spec.ts"
+    ]
+  },
+  {
+    "id": "D1477",
+    "operator": "SFM.script.fail",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?title=Software_testing_Q9#&veaction=edit",
+      "resourceUrl": "http://localhost:8080/load.php?lang=en&modules=startup&only=scripts&raw=1&skin=vector",
+      "description": "script http://localhost:8080/load.php?lang=en&modules=startup&only=scripts&raw=1&skin=vector"
+    },
+    "params": {
+      "suffix": ".404.js"
+    },
+    "testFiles": [
+      "06-edit-page.spec.ts"
+    ]
+  },
+  {
+    "id": "D1489",
+    "operator": "SVM.display.none",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?title=Special:Search",
+      "selector": "p:nth-of-type(2) > a",
+      "description": "<a> p:nth-of-type(2) > a (PWE #1, score 1)"
+    },
+    "params": {},
+    "testFiles": [
+      "02-close-initial-editor-popup.spec.ts",
+      "03-create-page.spec.ts",
+      "04-create-and-link-page.spec.ts",
+      "07-create-template.spec.ts",
+      "08-create-page-from-source.spec.ts",
+      "21-create-redirect.spec.ts",
+      "26-create-blank-page-gets-warning.spec.ts"
+    ]
+  },
+  {
+    "id": "D1495",
+    "operator": "CDM.text.delete",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?title=Special:Search",
+      "selector": "p > a",
+      "description": "<a> p > a (PWE #2, score 0.6606)"
+    },
+    "params": {},
+    "testFiles": [
+      "02-close-initial-editor-popup.spec.ts",
+      "03-create-page.spec.ts",
+      "04-create-and-link-page.spec.ts",
+      "07-create-template.spec.ts",
+      "08-create-page-from-source.spec.ts",
+      "21-create-redirect.spec.ts",
+      "26-create-blank-page-gets-warning.spec.ts"
+    ]
+  },
+  {
+    "id": "D1509",
+    "operator": "CDM.text.shuffle",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?title=Special:Search",
+      "selector": "#bodyContent > a:nth-of-type(1)",
+      "description": "<a> #bodyContent > a:nth-of-type(1) (PWE #3, score 0.6)"
+    },
+    "params": {},
+    "testFiles": [
+      "02-close-initial-editor-popup.spec.ts",
+      "03-create-page.spec.ts",
+      "04-create-and-link-page.spec.ts",
+      "07-create-template.spec.ts",
+      "08-create-page-from-source.spec.ts",
+      "21-create-redirect.spec.ts",
+      "26-create-blank-page-gets-warning.spec.ts"
+    ]
+  },
+  {
+    "id": "D1530",
+    "operator": "TIM.insert.ghostDiv",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?title=Special:Search",
+      "selector": "#bodyContent > a:nth-of-type(2)",
+      "description": "<a> #bodyContent > a:nth-of-type(2) (PWE #4, score 0.6)"
+    },
+    "params": {},
+    "testFiles": [
+      "02-close-initial-editor-popup.spec.ts",
+      "03-create-page.spec.ts",
+      "04-create-and-link-page.spec.ts",
+      "07-create-template.spec.ts",
+      "08-create-page-from-source.spec.ts",
+      "21-create-redirect.spec.ts",
+      "26-create-blank-page-gets-warning.spec.ts"
+    ]
+  },
+  {
+    "id": "D1548",
+    "operator": "CDM.text.delete",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?title=Special:Search",
+      "selector": "#footer-places-about > a",
+      "description": "<a> #footer-places-about > a (PWE #6, score 0.6)"
+    },
+    "params": {},
+    "testFiles": [
+      "02-close-initial-editor-popup.spec.ts",
+      "03-create-page.spec.ts",
+      "04-create-and-link-page.spec.ts",
+      "07-create-template.spec.ts",
+      "08-create-page-from-source.spec.ts",
+      "21-create-redirect.spec.ts",
+      "26-create-blank-page-gets-warning.spec.ts"
+    ]
+  },
+  {
+    "id": "D1551",
+    "operator": "EHDM.click.remove",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?title=Special:Search",
+      "selector": "#footer-places-about > a",
+      "description": "<a> #footer-places-about > a (PWE #6, score 0.6)"
+    },
+    "params": {},
+    "testFiles": [
+      "02-close-initial-editor-popup.spec.ts",
+      "03-create-page.spec.ts",
+      "04-create-and-link-page.spec.ts",
+      "07-create-template.spec.ts",
+      "08-create-page-from-source.spec.ts",
+      "21-create-redirect.spec.ts",
+      "26-create-blank-page-gets-warning.spec.ts"
+    ]
+  },
+  {
+    "id": "D1568",
+    "operator": "SVM.opacity.dim",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?title=Special:Search",
+      "selector": "#footer-places-disclaimers > a",
+      "description": "<a> #footer-places-disclaimers > a (PWE #7, score 0.6)"
+    },
+    "params": {
+      "opacity": 0.2
+    },
+    "testFiles": [
+      "02-close-initial-editor-popup.spec.ts",
+      "03-create-page.spec.ts",
+      "04-create-and-link-page.spec.ts",
+      "07-create-template.spec.ts",
+      "08-create-page-from-source.spec.ts",
+      "21-create-redirect.spec.ts",
+      "26-create-blank-page-gets-warning.spec.ts"
+    ]
+  },
+  {
+    "id": "D1587",
+    "operator": "SFM.script.fail",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?title=Special:Search",
+      "resourceUrl": "http://localhost:8080/load.php?lang=en&modules=ext.echo.api%2Cinit%7Cjquery%2Coojs%2Coojs-ui-core%2Coojs-ui-widgets%2Csite%7Cjquery.client%2Ccookie%2ChighlightText%2Csuggestions%2CtextSelection%7Cmediawiki.ForeignApi%2CString%2CTitle%2CUri%2Capi%2Cbase%2Ccldr%2Ccookie%2CjqueryMsg%2Clanguage%2CsearchSuggest%2Cstorage%2Cuser%2Cutil%2Cwidgets%7Cmediawiki.ForeignApi.core%7Cmediawiki.editfont.styles%7Cmediawiki.libs.pluralruleparser%7Cmediawiki.page.ready%7Cmediawiki.special.search%7Cmediawiki.widgets.SearchInputWidget%7Coojs-ui-widgets.icons%7Coojs-ui.styles.icons-content%2Cicons-editing-advanced%2Cicons-interactions%7Cskins.vector.legacy.js&skin=vector&version=18cc7",
+      "description": "script http://localhost:8080/load.php?lang=en&modules=ext.echo.api%2Cinit%7Cjquery%2Coojs%2Coojs-ui-core%2Coojs-ui-widgets%2Csite%7Cjquery.client%2Ccookie%2ChighlightText%2Csuggestions%2CtextSelection%7Cmediawiki.ForeignApi%2CString%2CTitle%2CUri%2Capi%2Cbase%2Ccldr%2Ccookie%2CjqueryMsg%2Clanguage%2CsearchSuggest%2Cstorage%2Cuser%2Cutil%2Cwidgets%7Cmediawiki.ForeignApi.core%7Cmediawiki.editfont.styles%7Cmediawiki.libs.pluralruleparser%7Cmediawiki.page.ready%7Cmediawiki.special.search%7Cmediawiki.widgets.SearchInputWidget%7Coojs-ui-widgets.icons%7Coojs-ui.styles.icons-content%2Cicons-editing-advanced%2Cicons-interactions%7Cskins.vector.legacy.js&skin=vector&version=18cc7"
+    },
+    "params": {
+      "suffix": ".404.js"
+    },
+    "testFiles": [
+      "02-close-initial-editor-popup.spec.ts",
+      "03-create-page.spec.ts",
+      "04-create-and-link-page.spec.ts",
+      "07-create-template.spec.ts",
+      "08-create-page-from-source.spec.ts",
+      "21-create-redirect.spec.ts",
+      "26-create-blank-page-gets-warning.spec.ts"
+    ]
+  },
+  {
+    "id": "D1602",
+    "operator": "SVM.visibility.hide",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?title=Special:UserLogin",
+      "selector": "#wpPassword1",
+      "description": "<input> #wpPassword1 (PWE #2, score 1)"
+    },
+    "params": {},
+    "testFiles": [
+      "01-create-user.spec.ts",
+      "02-close-initial-editor-popup.spec.ts",
+      "03-create-page.spec.ts",
+      "04-create-and-link-page.spec.ts",
+      "06-edit-page.spec.ts",
+      "07-create-template.spec.ts",
+      "08-create-page-from-source.spec.ts",
+      "09-apply-template.spec.ts",
+      "10-add-category.spec.ts",
+      "11-protect-page.spec.ts",
+      "12-admin-edit-protected-page-gets-warning.spec.ts",
+      "13-edit-protected-page-forbidden.spec.ts",
+      "14-promote-to-admin.spec.ts",
+      "15-edit-protected-page-new-admin-success.spec.ts",
+      "16-revert-last-commit.spec.ts",
+      "17-create-user-page.spec.ts",
+      "18-block-user.spec.ts",
+      "19-blocked-user-cant-edit.spec.ts",
+      "20-delete-page.spec.ts",
+      "21-create-redirect.spec.ts",
+      "22-follow-redirect.spec.ts",
+      "23-change-password-too-short.spec.ts",
+      "24-change-password-too-common.spec.ts",
+      "25-change-password-ok.spec.ts",
+      "26-create-blank-page-gets-warning.spec.ts",
+      "27-create-empty-user-fails.spec.ts"
+    ]
+  },
+  {
+    "id": "D1631",
+    "operator": "TIM.insert.ghostDiv",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?title=Special:UserLogin",
+      "selector": "#bodyContent > a:nth-of-type(1)",
+      "description": "<a> #bodyContent > a:nth-of-type(1) (PWE #4, score 0.6)"
+    },
+    "params": {},
+    "testFiles": [
+      "01-create-user.spec.ts",
+      "02-close-initial-editor-popup.spec.ts",
+      "03-create-page.spec.ts",
+      "04-create-and-link-page.spec.ts",
+      "06-edit-page.spec.ts",
+      "07-create-template.spec.ts",
+      "08-create-page-from-source.spec.ts",
+      "09-apply-template.spec.ts",
+      "10-add-category.spec.ts",
+      "11-protect-page.spec.ts",
+      "12-admin-edit-protected-page-gets-warning.spec.ts",
+      "13-edit-protected-page-forbidden.spec.ts",
+      "14-promote-to-admin.spec.ts",
+      "15-edit-protected-page-new-admin-success.spec.ts",
+      "16-revert-last-commit.spec.ts",
+      "17-create-user-page.spec.ts",
+      "18-block-user.spec.ts",
+      "19-blocked-user-cant-edit.spec.ts",
+      "20-delete-page.spec.ts",
+      "21-create-redirect.spec.ts",
+      "22-follow-redirect.spec.ts",
+      "23-change-password-too-short.spec.ts",
+      "24-change-password-too-common.spec.ts",
+      "25-change-password-ok.spec.ts",
+      "26-create-blank-page-gets-warning.spec.ts",
+      "27-create-empty-user-fails.spec.ts"
+    ]
+  },
+  {
+    "id": "D1650",
+    "operator": "CDM.text.leet",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?title=Special:UserLogin",
+      "selector": "#ca-nstab-special > a",
+      "description": "<a> #ca-nstab-special > a (PWE #6, score 0.6)"
+    },
+    "params": {
+      "probability": 0.18
+    },
+    "testFiles": [
+      "01-create-user.spec.ts",
+      "02-close-initial-editor-popup.spec.ts",
+      "03-create-page.spec.ts",
+      "04-create-and-link-page.spec.ts",
+      "06-edit-page.spec.ts",
+      "07-create-template.spec.ts",
+      "08-create-page-from-source.spec.ts",
+      "09-apply-template.spec.ts",
+      "10-add-category.spec.ts",
+      "11-protect-page.spec.ts",
+      "12-admin-edit-protected-page-gets-warning.spec.ts",
+      "13-edit-protected-page-forbidden.spec.ts",
+      "14-promote-to-admin.spec.ts",
+      "15-edit-protected-page-new-admin-success.spec.ts",
+      "16-revert-last-commit.spec.ts",
+      "17-create-user-page.spec.ts",
+      "18-block-user.spec.ts",
+      "19-blocked-user-cant-edit.spec.ts",
+      "20-delete-page.spec.ts",
+      "21-create-redirect.spec.ts",
+      "22-follow-redirect.spec.ts",
+      "23-change-password-too-short.spec.ts",
+      "24-change-password-too-common.spec.ts",
+      "25-change-password-ok.spec.ts",
+      "26-create-blank-page-gets-warning.spec.ts",
+      "27-create-empty-user-fails.spec.ts"
+    ]
+  },
+  {
+    "id": "D1679",
+    "operator": "EVD.click.delay",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?title=Special:UserLogin",
+      "selector": "#footer-places-disclaimers > a",
+      "description": "<a> #footer-places-disclaimers > a (PWE #8, score 0.6)"
+    },
+    "params": {
+      "minMs": 300,
+      "maxMs": 800
+    },
+    "testFiles": [
+      "01-create-user.spec.ts",
+      "02-close-initial-editor-popup.spec.ts",
+      "03-create-page.spec.ts",
+      "04-create-and-link-page.spec.ts",
+      "06-edit-page.spec.ts",
+      "07-create-template.spec.ts",
+      "08-create-page-from-source.spec.ts",
+      "09-apply-template.spec.ts",
+      "10-add-category.spec.ts",
+      "11-protect-page.spec.ts",
+      "12-admin-edit-protected-page-gets-warning.spec.ts",
+      "13-edit-protected-page-forbidden.spec.ts",
+      "14-promote-to-admin.spec.ts",
+      "15-edit-protected-page-new-admin-success.spec.ts",
+      "16-revert-last-commit.spec.ts",
+      "17-create-user-page.spec.ts",
+      "18-block-user.spec.ts",
+      "19-blocked-user-cant-edit.spec.ts",
+      "20-delete-page.spec.ts",
+      "21-create-redirect.spec.ts",
+      "22-follow-redirect.spec.ts",
+      "23-change-password-too-short.spec.ts",
+      "24-change-password-too-common.spec.ts",
+      "25-change-password-ok.spec.ts",
+      "26-create-blank-page-gets-warning.spec.ts",
+      "27-create-empty-user-fails.spec.ts"
+    ]
+  },
+  {
+    "id": "D1694",
+    "operator": "SVM.display.none",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?title=Special:UserRights",
+      "selector": "#wpGroup-sysop",
+      "description": "<input> #wpGroup-sysop (PWE #1, score 1)"
+    },
+    "params": {},
+    "testFiles": [
+      "14-promote-to-admin.spec.ts"
+    ]
+  },
+  {
+    "id": "D1706",
+    "operator": "TIM.wrap.div",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?title=Special:UserRights",
+      "selector": "#wpReason",
+      "description": "<input> #wpReason (PWE #2, score 0.84)"
+    },
+    "params": {},
+    "testFiles": [
+      "14-promote-to-admin.spec.ts"
+    ]
+  },
+  {
+    "id": "D1710",
+    "operator": "EHDM.click.remove",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?title=Special:UserRights",
+      "selector": "input[name=\"saveusergroups\"]",
+      "description": "<input> input[name=\"saveusergroups\"] (PWE #3, score 0.76)"
+    },
+    "params": {},
+    "testFiles": [
+      "14-promote-to-admin.spec.ts"
+    ]
+  },
+  {
+    "id": "D1719",
+    "operator": "TIM.node.removeSafe",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?title=Special:UserRights",
+      "description": "safe nodes on http://localhost:8080/index.php?title=Special:UserRights"
+    },
+    "params": {
+      "selectors": [
+        "footer",
+        "aside",
+        "[role=\"banner\"]",
+        "[role=\"contentinfo\"]",
+        "[role=\"complementary\"]",
+        ".banner"
+      ]
+    },
+    "testFiles": [
+      "14-promote-to-admin.spec.ts"
+    ],
+    "precheckFailed": "no safe structural node (footer/aside/banner) on page"
+  },
+  {
+    "id": "D1720",
+    "operator": "SFM.script.fail",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php?title=Special:UserRights",
+      "description": "scripts on http://localhost:8080/index.php?title=Special:UserRights"
+    },
+    "params": {
+      "suffix": ".404.js"
+    },
+    "testFiles": [
+      "14-promote-to-admin.spec.ts"
+    ],
+    "precheckFailed": "no external script on page"
+  },
+  {
+    "id": "D1784",
+    "operator": "ARM.role.modify",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/E2E_Web_Testing_Q9#",
+      "selector": "#bodyContent > a:nth-of-type(2)",
+      "description": "<a> #bodyContent > a:nth-of-type(2) (PWE #5, score 0.6)"
+    },
+    "params": {
+      "mapping": {
+        "button": "link",
+        "link": "button",
+        "checkbox": "radio",
+        "radio": "checkbox",
+        "textbox": "searchbox",
+        "searchbox": "textbox",
+        "tab": "button",
+        "menuitem": "option",
+        "option": "menuitem",
+        "navigation": "region",
+        "dialog": "region",
+        "heading": "paragraph",
+        "listitem": "none",
+        "combobox": "textbox",
+        "img": "presentation"
+      }
+    },
+    "testFiles": [
+      "04-create-and-link-page.spec.ts",
+      "20-delete-page.spec.ts"
+    ]
+  },
+  {
+    "id": "D1823",
+    "operator": "TIM.insert.ghostDiv",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/E2E_Web_Testing_Q9#",
+      "selector": "#ca-move > a",
+      "description": "<a> #ca-move > a (PWE #8, score 0.6)"
+    },
+    "params": {},
+    "testFiles": [
+      "04-create-and-link-page.spec.ts",
+      "20-delete-page.spec.ts"
+    ]
+  },
+  {
+    "id": "D1856",
+    "operator": "EHDM.click.remove",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/Main_Page",
+      "selector": "#searchButton",
+      "description": "<input> #searchButton (PWE #3, score 0.76)"
+    },
+    "params": {},
+    "testFiles": [
+      "01-create-user.spec.ts",
+      "02-close-initial-editor-popup.spec.ts",
+      "03-create-page.spec.ts",
+      "04-create-and-link-page.spec.ts",
+      "05-search-page.spec.ts",
+      "06-edit-page.spec.ts",
+      "07-create-template.spec.ts",
+      "08-create-page-from-source.spec.ts",
+      "09-apply-template.spec.ts",
+      "10-add-category.spec.ts",
+      "11-protect-page.spec.ts",
+      "12-admin-edit-protected-page-gets-warning.spec.ts",
+      "13-edit-protected-page-forbidden.spec.ts",
+      "14-promote-to-admin.spec.ts",
+      "15-edit-protected-page-new-admin-success.spec.ts",
+      "16-revert-last-commit.spec.ts",
+      "17-create-user-page.spec.ts",
+      "18-block-user.spec.ts",
+      "19-blocked-user-cant-edit.spec.ts",
+      "20-delete-page.spec.ts",
+      "21-create-redirect.spec.ts",
+      "22-follow-redirect.spec.ts",
+      "23-change-password-too-short.spec.ts",
+      "24-change-password-too-common.spec.ts",
+      "25-change-password-ok.spec.ts",
+      "26-create-blank-page-gets-warning.spec.ts",
+      "27-create-empty-user-fails.spec.ts"
+    ]
+  },
+  {
+    "id": "D1866",
+    "operator": "CDM.text.delete",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/Main_Page",
+      "selector": "#t-specialpages > a",
+      "description": "<a> #t-specialpages > a (PWE #4, score 0.6622)"
+    },
+    "params": {},
+    "testFiles": [
+      "01-create-user.spec.ts",
+      "02-close-initial-editor-popup.spec.ts",
+      "03-create-page.spec.ts",
+      "04-create-and-link-page.spec.ts",
+      "05-search-page.spec.ts",
+      "06-edit-page.spec.ts",
+      "07-create-template.spec.ts",
+      "08-create-page-from-source.spec.ts",
+      "09-apply-template.spec.ts",
+      "10-add-category.spec.ts",
+      "11-protect-page.spec.ts",
+      "12-admin-edit-protected-page-gets-warning.spec.ts",
+      "13-edit-protected-page-forbidden.spec.ts",
+      "14-promote-to-admin.spec.ts",
+      "15-edit-protected-page-new-admin-success.spec.ts",
+      "16-revert-last-commit.spec.ts",
+      "17-create-user-page.spec.ts",
+      "18-block-user.spec.ts",
+      "19-blocked-user-cant-edit.spec.ts",
+      "20-delete-page.spec.ts",
+      "21-create-redirect.spec.ts",
+      "22-follow-redirect.spec.ts",
+      "23-change-password-too-short.spec.ts",
+      "24-change-password-too-common.spec.ts",
+      "25-change-password-ok.spec.ts",
+      "26-create-blank-page-gets-warning.spec.ts",
+      "27-create-empty-user-fails.spec.ts"
+    ]
+  },
+  {
+    "id": "D1875",
+    "operator": "SVM.force.scroll",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/Main_Page",
+      "selector": "#t-specialpages > a",
+      "description": "<a> #t-specialpages > a (PWE #4, score 0.6622)"
+    },
+    "params": {
+      "maxHeightPx": 240
+    },
+    "testFiles": [
+      "01-create-user.spec.ts",
+      "02-close-initial-editor-popup.spec.ts",
+      "03-create-page.spec.ts",
+      "04-create-and-link-page.spec.ts",
+      "05-search-page.spec.ts",
+      "06-edit-page.spec.ts",
+      "07-create-template.spec.ts",
+      "08-create-page-from-source.spec.ts",
+      "09-apply-template.spec.ts",
+      "10-add-category.spec.ts",
+      "11-protect-page.spec.ts",
+      "12-admin-edit-protected-page-gets-warning.spec.ts",
+      "13-edit-protected-page-forbidden.spec.ts",
+      "14-promote-to-admin.spec.ts",
+      "15-edit-protected-page-new-admin-success.spec.ts",
+      "16-revert-last-commit.spec.ts",
+      "17-create-user-page.spec.ts",
+      "18-block-user.spec.ts",
+      "19-blocked-user-cant-edit.spec.ts",
+      "20-delete-page.spec.ts",
+      "21-create-redirect.spec.ts",
+      "22-follow-redirect.spec.ts",
+      "23-change-password-too-short.spec.ts",
+      "24-change-password-too-common.spec.ts",
+      "25-change-password-ok.spec.ts",
+      "26-create-blank-page-gets-warning.spec.ts",
+      "27-create-empty-user-fails.spec.ts"
+    ]
+  },
+  {
+    "id": "D1880",
+    "operator": "CDM.text.delete",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/Main_Page",
+      "selector": "#pt-userpage > a",
+      "description": "<a> #pt-userpage > a (PWE #5, score 0.6178)"
+    },
+    "params": {},
+    "testFiles": [
+      "01-create-user.spec.ts",
+      "02-close-initial-editor-popup.spec.ts",
+      "03-create-page.spec.ts",
+      "04-create-and-link-page.spec.ts",
+      "05-search-page.spec.ts",
+      "06-edit-page.spec.ts",
+      "07-create-template.spec.ts",
+      "08-create-page-from-source.spec.ts",
+      "09-apply-template.spec.ts",
+      "10-add-category.spec.ts",
+      "11-protect-page.spec.ts",
+      "12-admin-edit-protected-page-gets-warning.spec.ts",
+      "13-edit-protected-page-forbidden.spec.ts",
+      "14-promote-to-admin.spec.ts",
+      "15-edit-protected-page-new-admin-success.spec.ts",
+      "16-revert-last-commit.spec.ts",
+      "17-create-user-page.spec.ts",
+      "18-block-user.spec.ts",
+      "19-blocked-user-cant-edit.spec.ts",
+      "20-delete-page.spec.ts",
+      "21-create-redirect.spec.ts",
+      "22-follow-redirect.spec.ts",
+      "23-change-password-too-short.spec.ts",
+      "24-change-password-too-common.spec.ts",
+      "25-change-password-ok.spec.ts",
+      "26-create-blank-page-gets-warning.spec.ts",
+      "27-create-empty-user-fails.spec.ts"
+    ]
+  },
+  {
+    "id": "D1887",
+    "operator": "SVM.opacity.dim",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/Main_Page",
+      "selector": "#pt-userpage > a",
+      "description": "<a> #pt-userpage > a (PWE #5, score 0.6178)"
+    },
+    "params": {
+      "opacity": 0.2
+    },
+    "testFiles": [
+      "01-create-user.spec.ts",
+      "02-close-initial-editor-popup.spec.ts",
+      "03-create-page.spec.ts",
+      "04-create-and-link-page.spec.ts",
+      "05-search-page.spec.ts",
+      "06-edit-page.spec.ts",
+      "07-create-template.spec.ts",
+      "08-create-page-from-source.spec.ts",
+      "09-apply-template.spec.ts",
+      "10-add-category.spec.ts",
+      "11-protect-page.spec.ts",
+      "12-admin-edit-protected-page-gets-warning.spec.ts",
+      "13-edit-protected-page-forbidden.spec.ts",
+      "14-promote-to-admin.spec.ts",
+      "15-edit-protected-page-new-admin-success.spec.ts",
+      "16-revert-last-commit.spec.ts",
+      "17-create-user-page.spec.ts",
+      "18-block-user.spec.ts",
+      "19-blocked-user-cant-edit.spec.ts",
+      "20-delete-page.spec.ts",
+      "21-create-redirect.spec.ts",
+      "22-follow-redirect.spec.ts",
+      "23-change-password-too-short.spec.ts",
+      "24-change-password-too-common.spec.ts",
+      "25-change-password-ok.spec.ts",
+      "26-create-blank-page-gets-warning.spec.ts",
+      "27-create-empty-user-fails.spec.ts"
+    ]
+  },
+  {
+    "id": "D1909",
+    "operator": "EHDM.click.remove",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/Main_Page",
+      "selector": "#bodyContent > a:nth-of-type(2)",
+      "description": "<a> #bodyContent > a:nth-of-type(2) (PWE #7, score 0.6)"
+    },
+    "params": {},
+    "testFiles": [
+      "01-create-user.spec.ts",
+      "02-close-initial-editor-popup.spec.ts",
+      "03-create-page.spec.ts",
+      "04-create-and-link-page.spec.ts",
+      "05-search-page.spec.ts",
+      "06-edit-page.spec.ts",
+      "07-create-template.spec.ts",
+      "08-create-page-from-source.spec.ts",
+      "09-apply-template.spec.ts",
+      "10-add-category.spec.ts",
+      "11-protect-page.spec.ts",
+      "12-admin-edit-protected-page-gets-warning.spec.ts",
+      "13-edit-protected-page-forbidden.spec.ts",
+      "14-promote-to-admin.spec.ts",
+      "15-edit-protected-page-new-admin-success.spec.ts",
+      "16-revert-last-commit.spec.ts",
+      "17-create-user-page.spec.ts",
+      "18-block-user.spec.ts",
+      "19-blocked-user-cant-edit.spec.ts",
+      "20-delete-page.spec.ts",
+      "21-create-redirect.spec.ts",
+      "22-follow-redirect.spec.ts",
+      "23-change-password-too-short.spec.ts",
+      "24-change-password-too-common.spec.ts",
+      "25-change-password-ok.spec.ts",
+      "26-create-blank-page-gets-warning.spec.ts",
+      "27-create-empty-user-fails.spec.ts"
+    ]
+  },
+  {
+    "id": "D1911",
+    "operator": "EVD.click.delay",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/Main_Page",
+      "selector": "#bodyContent > a:nth-of-type(2)",
+      "description": "<a> #bodyContent > a:nth-of-type(2) (PWE #7, score 0.6)"
+    },
+    "params": {
+      "minMs": 300,
+      "maxMs": 800
+    },
+    "testFiles": [
+      "01-create-user.spec.ts",
+      "02-close-initial-editor-popup.spec.ts",
+      "03-create-page.spec.ts",
+      "04-create-and-link-page.spec.ts",
+      "05-search-page.spec.ts",
+      "06-edit-page.spec.ts",
+      "07-create-template.spec.ts",
+      "08-create-page-from-source.spec.ts",
+      "09-apply-template.spec.ts",
+      "10-add-category.spec.ts",
+      "11-protect-page.spec.ts",
+      "12-admin-edit-protected-page-gets-warning.spec.ts",
+      "13-edit-protected-page-forbidden.spec.ts",
+      "14-promote-to-admin.spec.ts",
+      "15-edit-protected-page-new-admin-success.spec.ts",
+      "16-revert-last-commit.spec.ts",
+      "17-create-user-page.spec.ts",
+      "18-block-user.spec.ts",
+      "19-blocked-user-cant-edit.spec.ts",
+      "20-delete-page.spec.ts",
+      "21-create-redirect.spec.ts",
+      "22-follow-redirect.spec.ts",
+      "23-change-password-too-short.spec.ts",
+      "24-change-password-too-common.spec.ts",
+      "25-change-password-ok.spec.ts",
+      "26-create-blank-page-gets-warning.spec.ts",
+      "27-create-empty-user-fails.spec.ts"
+    ]
+  },
+  {
+    "id": "D1919",
+    "operator": "CDM.text.delete",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/Main_Page",
+      "selector": "#ca-delete > a",
+      "description": "<a> #ca-delete > a (PWE #8, score 0.6)"
+    },
+    "params": {},
+    "testFiles": [
+      "01-create-user.spec.ts",
+      "02-close-initial-editor-popup.spec.ts",
+      "03-create-page.spec.ts",
+      "04-create-and-link-page.spec.ts",
+      "05-search-page.spec.ts",
+      "06-edit-page.spec.ts",
+      "07-create-template.spec.ts",
+      "08-create-page-from-source.spec.ts",
+      "09-apply-template.spec.ts",
+      "10-add-category.spec.ts",
+      "11-protect-page.spec.ts",
+      "12-admin-edit-protected-page-gets-warning.spec.ts",
+      "13-edit-protected-page-forbidden.spec.ts",
+      "14-promote-to-admin.spec.ts",
+      "15-edit-protected-page-new-admin-success.spec.ts",
+      "16-revert-last-commit.spec.ts",
+      "17-create-user-page.spec.ts",
+      "18-block-user.spec.ts",
+      "19-blocked-user-cant-edit.spec.ts",
+      "20-delete-page.spec.ts",
+      "21-create-redirect.spec.ts",
+      "22-follow-redirect.spec.ts",
+      "23-change-password-too-short.spec.ts",
+      "24-change-password-too-common.spec.ts",
+      "25-change-password-ok.spec.ts",
+      "26-create-blank-page-gets-warning.spec.ts",
+      "27-create-empty-user-fails.spec.ts"
+    ]
+  },
+  {
+    "id": "D1924",
+    "operator": "SVM.visibility.hide",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/Main_Page",
+      "selector": "#ca-delete > a",
+      "description": "<a> #ca-delete > a (PWE #8, score 0.6)"
+    },
+    "params": {},
+    "testFiles": [
+      "01-create-user.spec.ts",
+      "02-close-initial-editor-popup.spec.ts",
+      "03-create-page.spec.ts",
+      "04-create-and-link-page.spec.ts",
+      "05-search-page.spec.ts",
+      "06-edit-page.spec.ts",
+      "07-create-template.spec.ts",
+      "08-create-page-from-source.spec.ts",
+      "09-apply-template.spec.ts",
+      "10-add-category.spec.ts",
+      "11-protect-page.spec.ts",
+      "12-admin-edit-protected-page-gets-warning.spec.ts",
+      "13-edit-protected-page-forbidden.spec.ts",
+      "14-promote-to-admin.spec.ts",
+      "15-edit-protected-page-new-admin-success.spec.ts",
+      "16-revert-last-commit.spec.ts",
+      "17-create-user-page.spec.ts",
+      "18-block-user.spec.ts",
+      "19-blocked-user-cant-edit.spec.ts",
+      "20-delete-page.spec.ts",
+      "21-create-redirect.spec.ts",
+      "22-follow-redirect.spec.ts",
+      "23-change-password-too-short.spec.ts",
+      "24-change-password-too-common.spec.ts",
+      "25-change-password-ok.spec.ts",
+      "26-create-blank-page-gets-warning.spec.ts",
+      "27-create-empty-user-fails.spec.ts"
+    ]
+  },
+  {
+    "id": "D1935",
+    "operator": "SFM.stylesheet.fail",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/Main_Page",
+      "resourceUrl": "http://localhost:8080/load.php?lang=en&modules=ext.visualEditor.desktopArticleTarget.noscript%7Cskins.vector.styles.legacy&only=styles&skin=vector",
+      "description": "stylesheet http://localhost:8080/load.php?lang=en&modules=ext.visualEditor.desktopArticleTarget.noscript%7Cskins.vector.styles.legacy&only=styles&skin=vector"
+    },
+    "params": {
+      "suffix": ".404.css"
+    },
+    "testFiles": [
+      "01-create-user.spec.ts",
+      "02-close-initial-editor-popup.spec.ts",
+      "03-create-page.spec.ts",
+      "04-create-and-link-page.spec.ts",
+      "05-search-page.spec.ts",
+      "06-edit-page.spec.ts",
+      "07-create-template.spec.ts",
+      "08-create-page-from-source.spec.ts",
+      "09-apply-template.spec.ts",
+      "10-add-category.spec.ts",
+      "11-protect-page.spec.ts",
+      "12-admin-edit-protected-page-gets-warning.spec.ts",
+      "13-edit-protected-page-forbidden.spec.ts",
+      "14-promote-to-admin.spec.ts",
+      "15-edit-protected-page-new-admin-success.spec.ts",
+      "16-revert-last-commit.spec.ts",
+      "17-create-user-page.spec.ts",
+      "18-block-user.spec.ts",
+      "19-blocked-user-cant-edit.spec.ts",
+      "20-delete-page.spec.ts",
+      "21-create-redirect.spec.ts",
+      "22-follow-redirect.spec.ts",
+      "23-change-password-too-short.spec.ts",
+      "24-change-password-too-common.spec.ts",
+      "25-change-password-ok.spec.ts",
+      "26-create-blank-page-gets-warning.spec.ts",
+      "27-create-empty-user-fails.spec.ts"
+    ]
+  },
+  {
+    "id": "D1957",
+    "operator": "SVM.opacity.dim",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/Selenium_WebDriver_Q9#",
+      "selector": "#ca-ve-edit > a",
+      "description": "<a> #ca-ve-edit > a (PWE #2, score 0.84)"
+    },
+    "params": {
+      "opacity": 0.2
+    },
+    "testFiles": [
+      "08-create-page-from-source.spec.ts",
+      "09-apply-template.spec.ts",
+      "10-add-category.spec.ts",
+      "11-protect-page.spec.ts",
+      "12-admin-edit-protected-page-gets-warning.spec.ts",
+      "13-edit-protected-page-forbidden.spec.ts",
+      "15-edit-protected-page-new-admin-success.spec.ts",
+      "16-revert-last-commit.spec.ts"
+    ]
+  },
+  {
+    "id": "D1968",
+    "operator": "EVD.click.delay",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/Selenium_WebDriver_Q9#",
+      "selector": "#ca-edit > a",
+      "description": "<a> #ca-edit > a (PWE #3, score 0.68)"
+    },
+    "params": {
+      "minMs": 300,
+      "maxMs": 800
+    },
+    "testFiles": [
+      "08-create-page-from-source.spec.ts",
+      "09-apply-template.spec.ts",
+      "10-add-category.spec.ts",
+      "11-protect-page.spec.ts",
+      "12-admin-edit-protected-page-gets-warning.spec.ts",
+      "13-edit-protected-page-forbidden.spec.ts",
+      "15-edit-protected-page-new-admin-success.spec.ts",
+      "16-revert-last-commit.spec.ts"
+    ]
+  },
+  {
+    "id": "D1972",
+    "operator": "SVM.force.scroll",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/Selenium_WebDriver_Q9#",
+      "selector": "#ca-edit > a",
+      "description": "<a> #ca-edit > a (PWE #3, score 0.68)"
+    },
+    "params": {
+      "maxHeightPx": 240
+    },
+    "testFiles": [
+      "08-create-page-from-source.spec.ts",
+      "09-apply-template.spec.ts",
+      "10-add-category.spec.ts",
+      "11-protect-page.spec.ts",
+      "12-admin-edit-protected-page-gets-warning.spec.ts",
+      "13-edit-protected-page-forbidden.spec.ts",
+      "15-edit-protected-page-new-admin-success.spec.ts",
+      "16-revert-last-commit.spec.ts"
+    ]
+  },
+  {
+    "id": "D2006",
+    "operator": "CDM.text.leet",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/Selenium_WebDriver_Q9#",
+      "selector": "#ca-unprotect > a",
+      "description": "<a> #ca-unprotect > a (PWE #6, score 0.68)"
+    },
+    "params": {
+      "probability": 0.18
+    },
+    "testFiles": [
+      "08-create-page-from-source.spec.ts",
+      "09-apply-template.spec.ts",
+      "10-add-category.spec.ts",
+      "11-protect-page.spec.ts",
+      "12-admin-edit-protected-page-gets-warning.spec.ts",
+      "13-edit-protected-page-forbidden.spec.ts",
+      "15-edit-protected-page-new-admin-success.spec.ts",
+      "16-revert-last-commit.spec.ts"
+    ]
+  },
+  {
+    "id": "D2017",
+    "operator": "AMM.href.null",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/Selenium_WebDriver_Q9#",
+      "selector": "#bodyContent > a:nth-of-type(1)",
+      "description": "<a> #bodyContent > a:nth-of-type(1) (PWE #7, score 0.6)"
+    },
+    "params": {
+      "replacement": "#"
+    },
+    "testFiles": [
+      "08-create-page-from-source.spec.ts",
+      "09-apply-template.spec.ts",
+      "10-add-category.spec.ts",
+      "11-protect-page.spec.ts",
+      "12-admin-edit-protected-page-gets-warning.spec.ts",
+      "13-edit-protected-page-forbidden.spec.ts",
+      "15-edit-protected-page-new-admin-success.spec.ts",
+      "16-revert-last-commit.spec.ts"
+    ]
+  },
+  {
+    "id": "D2027",
+    "operator": "TIM.insert.ghostDiv",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/Selenium_WebDriver_Q9#",
+      "selector": "#bodyContent > a:nth-of-type(1)",
+      "description": "<a> #bodyContent > a:nth-of-type(1) (PWE #7, score 0.6)"
+    },
+    "params": {},
+    "testFiles": [
+      "08-create-page-from-source.spec.ts",
+      "09-apply-template.spec.ts",
+      "10-add-category.spec.ts",
+      "11-protect-page.spec.ts",
+      "12-admin-edit-protected-page-gets-warning.spec.ts",
+      "13-edit-protected-page-forbidden.spec.ts",
+      "15-edit-protected-page-new-admin-success.spec.ts",
+      "16-revert-last-commit.spec.ts"
+    ]
+  },
+  {
+    "id": "D2032",
+    "operator": "CDM.text.shuffle",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/Selenium_WebDriver_Q9#",
+      "selector": "#bodyContent > a:nth-of-type(2)",
+      "description": "<a> #bodyContent > a:nth-of-type(2) (PWE #8, score 0.6)"
+    },
+    "params": {},
+    "testFiles": [
+      "08-create-page-from-source.spec.ts",
+      "09-apply-template.spec.ts",
+      "10-add-category.spec.ts",
+      "11-protect-page.spec.ts",
+      "12-admin-edit-protected-page-gets-warning.spec.ts",
+      "13-edit-protected-page-forbidden.spec.ts",
+      "15-edit-protected-page-new-admin-success.spec.ts",
+      "16-revert-last-commit.spec.ts"
+    ]
+  },
+  {
+    "id": "D2037",
+    "operator": "SVM.visibility.hide",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/Selenium_WebDriver_Q9#",
+      "selector": "#bodyContent > a:nth-of-type(2)",
+      "description": "<a> #bodyContent > a:nth-of-type(2) (PWE #8, score 0.6)"
+    },
+    "params": {},
+    "testFiles": [
+      "08-create-page-from-source.spec.ts",
+      "09-apply-template.spec.ts",
+      "10-add-category.spec.ts",
+      "11-protect-page.spec.ts",
+      "12-admin-edit-protected-page-gets-warning.spec.ts",
+      "13-edit-protected-page-forbidden.spec.ts",
+      "15-edit-protected-page-new-admin-success.spec.ts",
+      "16-revert-last-commit.spec.ts"
+    ]
+  },
+  {
+    "id": "D2045",
+    "operator": "SFM.script.fail",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/Selenium_WebDriver_Q9#",
+      "resourceUrl": "http://localhost:8080/load.php?lang=en&modules=ext.echo.api%2Cinit%7Cjquery%2Coojs%2Csite%7Cjquery.client%2Ccookie%2CtextSelection%7Cmediawiki.ForeignApi%2CString%2CTitle%2CUri%2Capi%2Cbase%2Ccldr%2Ccookie%2CjqueryMsg%2Clanguage%2Cstorage%2Cuser%2Cutil%7Cmediawiki.ForeignApi.core%7Cmediawiki.editfont.styles%7Cmediawiki.libs.pluralruleparser%7Cmediawiki.page.ready%7Cmediawiki.page.watch.ajax%7Cskins.vector.legacy.js&skin=vector&version=c2y2h",
+      "description": "script http://localhost:8080/load.php?lang=en&modules=ext.echo.api%2Cinit%7Cjquery%2Coojs%2Csite%7Cjquery.client%2Ccookie%2CtextSelection%7Cmediawiki.ForeignApi%2CString%2CTitle%2CUri%2Capi%2Cbase%2Ccldr%2Ccookie%2CjqueryMsg%2Clanguage%2Cstorage%2Cuser%2Cutil%7Cmediawiki.ForeignApi.core%7Cmediawiki.editfont.styles%7Cmediawiki.libs.pluralruleparser%7Cmediawiki.page.ready%7Cmediawiki.page.watch.ajax%7Cskins.vector.legacy.js&skin=vector&version=c2y2h"
+    },
+    "params": {
+      "suffix": ".404.js"
+    },
+    "testFiles": [
+      "08-create-page-from-source.spec.ts",
+      "09-apply-template.spec.ts",
+      "10-add-category.spec.ts",
+      "11-protect-page.spec.ts",
+      "12-admin-edit-protected-page-gets-warning.spec.ts",
+      "13-edit-protected-page-forbidden.spec.ts",
+      "15-edit-protected-page-new-admin-success.spec.ts",
+      "16-revert-last-commit.spec.ts"
+    ]
+  },
+  {
+    "id": "D2057",
+    "operator": "ARM.role.modify",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/Selenium_WebDriver_Q9#?action=edit",
+      "selector": "#wpTextbox1",
+      "description": "<textarea> #wpTextbox1 (PWE #1, score 1)"
+    },
+    "params": {
+      "mapping": {
+        "button": "link",
+        "link": "button",
+        "checkbox": "radio",
+        "radio": "checkbox",
+        "textbox": "searchbox",
+        "searchbox": "textbox",
+        "tab": "button",
+        "menuitem": "option",
+        "option": "menuitem",
+        "navigation": "region",
+        "dialog": "region",
+        "heading": "paragraph",
+        "listitem": "none",
+        "combobox": "textbox",
+        "img": "presentation"
+      }
+    },
+    "testFiles": [
+      "08-create-page-from-source.spec.ts"
+    ]
+  },
+  {
+    "id": "D2059",
+    "operator": "EVD.click.stopPropagation",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/Selenium_WebDriver_Q9#?action=edit",
+      "selector": "#wpSave",
+      "description": "<input> #wpSave (PWE #2, score 0.8)"
+    },
+    "params": {
+      "phase": "target"
+    },
+    "testFiles": [
+      "08-create-page-from-source.spec.ts"
+    ]
+  },
+  {
+    "id": "D2096",
+    "operator": "CDM.text.leet",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/Selenium_WebDriver_Q9#?action=edit",
+      "selector": "#ca-edit > a",
+      "description": "<a> #ca-edit > a (PWE #5, score 0.6)"
+    },
+    "params": {
+      "probability": 0.18
+    },
+    "testFiles": [
+      "08-create-page-from-source.spec.ts"
+    ]
+  },
+  {
+    "id": "D2149",
+    "operator": "SFM.script.fail",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/Selenium_WebDriver_Q9#?action=edit",
+      "resourceUrl": "http://localhost:8080/load.php?lang=en&modules=ext.echo.api%2Cinit%7Cjquery%2Coojs%2Coojs-ui-core%2Coojs-ui-widgets%2Csite%7Cjquery.client%2Ccookie%2ClengthLimit%2CmakeCollapsible%2CtextSelection%2Cui%7Cjquery.makeCollapsible.styles%7Cmediawiki.ForeignApi%2CString%2CTitle%2CUri%2Capi%2Cbase%2Ccldr%2CconfirmCloseWindow%2Ccookie%2Cicon%2CjqueryMsg%2Clanguage%2Cstorage%2Ctemplate%2Cuser%2Cutil%2Cwidgets%7Cmediawiki.ForeignApi.core%7Cmediawiki.action.edit%7Cmediawiki.action.edit.collapsibleFooter%2CeditWarning%7Cmediawiki.language.specialCharacters%7Cmediawiki.libs.pluralruleparser%7Cmediawiki.page.ready%7Cmediawiki.page.watch.ajax%7Cmediawiki.widgets.visibleLengthLimit%7Coojs-ui-widgets.icons%7Coojs-ui.styles.icons-content%2Cicons-editing-advanced%2Cicons-editing-citation%2Cicons-editing-core%2Cicons-editing-list%2Cicons-editing-styling%2Cicons-media%7Cskins.vector.legacy.js&skin=vector&version=16gdt",
+      "description": "script http://localhost:8080/load.php?lang=en&modules=ext.echo.api%2Cinit%7Cjquery%2Coojs%2Coojs-ui-core%2Coojs-ui-widgets%2Csite%7Cjquery.client%2Ccookie%2ClengthLimit%2CmakeCollapsible%2CtextSelection%2Cui%7Cjquery.makeCollapsible.styles%7Cmediawiki.ForeignApi%2CString%2CTitle%2CUri%2Capi%2Cbase%2Ccldr%2CconfirmCloseWindow%2Ccookie%2Cicon%2CjqueryMsg%2Clanguage%2Cstorage%2Ctemplate%2Cuser%2Cutil%2Cwidgets%7Cmediawiki.ForeignApi.core%7Cmediawiki.action.edit%7Cmediawiki.action.edit.collapsibleFooter%2CeditWarning%7Cmediawiki.language.specialCharacters%7Cmediawiki.libs.pluralruleparser%7Cmediawiki.page.ready%7Cmediawiki.page.watch.ajax%7Cmediawiki.widgets.visibleLengthLimit%7Coojs-ui-widgets.icons%7Coojs-ui.styles.icons-content%2Cicons-editing-advanced%2Cicons-editing-citation%2Cicons-editing-core%2Cicons-editing-list%2Cicons-editing-styling%2Cicons-media%7Cskins.vector.legacy.js&skin=vector&version=16gdt"
+    },
+    "params": {
+      "suffix": ".404.js"
+    },
+    "testFiles": [
+      "08-create-page-from-source.spec.ts"
+    ]
+  },
+  {
+    "id": "D2171",
+    "operator": "EVD.click.delay",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/Selenium_WebDriver_Q9#?veaction=edit",
+      "selector": "#bodyContent > a:nth-of-type(1)",
+      "description": "<a> #bodyContent > a:nth-of-type(1) (PWE #2, score 0.6)"
+    },
+    "params": {
+      "minMs": 300,
+      "maxMs": 800
+    },
+    "testFiles": [
+      "13-edit-protected-page-forbidden.spec.ts"
+    ]
+  },
+  {
+    "id": "D2185",
+    "operator": "SVM.visibility.hide",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/Selenium_WebDriver_Q9#?veaction=edit",
+      "selector": "#bodyContent > a:nth-of-type(2)",
+      "description": "<a> #bodyContent > a:nth-of-type(2) (PWE #3, score 0.6)"
+    },
+    "params": {},
+    "testFiles": [
+      "13-edit-protected-page-forbidden.spec.ts"
+    ]
+  },
+  {
+    "id": "D2198",
+    "operator": "SVM.visibility.hide",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/Selenium_WebDriver_Q9#?veaction=edit",
+      "selector": "#ca-history > a",
+      "description": "<a> #ca-history > a (PWE #4, score 0.6)"
+    },
+    "params": {},
+    "testFiles": [
+      "13-edit-protected-page-forbidden.spec.ts"
+    ]
+  },
+  {
+    "id": "D2217",
+    "operator": "ARM.role.modify",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/Selenium_WebDriver_Q9#?veaction=edit",
+      "selector": "#ca-nstab-main > a",
+      "description": "<a> #ca-nstab-main > a (PWE #5, score 0.6)"
+    },
+    "params": {
+      "mapping": {
+        "button": "link",
+        "link": "button",
+        "checkbox": "radio",
+        "radio": "checkbox",
+        "textbox": "searchbox",
+        "searchbox": "textbox",
+        "tab": "button",
+        "menuitem": "option",
+        "option": "menuitem",
+        "navigation": "region",
+        "dialog": "region",
+        "heading": "paragraph",
+        "listitem": "none",
+        "combobox": "textbox",
+        "img": "presentation"
+      }
+    },
+    "testFiles": [
+      "13-edit-protected-page-forbidden.spec.ts"
+    ]
+  },
+  {
+    "id": "D2254",
+    "operator": "SVM.force.scroll",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/Selenium_WebDriver_Q9#?veaction=edit",
+      "selector": "#ca-viewsource > a",
+      "description": "<a> #ca-viewsource > a (PWE #8, score 0.6)"
+    },
+    "params": {
+      "maxHeightPx": 240
+    },
+    "testFiles": [
+      "13-edit-protected-page-forbidden.spec.ts"
+    ]
+  },
+  {
+    "id": "D2258",
+    "operator": "TIM.node.removeSafe",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/Selenium_WebDriver_Q9#?veaction=edit",
+      "description": "safe nodes on http://localhost:8080/index.php/Selenium_WebDriver_Q9#?veaction=edit"
+    },
+    "params": {
+      "selectors": [
+        "footer",
+        "aside",
+        "[role=\"banner\"]",
+        "[role=\"contentinfo\"]",
+        "[role=\"complementary\"]",
+        ".banner"
+      ]
+    },
+    "testFiles": [
+      "13-edit-protected-page-forbidden.spec.ts"
+    ]
+  },
+  {
+    "id": "D2321",
+    "operator": "SVM.visibility.hide",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/Software_testing_Q9#",
+      "selector": "#ca-edit > a",
+      "description": "<a> #ca-edit > a (PWE #5, score 0.6)"
+    },
+    "params": {},
+    "testFiles": [
+      "03-create-page.spec.ts",
+      "04-create-and-link-page.spec.ts",
+      "05-search-page.spec.ts",
+      "06-edit-page.spec.ts"
+    ]
+  },
+  {
+    "id": "D2353",
+    "operator": "TIM.wrap.div",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/Software_testing_Q9#",
+      "selector": "#ca-move > a",
+      "description": "<a> #ca-move > a (PWE #7, score 0.6)"
+    },
+    "params": {},
+    "testFiles": [
+      "03-create-page.spec.ts",
+      "04-create-and-link-page.spec.ts",
+      "05-search-page.spec.ts",
+      "06-edit-page.spec.ts"
+    ]
+  },
+  {
+    "id": "D2400",
+    "operator": "TIM.wrap.div",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/Special:Block",
+      "selector": "input[name=\"wpExpiry-other\"]",
+      "description": "<input> input[name=\"wpExpiry-other\"] (PWE #3, score 0.84)"
+    },
+    "params": {},
+    "testFiles": [
+      "18-block-user.spec.ts"
+    ]
+  },
+  {
+    "id": "D2430",
+    "operator": "AMM.href.null",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/Special:Block",
+      "selector": "#bodyContent > a:nth-of-type(2)",
+      "description": "<a> #bodyContent > a:nth-of-type(2) (PWE #6, score 0.6)"
+    },
+    "params": {
+      "replacement": "#"
+    },
+    "testFiles": [
+      "18-block-user.spec.ts"
+    ]
+  },
+  {
+    "id": "D2445",
+    "operator": "CDM.text.shuffle",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/Special:Block",
+      "selector": "#ca-nstab-special > a",
+      "description": "<a> #ca-nstab-special > a (PWE #7, score 0.6)"
+    },
+    "params": {},
+    "testFiles": [
+      "18-block-user.spec.ts"
+    ]
+  },
+  {
+    "id": "D2452",
+    "operator": "SVM.opacity.dim",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/Special:Block",
+      "selector": "#ca-nstab-special > a",
+      "description": "<a> #ca-nstab-special > a (PWE #7, score 0.6)"
+    },
+    "params": {
+      "opacity": 0.2
+    },
+    "testFiles": [
+      "18-block-user.spec.ts"
+    ]
+  },
+  {
+    "id": "D2491",
+    "operator": "EVD.click.delay",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/Special:ChangeCredentials",
+      "selector": "#bodyContent > a:nth-of-type(1)",
+      "description": "<a> #bodyContent > a:nth-of-type(1) (PWE #2, score 0.6)"
+    },
+    "params": {
+      "minMs": 300,
+      "maxMs": 800
+    },
+    "testFiles": [
+      "23-change-password-too-short.spec.ts",
+      "24-change-password-too-common.spec.ts",
+      "25-change-password-ok.spec.ts"
+    ]
+  },
+  {
+    "id": "D2501",
+    "operator": "CDM.text.leet",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/Special:ChangeCredentials",
+      "selector": "#bodyContent > a:nth-of-type(2)",
+      "description": "<a> #bodyContent > a:nth-of-type(2) (PWE #3, score 0.6)"
+    },
+    "params": {
+      "probability": 0.18
+    },
+    "testFiles": [
+      "23-change-password-too-short.spec.ts",
+      "24-change-password-too-common.spec.ts",
+      "25-change-password-ok.spec.ts"
+    ]
+  },
+  {
+    "id": "D2508",
+    "operator": "TIM.insert.ghostDiv",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/Special:ChangeCredentials",
+      "selector": "#bodyContent > a:nth-of-type(2)",
+      "description": "<a> #bodyContent > a:nth-of-type(2) (PWE #3, score 0.6)"
+    },
+    "params": {},
+    "testFiles": [
+      "23-change-password-too-short.spec.ts",
+      "24-change-password-too-common.spec.ts",
+      "25-change-password-ok.spec.ts"
+    ]
+  },
+  {
+    "id": "D2551",
+    "operator": "CDM.text.delete",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/Special:ChangeCredentials",
+      "selector": "#footer-places-privacy > a",
+      "description": "<a> #footer-places-privacy > a (PWE #7, score 0.6)"
+    },
+    "params": {},
+    "testFiles": [
+      "23-change-password-too-short.spec.ts",
+      "24-change-password-too-common.spec.ts",
+      "25-change-password-ok.spec.ts"
+    ]
+  },
+  {
+    "id": "D2580",
+    "operator": "AAM.placeholder.remove",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/Special:ChangeCredentials/MediaWiki%5CAuth%5CPasswordAuthenticationRequest",
+      "selector": "#ooui-php-1",
+      "description": "<input> #ooui-php-1 (PWE #1, score 1)"
+    },
+    "params": {},
+    "testFiles": [
+      "23-change-password-too-short.spec.ts",
+      "24-change-password-too-common.spec.ts",
+      "25-change-password-ok.spec.ts"
+    ]
+  },
+  {
+    "id": "D2581",
+    "operator": "AAM.inputType.swap",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/Special:ChangeCredentials/MediaWiki%5CAuth%5CPasswordAuthenticationRequest",
+      "selector": "#ooui-php-1",
+      "description": "<input> #ooui-php-1 (PWE #1, score 1)"
+    },
+    "params": {
+      "toType": "text"
+    },
+    "testFiles": [
+      "23-change-password-too-short.spec.ts",
+      "24-change-password-too-common.spec.ts",
+      "25-change-password-ok.spec.ts"
+    ]
+  },
+  {
+    "id": "D2584",
+    "operator": "SVM.display.none",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/Special:ChangeCredentials/MediaWiki%5CAuth%5CPasswordAuthenticationRequest",
+      "selector": "#ooui-php-1",
+      "description": "<input> #ooui-php-1 (PWE #1, score 1)"
+    },
+    "params": {},
+    "testFiles": [
+      "23-change-password-too-short.spec.ts",
+      "24-change-password-too-common.spec.ts",
+      "25-change-password-ok.spec.ts"
+    ]
+  },
+  {
+    "id": "D2591",
+    "operator": "AAM.inputType.swap",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/Special:ChangeCredentials/MediaWiki%5CAuth%5CPasswordAuthenticationRequest",
+      "selector": "#ooui-php-2",
+      "description": "<input> #ooui-php-2 (PWE #2, score 1)"
+    },
+    "params": {
+      "toType": "text"
+    },
+    "testFiles": [
+      "23-change-password-too-short.spec.ts",
+      "24-change-password-too-common.spec.ts",
+      "25-change-password-ok.spec.ts"
+    ]
+  },
+  {
+    "id": "D2613",
+    "operator": "AMM.href.null",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/Special:ChangeCredentials/MediaWiki%5CAuth%5CPasswordAuthenticationRequest",
+      "selector": "#bodyContent > a:nth-of-type(1)",
+      "description": "<a> #bodyContent > a:nth-of-type(1) (PWE #4, score 0.6)"
+    },
+    "params": {
+      "replacement": "#"
+    },
+    "testFiles": [
+      "23-change-password-too-short.spec.ts",
+      "24-change-password-too-common.spec.ts",
+      "25-change-password-ok.spec.ts"
+    ]
+  },
+  {
+    "id": "D2654",
+    "operator": "CDM.text.delete",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/Special:ChangeCredentials/MediaWiki%5CAuth%5CPasswordAuthenticationRequest",
+      "selector": "#footer-places-about > a",
+      "description": "<a> #footer-places-about > a (PWE #7, score 0.6)"
+    },
+    "params": {},
+    "testFiles": [
+      "23-change-password-too-short.spec.ts",
+      "24-change-password-too-common.spec.ts",
+      "25-change-password-ok.spec.ts"
+    ]
+  },
+  {
+    "id": "D2657",
+    "operator": "EHDM.click.remove",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/Special:ChangeCredentials/MediaWiki%5CAuth%5CPasswordAuthenticationRequest",
+      "selector": "#footer-places-about > a",
+      "description": "<a> #footer-places-about > a (PWE #7, score 0.6)"
+    },
+    "params": {},
+    "testFiles": [
+      "23-change-password-too-short.spec.ts",
+      "24-change-password-too-common.spec.ts",
+      "25-change-password-ok.spec.ts"
+    ]
+  },
+  {
+    "id": "D2681",
+    "operator": "SFM.stylesheet.fail",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/Special:ChangeCredentials/MediaWiki%5CAuth%5CPasswordAuthenticationRequest",
+      "resourceUrl": "http://localhost:8080/load.php?lang=en&modules=ext.echo.styles.badge%7Cext.visualEditor.desktopArticleTarget.noscript%7Cmediawiki.htmlform.ooui.styles%7Cmediawiki.htmlform.styles%7Cmediawiki.widgets.styles%7Coojs-ui-core.icons%2Cstyles%7Coojs-ui.styles.icons-alerts%2Cindicators%7Cskins.vector.styles.legacy&only=styles&skin=vector",
+      "description": "stylesheet http://localhost:8080/load.php?lang=en&modules=ext.echo.styles.badge%7Cext.visualEditor.desktopArticleTarget.noscript%7Cmediawiki.htmlform.ooui.styles%7Cmediawiki.htmlform.styles%7Cmediawiki.widgets.styles%7Coojs-ui-core.icons%2Cstyles%7Coojs-ui.styles.icons-alerts%2Cindicators%7Cskins.vector.styles.legacy&only=styles&skin=vector"
+    },
+    "params": {
+      "suffix": ".404.css"
+    },
+    "testFiles": [
+      "23-change-password-too-short.spec.ts",
+      "24-change-password-too-common.spec.ts",
+      "25-change-password-ok.spec.ts"
+    ]
+  },
+  {
+    "id": "D2694",
+    "operator": "TIM.form.reorderFields",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/Special:CreateAccount",
+      "selector": "#userlogin2",
+      "description": "<button> #userlogin2 (PWE #1, score 1)"
+    },
+    "params": {},
+    "testFiles": [
+      "01-create-user.spec.ts",
+      "27-create-empty-user-fails.spec.ts"
+    ]
+  },
+  {
+    "id": "D2702",
+    "operator": "FVM.required.toggle",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/Special:CreateAccount",
+      "selector": "#wpName2",
+      "description": "<input> #wpName2 (PWE #2, score 0.9478)"
+    },
+    "params": {},
+    "testFiles": [
+      "01-create-user.spec.ts",
+      "27-create-empty-user-fails.spec.ts"
+    ]
+  },
+  {
+    "id": "D2728",
+    "operator": "SVM.opacity.dim",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/Special:CreateAccount",
+      "selector": "#wpRetype",
+      "description": "<input> #wpRetype (PWE #5, score 0.9478)"
+    },
+    "params": {
+      "opacity": 0.2
+    },
+    "testFiles": [
+      "01-create-user.spec.ts",
+      "27-create-empty-user-fails.spec.ts"
+    ]
+  },
+  {
+    "id": "D2776",
+    "operator": "AMM.href.null",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/Special:SpecialPages",
+      "selector": "div:nth-of-type(6) > ul > li:nth-of-type(6) > a",
+      "description": "<a> div:nth-of-type(6) > ul > li:nth-of-type(6) > a (PWE #1, score 1)"
+    },
+    "params": {
+      "replacement": "#"
+    },
+    "testFiles": [
+      "01-create-user.spec.ts",
+      "14-promote-to-admin.spec.ts",
+      "18-block-user.spec.ts",
+      "23-change-password-too-short.spec.ts",
+      "24-change-password-too-common.spec.ts",
+      "25-change-password-ok.spec.ts",
+      "27-create-empty-user-fails.spec.ts"
+    ]
+  },
+  {
+    "id": "D2798",
+    "operator": "SVM.opacity.dim",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/Special:SpecialPages",
+      "selector": "div:nth-of-type(5) > ul > li:nth-of-type(1) > a",
+      "description": "<a> div:nth-of-type(5) > ul > li:nth-of-type(1) > a (PWE #2, score 0.8667)"
+    },
+    "params": {
+      "opacity": 0.2
+    },
+    "testFiles": [
+      "01-create-user.spec.ts",
+      "14-promote-to-admin.spec.ts",
+      "18-block-user.spec.ts",
+      "23-change-password-too-short.spec.ts",
+      "24-change-password-too-common.spec.ts",
+      "25-change-password-ok.spec.ts",
+      "27-create-empty-user-fails.spec.ts"
+    ]
+  },
+  {
+    "id": "D2817",
+    "operator": "CDM.text.shuffle",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/Special:SpecialPages",
+      "selector": "div:nth-of-type(6) > ul > li:nth-of-type(3) > a",
+      "description": "<a> div:nth-of-type(6) > ul > li:nth-of-type(3) > a (PWE #4, score 0.7333)"
+    },
+    "params": {},
+    "testFiles": [
+      "01-create-user.spec.ts",
+      "14-promote-to-admin.spec.ts",
+      "18-block-user.spec.ts",
+      "23-change-password-too-short.spec.ts",
+      "24-change-password-too-common.spec.ts",
+      "25-change-password-ok.spec.ts",
+      "27-create-empty-user-fails.spec.ts"
+    ]
+  },
+  {
+    "id": "D2825",
+    "operator": "TIM.insert.ghostDiv",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/Special:SpecialPages",
+      "selector": "div:nth-of-type(6) > ul > li:nth-of-type(3) > a",
+      "description": "<a> div:nth-of-type(6) > ul > li:nth-of-type(3) > a (PWE #4, score 0.7333)"
+    },
+    "params": {},
+    "testFiles": [
+      "01-create-user.spec.ts",
+      "14-promote-to-admin.spec.ts",
+      "18-block-user.spec.ts",
+      "23-change-password-too-short.spec.ts",
+      "24-change-password-too-common.spec.ts",
+      "25-change-password-ok.spec.ts",
+      "27-create-empty-user-fails.spec.ts"
+    ]
+  },
+  {
+    "id": "D2845",
+    "operator": "EHDM.click.remove",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/Special:SpecialPages",
+      "selector": "#bodyContent > a:nth-of-type(2)",
+      "description": "<a> #bodyContent > a:nth-of-type(2) (PWE #6, score 0.6)"
+    },
+    "params": {},
+    "testFiles": [
+      "01-create-user.spec.ts",
+      "14-promote-to-admin.spec.ts",
+      "18-block-user.spec.ts",
+      "23-change-password-too-short.spec.ts",
+      "24-change-password-too-common.spec.ts",
+      "25-change-password-ok.spec.ts",
+      "27-create-empty-user-fails.spec.ts"
+    ]
+  },
+  {
+    "id": "D2937",
+    "operator": "SVM.opacity.dim",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/Special:UserRights",
+      "selector": "#ca-nstab-special > a",
+      "description": "<a> #ca-nstab-special > a (PWE #5, score 0.6)"
+    },
+    "params": {
+      "opacity": 0.2
+    },
+    "testFiles": [
+      "14-promote-to-admin.spec.ts"
+    ]
+  },
+  {
+    "id": "D2973",
+    "operator": "EVD.click.delay",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/Special:UserRights",
+      "selector": "#footer-places-privacy > a",
+      "description": "<a> #footer-places-privacy > a (PWE #8, score 0.6)"
+    },
+    "params": {
+      "minMs": 300,
+      "maxMs": 800
+    },
+    "testFiles": [
+      "14-promote-to-admin.spec.ts"
+    ]
+  },
+  {
+    "id": "D2988",
+    "operator": "EHDM.click.remove",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/Template:Software_Q9#",
+      "selector": "#bodyContent > a:nth-of-type(1)",
+      "description": "<a> #bodyContent > a:nth-of-type(1) (PWE #1, score 0.6)"
+    },
+    "params": {},
+    "testFiles": [
+      "07-create-template.spec.ts"
+    ]
+  },
+  {
+    "id": "D3041",
+    "operator": "EHDM.click.remove",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/Template:Software_Q9#",
+      "selector": "#ca-history > a",
+      "description": "<a> #ca-history > a (PWE #5, score 0.6)"
+    },
+    "params": {},
+    "testFiles": [
+      "07-create-template.spec.ts"
+    ]
+  },
+  {
+    "id": "D3045",
+    "operator": "SVM.display.none",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/Template:Software_Q9#",
+      "selector": "#ca-history > a",
+      "description": "<a> #ca-history > a (PWE #5, score 0.6)"
+    },
+    "params": {},
+    "testFiles": [
+      "07-create-template.spec.ts"
+    ]
+  },
+  {
+    "id": "D3065",
+    "operator": "CDM.text.delete",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/Template:Software_Q9#",
+      "selector": "#ca-nstab-template > a",
+      "description": "<a> #ca-nstab-template > a (PWE #7, score 0.6)"
+    },
+    "params": {},
+    "testFiles": [
+      "07-create-template.spec.ts"
+    ]
+  },
+  {
+    "id": "D3068",
+    "operator": "EVD.click.stopPropagation",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/Template:Software_Q9#",
+      "selector": "#ca-nstab-template > a",
+      "description": "<a> #ca-nstab-template > a (PWE #7, score 0.6)"
+    },
+    "params": {
+      "phase": "target"
+    },
+    "testFiles": [
+      "07-create-template.spec.ts"
+    ]
+  },
+  {
+    "id": "D3077",
+    "operator": "AMM.href.null",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/Template:Software_Q9#",
+      "selector": "#ca-protect > a",
+      "description": "<a> #ca-protect > a (PWE #8, score 0.6)"
+    },
+    "params": {
+      "replacement": "#"
+    },
+    "testFiles": [
+      "07-create-template.spec.ts"
+    ]
+  },
+  {
+    "id": "D3170",
+    "operator": "EVD.click.stopPropagation",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/Testing_Q9#?action=edit",
+      "selector": "#ca-protect > a",
+      "description": "<a> #ca-protect > a (PWE #7, score 0.6)"
+    },
+    "params": {
+      "phase": "target"
+    },
+    "testFiles": [
+      "21-create-redirect.spec.ts"
+    ]
+  },
+  {
+    "id": "D3173",
+    "operator": "SVM.display.none",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/Testing_Q9#?action=edit",
+      "selector": "#ca-protect > a",
+      "description": "<a> #ca-protect > a (PWE #7, score 0.6)"
+    },
+    "params": {},
+    "testFiles": [
+      "21-create-redirect.spec.ts"
+    ]
+  },
+  {
+    "id": "D3184",
+    "operator": "EVD.click.delay",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/Testing_Q9#?action=edit",
+      "selector": "#ca-talk > a",
+      "description": "<a> #ca-talk > a (PWE #8, score 0.6)"
+    },
+    "params": {
+      "minMs": 300,
+      "maxMs": 800
+    },
+    "testFiles": [
+      "21-create-redirect.spec.ts"
+    ]
+  },
+  {
+    "id": "D3203",
+    "operator": "CDM.text.leet",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/User:UserQ9#",
+      "selector": "#ca-edit > a",
+      "description": "<a> #ca-edit > a (PWE #1, score 1)"
+    },
+    "params": {
+      "probability": 0.18
+    },
+    "testFiles": [
+      "17-create-user-page.spec.ts",
+      "19-blocked-user-cant-edit.spec.ts"
+    ]
+  },
+  {
+    "id": "D3209",
+    "operator": "SVM.opacity.dim",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/User:UserQ9#",
+      "selector": "#ca-edit > a",
+      "description": "<a> #ca-edit > a (PWE #1, score 1)"
+    },
+    "params": {
+      "opacity": 0.2
+    },
+    "testFiles": [
+      "17-create-user-page.spec.ts",
+      "19-blocked-user-cant-edit.spec.ts"
+    ]
+  },
+  {
+    "id": "D3222",
+    "operator": "SVM.opacity.dim",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/User:UserQ9#",
+      "selector": "#ca-ve-edit > a",
+      "description": "<a> #ca-ve-edit > a (PWE #2, score 1)"
+    },
+    "params": {
+      "opacity": 0.2
+    },
+    "testFiles": [
+      "17-create-user-page.spec.ts",
+      "19-blocked-user-cant-edit.spec.ts"
+    ]
+  },
+  {
+    "id": "D3234",
+    "operator": "SVM.visibility.hide",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/User:UserQ9#",
+      "selector": "#bodyContent > a:nth-of-type(1)",
+      "description": "<a> #bodyContent > a:nth-of-type(1) (PWE #3, score 0.6)"
+    },
+    "params": {},
+    "testFiles": [
+      "17-create-user-page.spec.ts",
+      "19-blocked-user-cant-edit.spec.ts"
+    ]
+  },
+  {
+    "id": "D3267",
+    "operator": "AMM.href.null",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/User:UserQ9#",
+      "selector": "#ca-move > a",
+      "description": "<a> #ca-move > a (PWE #6, score 0.6)"
+    },
+    "params": {
+      "replacement": "#"
+    },
+    "testFiles": [
+      "17-create-user-page.spec.ts",
+      "19-blocked-user-cant-edit.spec.ts"
+    ]
+  },
+  {
+    "id": "D3279",
+    "operator": "ARM.role.modify",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/User:UserQ9#",
+      "selector": "#ca-move > a",
+      "description": "<a> #ca-move > a (PWE #6, score 0.6)"
+    },
+    "params": {
+      "mapping": {
+        "button": "link",
+        "link": "button",
+        "checkbox": "radio",
+        "radio": "checkbox",
+        "textbox": "searchbox",
+        "searchbox": "textbox",
+        "tab": "button",
+        "menuitem": "option",
+        "option": "menuitem",
+        "navigation": "region",
+        "dialog": "region",
+        "heading": "paragraph",
+        "listitem": "none",
+        "combobox": "textbox",
+        "img": "presentation"
+      }
+    },
+    "testFiles": [
+      "17-create-user-page.spec.ts",
+      "19-blocked-user-cant-edit.spec.ts"
+    ]
+  },
+  {
+    "id": "D3321",
+    "operator": "TIM.insert.ghostDiv",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/User:UserQ9#?veaction=edit",
+      "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > span:nth-of-type(3) > a",
+      "description": "<a> div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > span:nth-of-type(3) > a (PWE #1, score 1)"
+    },
+    "params": {},
+    "testFiles": [
+      "19-blocked-user-cant-edit.spec.ts"
+    ]
+  },
+  {
+    "id": "D3328",
+    "operator": "SVM.display.none",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/User:UserQ9#?veaction=edit",
+      "selector": "div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1)",
+      "description": "<div> div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) (PWE #2, score 1)"
+    },
+    "params": {},
+    "testFiles": [
+      "19-blocked-user-cant-edit.spec.ts"
+    ]
+  },
+  {
+    "id": "D3340",
+    "operator": "SVM.visibility.hide",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/User:UserQ9#?veaction=edit",
+      "selector": "#ca-ve-edit > a",
+      "description": "<a> #ca-ve-edit > a (PWE #3, score 0.84)"
+    },
+    "params": {},
+    "testFiles": [
+      "19-blocked-user-cant-edit.spec.ts"
+    ]
+  },
+  {
+    "id": "D3343",
+    "operator": "TIM.insert.ghostDiv",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/User:UserQ9#?veaction=edit",
+      "selector": "#ca-ve-edit > a",
+      "description": "<a> #ca-ve-edit > a (PWE #3, score 0.84)"
+    },
+    "params": {},
+    "testFiles": [
+      "19-blocked-user-cant-edit.spec.ts"
+    ]
+  },
+  {
+    "id": "D3364",
+    "operator": "EVD.click.stopPropagation",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/User:UserQ9#?veaction=edit",
+      "selector": "#bodyContent > a:nth-of-type(2)",
+      "description": "<a> #bodyContent > a:nth-of-type(2) (PWE #5, score 0.6)"
+    },
+    "params": {
+      "phase": "target"
+    },
+    "testFiles": [
+      "19-blocked-user-cant-edit.spec.ts"
+    ]
+  },
+  {
+    "id": "D3371",
+    "operator": "ARM.role.modify",
+    "layer": "dom",
+    "target": {
+      "kind": "dom",
+      "pageKey": "http://localhost:8080/index.php/User:UserQ9#?veaction=edit",
+      "selector": "#bodyContent > a:nth-of-type(2)",
+      "description": "<a> #bodyContent > a:nth-of-type(2) (PWE #5, score 0.6)"
+    },
+    "params": {
+      "mapping": {
+        "button": "link",
+        "link": "button",
+        "checkbox": "radio",
+        "radio": "checkbox",
+        "textbox": "searchbox",
+        "searchbox": "textbox",
+        "tab": "button",
+        "menuitem": "option",
+        "option": "menuitem",
+        "navigation": "region",
+        "dialog": "region",
+        "heading": "paragraph",
+        "listitem": "none",
+        "combobox": "textbox",
+        "img": "presentation"
+      }
+    },
+    "testFiles": [
+      "19-blocked-user-cant-edit.spec.ts"
+    ]
+  },
+  {
+    "id": "N0029",
+    "operator": "NLF.delay.fixed",
+    "layer": "network",
+    "target": {
+      "kind": "network",
+      "endpoint": "GET http://localhost:8080/index.php",
+      "method": "GET",
+      "urlBase": "http://localhost:8080/index.php",
+      "description": "GET http://localhost:8080/index.php [document]"
+    },
+    "params": {
+      "delayMs": 2000
+    },
+    "testFiles": [
+      "01-create-user.spec.ts",
+      "02-close-initial-editor-popup.spec.ts",
+      "03-create-page.spec.ts",
+      "04-create-and-link-page.spec.ts",
+      "05-search-page.spec.ts",
+      "06-edit-page.spec.ts",
+      "07-create-template.spec.ts",
+      "08-create-page-from-source.spec.ts",
+      "09-apply-template.spec.ts",
+      "10-add-category.spec.ts",
+      "11-protect-page.spec.ts",
+      "12-admin-edit-protected-page-gets-warning.spec.ts",
+      "13-edit-protected-page-forbidden.spec.ts",
+      "14-promote-to-admin.spec.ts",
+      "15-edit-protected-page-new-admin-success.spec.ts",
+      "16-revert-last-commit.spec.ts",
+      "17-create-user-page.spec.ts",
+      "18-block-user.spec.ts",
+      "19-blocked-user-cant-edit.spec.ts",
+      "20-delete-page.spec.ts",
+      "21-create-redirect.spec.ts",
+      "22-follow-redirect.spec.ts",
+      "23-change-password-too-short.spec.ts",
+      "24-change-password-too-common.spec.ts",
+      "25-change-password-ok.spec.ts",
+      "26-create-blank-page-gets-warning.spec.ts",
+      "27-create-empty-user-fails.spec.ts"
+    ]
+  },
+  {
+    "id": "N0034",
+    "operator": "NPF.field.drop",
+    "layer": "network",
+    "target": {
+      "kind": "network",
+      "endpoint": "GET http://localhost:8080/index.php/E2E_Web_Testing_Q9#",
+      "method": "GET",
+      "urlBase": "http://localhost:8080/index.php/E2E_Web_Testing_Q9#",
+      "description": "GET http://localhost:8080/index.php/E2E_Web_Testing_Q9# [document]"
+    },
+    "params": {
+      "fieldName": "userId"
+    },
+    "testFiles": [
+      "04-create-and-link-page.spec.ts",
+      "20-delete-page.spec.ts"
+    ]
+  },
+  {
+    "id": "N0046",
+    "operator": "NPR.field.rename",
+    "layer": "network",
+    "target": {
+      "kind": "network",
+      "endpoint": "GET http://localhost:8080/index.php/Main_Page",
+      "method": "GET",
+      "urlBase": "http://localhost:8080/index.php/Main_Page",
+      "description": "GET http://localhost:8080/index.php/Main_Page [document]"
+    },
+    "params": {
+      "oldName": "username",
+      "newName": "usrname"
+    },
+    "testFiles": [
+      "01-create-user.spec.ts",
+      "02-close-initial-editor-popup.spec.ts",
+      "03-create-page.spec.ts",
+      "04-create-and-link-page.spec.ts",
+      "05-search-page.spec.ts",
+      "06-edit-page.spec.ts",
+      "07-create-template.spec.ts",
+      "08-create-page-from-source.spec.ts",
+      "09-apply-template.spec.ts",
+      "10-add-category.spec.ts",
+      "11-protect-page.spec.ts",
+      "12-admin-edit-protected-page-gets-warning.spec.ts",
+      "13-edit-protected-page-forbidden.spec.ts",
+      "14-promote-to-admin.spec.ts",
+      "15-edit-protected-page-new-admin-success.spec.ts",
+      "16-revert-last-commit.spec.ts",
+      "17-create-user-page.spec.ts",
+      "18-block-user.spec.ts",
+      "19-blocked-user-cant-edit.spec.ts",
+      "20-delete-page.spec.ts",
+      "21-create-redirect.spec.ts",
+      "22-follow-redirect.spec.ts",
+      "23-change-password-too-short.spec.ts",
+      "24-change-password-too-common.spec.ts",
+      "25-change-password-ok.spec.ts",
+      "26-create-blank-page-gets-warning.spec.ts",
+      "27-create-empty-user-fails.spec.ts"
+    ]
+  },
+  {
+    "id": "N0060",
+    "operator": "NPA.field.add",
+    "layer": "network",
+    "target": {
+      "kind": "network",
+      "endpoint": "GET http://localhost:8080/index.php/Selenium_WebDriver_Q9#",
+      "method": "GET",
+      "urlBase": "http://localhost:8080/index.php/Selenium_WebDriver_Q9#",
+      "description": "GET http://localhost:8080/index.php/Selenium_WebDriver_Q9# [document]"
+    },
+    "params": {
+      "fieldName": "debug",
+      "fieldValue": true
+    },
+    "testFiles": [
+      "08-create-page-from-source.spec.ts",
+      "09-apply-template.spec.ts",
+      "10-add-category.spec.ts",
+      "11-protect-page.spec.ts",
+      "12-admin-edit-protected-page-gets-warning.spec.ts",
+      "13-edit-protected-page-forbidden.spec.ts",
+      "15-edit-protected-page-new-admin-success.spec.ts",
+      "16-revert-last-commit.spec.ts"
+    ]
+  },
+  {
+    "id": "N0064",
+    "operator": "NLT.timeout.inject",
+    "layer": "network",
+    "target": {
+      "kind": "network",
+      "endpoint": "GET http://localhost:8080/index.php/Selenium_WebDriver_Q9#",
+      "method": "GET",
+      "urlBase": "http://localhost:8080/index.php/Selenium_WebDriver_Q9#",
+      "description": "GET http://localhost:8080/index.php/Selenium_WebDriver_Q9# [document]"
+    },
+    "params": {},
+    "testFiles": [
+      "08-create-page-from-source.spec.ts",
+      "09-apply-template.spec.ts",
+      "10-add-category.spec.ts",
+      "11-protect-page.spec.ts",
+      "12-admin-edit-protected-page-gets-warning.spec.ts",
+      "13-edit-protected-page-forbidden.spec.ts",
+      "15-edit-protected-page-new-admin-success.spec.ts",
+      "16-revert-last-commit.spec.ts"
+    ]
+  },
+  {
+    "id": "N0228",
+    "operator": "NLR.delay.jitter",
+    "layer": "network",
+    "target": {
+      "kind": "network",
+      "endpoint": "POST http://localhost:8080/index.php/Special:ChangeCredentials/MediaWiki%5CAuth%5CPasswordAuthenticationRequest",
+      "method": "POST",
+      "urlBase": "http://localhost:8080/index.php/Special:ChangeCredentials/MediaWiki%5CAuth%5CPasswordAuthenticationRequest",
+      "description": "POST http://localhost:8080/index.php/Special:ChangeCredentials/MediaWiki%5CAuth%5CPasswordAuthenticationRequest [document]"
+    },
+    "params": {
+      "minMs": 100,
+      "maxMs": 1000
+    },
+    "testFiles": [
+      "23-change-password-too-short.spec.ts",
+      "24-change-password-too-common.spec.ts",
+      "25-change-password-ok.spec.ts"
+    ]
+  },
+  {
+    "id": "T0082",
+    "operator": "SOG.selector.generalize",
+    "layer": "test",
+    "target": {
+      "kind": "test",
+      "file": "04-create-and-link-page.spec.ts",
+      "site": 3,
+      "line": 17,
+      "snippet": "page.getByRole('link', { name: title, exact: true })",
+      "description": "04-create-and-link-page.spec.ts:17 getByRole: drop name/exact options"
+    },
+    "params": {},
+    "testFiles": [
+      "04-create-and-link-page.spec.ts"
+    ]
+  },
+  {
+    "id": "T0088",
+    "operator": "SOS.selector.specialize",
+    "layer": "test",
+    "target": {
+      "kind": "test",
+      "file": "04-create-and-link-page.spec.ts",
+      "site": 4,
+      "line": 18,
+      "snippet": "page.locator('.ve-ui-mwNoticesPopupTool-item')",
+      "description": "04-create-and-link-page.spec.ts:18 selector \".ve-ui-mwNoticesPopupTool-item\" -> \".ve-ui-mwNoticesPopupTool-item:nth-child(3)\""
+    },
+    "params": {
+      "index": 3
+    },
+    "testFiles": [
+      "04-create-and-link-page.spec.ts"
+    ]
+  },
+  {
+    "id": "T0107",
+    "operator": "SOS.selector.specialize",
+    "layer": "test",
+    "target": {
+      "kind": "test",
+      "file": "05-search-page.spec.ts",
+      "site": 4,
+      "line": 15,
+      "snippet": "page.locator('#mw-content-text')",
+      "description": "05-search-page.spec.ts:15 selector \"#mw-content-text\" -> \"#mw-content-text:nth-child(3)\""
+    },
+    "params": {
+      "index": 3
+    },
+    "testFiles": [
+      "05-search-page.spec.ts"
+    ]
+  },
+  {
+    "id": "T0117",
+    "operator": "AOV.visual.tolerance",
+    "layer": "test",
+    "target": {
+      "kind": "test",
+      "file": "06-edit-page.spec.ts",
+      "site": -1,
+      "description": "06-edit-page.spec.ts: no AOV.visual.tolerance pattern"
+    },
+    "params": {
+      "maxDiffPixels": 0,
+      "threshold": 0
+    },
+    "testFiles": [
+      "06-edit-page.spec.ts"
+    ],
+    "precheckFailed": "no matching AST pattern in test file"
+  },
+  {
+    "id": "T0121",
+    "operator": "SOG.selector.generalize",
+    "layer": "test",
+    "target": {
+      "kind": "test",
+      "file": "06-edit-page.spec.ts",
+      "site": 1,
+      "line": 15,
+      "snippet": "page.locator('#searchInput').press('Enter')",
+      "description": "06-edit-page.spec.ts:15 selector \"Enter\" -> \"*\""
+    },
+    "params": {},
+    "testFiles": [
+      "06-edit-page.spec.ts"
+    ]
+  },
+  {
+    "id": "T0168",
+    "operator": "SOG.selector.generalize",
+    "layer": "test",
+    "target": {
+      "kind": "test",
+      "file": "08-create-page-from-source.spec.ts",
+      "site": 4,
+      "line": 15,
+      "snippet": "page.locator('.ve-ui-mwNoticesPopupTool-item')",
+      "description": "08-create-page-from-source.spec.ts:15 selector \".ve-ui-mwNoticesPopupTool-item\" -> \"*\""
+    },
+    "params": {},
+    "testFiles": [
+      "08-create-page-from-source.spec.ts"
+    ]
+  },
+  {
+    "id": "T0171",
+    "operator": "SOS.selector.specialize",
+    "layer": "test",
+    "target": {
+      "kind": "test",
+      "file": "08-create-page-from-source.spec.ts",
+      "site": 2,
+      "line": 13,
+      "snippet": "page.locator('#searchInput')",
+      "description": "08-create-page-from-source.spec.ts:13 selector \"#searchInput\" -> \"#searchInput:nth-child(3)\""
+    },
+    "params": {
+      "index": 3
+    },
+    "testFiles": [
+      "08-create-page-from-source.spec.ts"
+    ]
+  },
+  {
+    "id": "T0198",
+    "operator": "TWA.wait.add",
+    "layer": "test",
+    "target": {
+      "kind": "test",
+      "file": "10-add-category.spec.ts",
+      "site": 2,
+      "line": 13,
+      "snippet": "await page.getByRole('link', { name: 'Edit', exact: true }).click();",
+      "description": "10-add-category.spec.ts:13 insert 1000ms wait before click()"
+    },
+    "params": {
+      "delayMs": 1000
+    },
+    "testFiles": [
+      "10-add-category.spec.ts"
+    ]
+  },
+  {
+    "id": "T0228",
+    "operator": "SOG.selector.generalize",
+    "layer": "test",
+    "target": {
+      "kind": "test",
+      "file": "11-protect-page.spec.ts",
+      "site": 1,
+      "line": 12,
+      "snippet": "page.locator('#searchInput').press('Enter')",
+      "description": "11-protect-page.spec.ts:12 selector \"Enter\" -> \"*\""
+    },
+    "params": {},
+    "testFiles": [
+      "11-protect-page.spec.ts"
+    ]
+  },
+  {
+    "id": "T0245",
+    "operator": "SOG.selector.generalize",
+    "layer": "test",
+    "target": {
+      "kind": "test",
+      "file": "12-admin-edit-protected-page-gets-warning.spec.ts",
+      "site": 0,
+      "line": 13,
+      "snippet": "page.locator('#searchInput')",
+      "description": "12-admin-edit-protected-page-gets-warning.spec.ts:13 selector \"#searchInput\" -> \"[id]\""
+    },
+    "params": {},
+    "testFiles": [
+      "12-admin-edit-protected-page-gets-warning.spec.ts"
+    ]
+  },
+  {
+    "id": "T0252",
+    "operator": "SOS.selector.specialize",
+    "layer": "test",
+    "target": {
+      "kind": "test",
+      "file": "12-admin-edit-protected-page-gets-warning.spec.ts",
+      "site": 2,
+      "line": 14,
+      "snippet": "page.locator('#searchInput')",
+      "description": "12-admin-edit-protected-page-gets-warning.spec.ts:14 selector \"#searchInput\" -> \"#searchInput:nth-child(3)\""
+    },
+    "params": {
+      "index": 3
+    },
+    "testFiles": [
+      "12-admin-edit-protected-page-gets-warning.spec.ts"
+    ]
+  },
+  {
+    "id": "T0279",
+    "operator": "TWA.wait.add",
+    "layer": "test",
+    "target": {
+      "kind": "test",
+      "file": "14-promote-to-admin.spec.ts",
+      "site": 3,
+      "line": 12,
+      "snippet": "await page.locator('#mw-userrights-form1 input[type=submit]').click();",
+      "description": "14-promote-to-admin.spec.ts:12 insert 1000ms wait before click()"
+    },
+    "params": {
+      "delayMs": 1000
+    },
+    "testFiles": [
+      "14-promote-to-admin.spec.ts"
+    ]
+  },
+  {
+    "id": "T0350",
+    "operator": "AOV.visual.tolerance",
+    "layer": "test",
+    "target": {
+      "kind": "test",
+      "file": "17-create-user-page.spec.ts",
+      "site": -1,
+      "description": "17-create-user-page.spec.ts: no AOV.visual.tolerance pattern"
+    },
+    "params": {
+      "maxDiffPixels": 0,
+      "threshold": 0
+    },
+    "testFiles": [
+      "17-create-user-page.spec.ts"
+    ],
+    "precheckFailed": "no matching AST pattern in test file"
+  },
+  {
+    "id": "T0351",
+    "operator": "AOF.assert.flip",
+    "layer": "test",
+    "target": {
+      "kind": "test",
+      "file": "17-create-user-page.spec.ts",
+      "site": 0,
+      "line": 12,
+      "snippet": "expect(page.locator('#firstHeading')).toHaveText(`User:${user}`)",
+      "description": "17-create-user-page.spec.ts:12 toHaveText -> not.toHaveText"
+    },
+    "params": {},
+    "testFiles": [
+      "17-create-user-page.spec.ts"
+    ]
+  },
+  {
+    "id": "T0367",
+    "operator": "TWA.wait.add",
+    "layer": "test",
+    "target": {
+      "kind": "test",
+      "file": "18-block-user.spec.ts",
+      "site": 3,
+      "line": 12,
+      "snippet": "await page.locator('[name=wpAutoBlock]').click();",
+      "description": "18-block-user.spec.ts:12 insert 1000ms wait before click()"
+    },
+    "params": {
+      "delayMs": 1000
+    },
+    "testFiles": [
+      "18-block-user.spec.ts"
+    ]
+  },
+  {
+    "id": "T0374",
+    "operator": "SOG.selector.generalize",
+    "layer": "test",
+    "target": {
+      "kind": "test",
+      "file": "18-block-user.spec.ts",
+      "site": 1,
+      "line": 10,
+      "snippet": "page.getByRole('link', { name: 'Block user', exact: true })",
+      "description": "18-block-user.spec.ts:10 getByRole: drop name/exact options"
+    },
+    "params": {},
+    "testFiles": [
+      "18-block-user.spec.ts"
+    ]
+  },
+  {
+    "id": "T0387",
+    "operator": "AOT.assert.tighten",
+    "layer": "test",
+    "target": {
+      "kind": "test",
+      "file": "19-blocked-user-cant-edit.spec.ts",
+      "site": 0,
+      "line": 13,
+      "snippet": "expect(page.locator('.permissions-errors')).toContainText('Your username or IP address has been blocked')",
+      "description": "19-blocked-user-cant-edit.spec.ts:13 tighten: toContainText -> toHaveText"
+    },
+    "params": {
+      "matcherMap": {
+        "toContain": "toEqual",
+        "toContainText": "toHaveText",
+        "toEqual": "toStrictEqual",
+        "toBeTruthy": "toBe",
+        "toMatch": "toBe",
+        "toBeGreaterThanOrEqual": "toBeGreaterThan",
+        "toBeLessThanOrEqual": "toBeLessThan"
+      }
+    },
+    "testFiles": [
+      "19-blocked-user-cant-edit.spec.ts"
+    ]
+  },
+  {
+    "id": "T0397",
+    "operator": "SOS.selector.specialize",
+    "layer": "test",
+    "target": {
+      "kind": "test",
+      "file": "19-blocked-user-cant-edit.spec.ts",
+      "site": 2,
+      "line": 12,
+      "snippet": "page.locator('.ve-ui-mwNoticesPopupTool-item p')",
+      "description": "19-blocked-user-cant-edit.spec.ts:12 selector \".ve-ui-mwNoticesPopupTool-item p\" -> \".ve-ui-mwNoticesPopupTool-item p:nth-child(3)\""
+    },
+    "params": {
+      "index": 3
+    },
+    "testFiles": [
+      "19-blocked-user-cant-edit.spec.ts"
+    ]
+  },
+  {
+    "id": "T0404",
+    "operator": "TWA.wait.add",
+    "layer": "test",
+    "target": {
+      "kind": "test",
+      "file": "20-delete-page.spec.ts",
+      "site": 4,
+      "line": 15,
+      "snippet": "await page.locator('#wpConfirmB').click();",
+      "description": "20-delete-page.spec.ts:15 insert 1000ms wait before click()"
+    },
+    "params": {
+      "delayMs": 1000
+    },
+    "testFiles": [
+      "20-delete-page.spec.ts"
+    ]
+  },
+  {
+    "id": "T0428",
+    "operator": "AOF.assert.flip",
+    "layer": "test",
+    "target": {
+      "kind": "test",
+      "file": "21-create-redirect.spec.ts",
+      "site": 0,
+      "line": 21,
+      "snippet": "expect(page.locator('.redirectText')).toHaveText(target)",
+      "description": "21-create-redirect.spec.ts:21 toHaveText -> not.toHaveText"
+    },
+    "params": {},
+    "testFiles": [
+      "21-create-redirect.spec.ts"
+    ]
+  },
+  {
+    "id": "T0457",
+    "operator": "SOS.selector.specialize",
+    "layer": "test",
+    "target": {
+      "kind": "test",
+      "file": "22-follow-redirect.spec.ts",
+      "site": 4,
+      "line": 18,
+      "snippet": "page.locator('.mw-redirectedfrom')",
+      "description": "22-follow-redirect.spec.ts:18 selector \".mw-redirectedfrom\" -> \".mw-redirectedfrom:nth-child(3)\""
+    },
+    "params": {
+      "index": 3
+    },
+    "testFiles": [
+      "22-follow-redirect.spec.ts"
+    ]
+  },
+  {
+    "id": "T0462",
+    "operator": "TWA.wait.add",
+    "layer": "test",
+    "target": {
+      "kind": "test",
+      "file": "23-change-password-too-short.spec.ts",
+      "site": 3,
+      "line": 16,
+      "snippet": "await page.locator('[name=password]').fill('vznb');",
+      "description": "23-change-password-too-short.spec.ts:16 insert 1000ms wait before fill()"
+    },
+    "params": {
+      "delayMs": 1000
+    },
+    "testFiles": [
+      "23-change-password-too-short.spec.ts"
+    ]
+  },
+  {
+    "id": "T0475",
+    "operator": "SOS.selector.specialize",
+    "layer": "test",
+    "target": {
+      "kind": "test",
+      "file": "23-change-password-too-short.spec.ts",
+      "site": 2,
+      "line": 15,
+      "snippet": "page.locator('#mw-content-text dl dd a')",
+      "description": "23-change-password-too-short.spec.ts:15 selector \"#mw-content-text dl dd a\" -> \"#mw-content-text dl dd a:nth-child(3)\""
+    },
+    "params": {
+      "index": 3
+    },
+    "testFiles": [
+      "23-change-password-too-short.spec.ts"
+    ]
+  },
+  {
+    "id": "T0488",
+    "operator": "SOG.selector.generalize",
+    "layer": "test",
+    "target": {
+      "kind": "test",
+      "file": "24-change-password-too-common.spec.ts",
+      "site": 0,
+      "line": 13,
+      "snippet": "page.getByRole('link', { name: 'Special pages', exact: true })",
+      "description": "24-change-password-too-common.spec.ts:13 getByRole: drop name/exact options"
+    },
+    "params": {},
+    "testFiles": [
+      "24-change-password-too-common.spec.ts"
+    ]
+  },
+  {
+    "id": "T0538",
+    "operator": "TWA.wait.add",
+    "layer": "test",
+    "target": {
+      "kind": "test",
+      "file": "27-create-empty-user-fails.spec.ts",
+      "site": 0,
+      "line": 8,
+      "snippet": "await page.getByRole('link', { name: 'Special pages', exact: true }).click();",
+      "description": "27-create-empty-user-fails.spec.ts:8 insert 1000ms wait before click()"
+    },
+    "params": {
+      "delayMs": 1000
+    },
+    "testFiles": [
+      "27-create-empty-user-fails.spec.ts"
+    ]
+  }
+]

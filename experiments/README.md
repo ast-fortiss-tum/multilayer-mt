@@ -4,7 +4,15 @@ The study ran MultilayerMT on seven BEWT subjects (Bludit, Claroline, Joomla,
 Kanboard, MantisBT, MediaWiki, PrestaShop) with three PWE limits (4, 8, 16),
 i.e. 21 runs, with 4 parallel workers.
 
-The subjects and their Playwright suites are **not** part of this repository.
+The thesis's Playwright suites were not published. BEWT itself ships Java +
+Selenium suites, which this repository ports to Playwright one subject at a
+time under `subjects/<name>/` (deployment scripts, specs, porting notes):
+
+| Subject | Status |
+|---|---|
+| MediaWiki 1.40.0 | ported, 27/27 tests pass (`subjects/mediawiki/README.md`) |
+| Bludit, Claroline, Joomla, Kanboard, MantisBT, PrestaShop | not yet ported |
+
 To reproduce:
 
 1. Deploy each subject in Docker with seed data and make sure its Playwright

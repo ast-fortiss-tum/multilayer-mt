@@ -2,7 +2,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { pathToFileURL } from 'url';
 import type { Layer } from './types';
-import type { PageKeyQuery } from './util/pageKey';
+import type { KeyNormalizer, PageKeyQuery } from './util/pageKey';
 
 /** A reporter: built-in name, module path, or (programmatic use) a function. */
 export type ReporterSpec = 'json' | 'html' | 'markdown' | 'console' | string | ReporterFn | [string, Record<string, unknown>];
@@ -36,6 +36,11 @@ export interface MlmtConfig {
   reporters: ReporterSpec[];
   /** Which query parameters identify a page ('all', 'none' or a list). */
   pageKeyQuery: PageKeyQuery;
+  /**
+   * Regex rewrites `[pattern, replacement]` applied to page keys and network
+   * endpoints, for URLs that embed run-specific ids (e.g. generated page titles).
+   */
+  pageKeyNormalize?: KeyNormalizer;
   network: {
     /** Playwright resource types whose requests are network-mutation targets. */
     resourceTypes: string[];
@@ -188,6 +193,19 @@ export function validateConfig(c: MlmtConfig): void {
   if (!['covering', 'all'].includes(c.testSelection)) errs.push(`testSelection must be "covering" or "all"`);
   if (!(c.pageKeyQuery === 'all' || c.pageKeyQuery === 'none' || (Array.isArray(c.pageKeyQuery) && c.pageKeyQuery.every((x) => typeof x === 'string')))) {
     errs.push(`pageKeyQuery must be "all", "none" or a list of parameter names`);
+  }
+  if (c.pageKeyNormalize !== undefined) {
+    if (!Array.isArray(c.pageKeyNormalize) || !c.pageKeyNormalize.every((r) => Array.isArray(r) && r.length === 2 && r.every((x) => typeof x === 'string'))) {
+      errs.push('pageKeyNormalize must be a list of [pattern, replacement] string pairs');
+    } else {
+      for (const [p] of c.pageKeyNormalize) {
+        try {
+          new RegExp(p);
+        } catch {
+          errs.push(`pageKeyNormalize: invalid regex ${JSON.stringify(p)}`);
+        }
+      }
+    }
   }
   for (const k of ['testFilePattern'] as const) {
     try {
