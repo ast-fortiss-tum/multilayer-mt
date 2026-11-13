@@ -50,7 +50,7 @@ points are normalised as follows: interaction / max interaction on the same
 page, visibility / 25, semantic / 20. Elements whose semantic tag is not listed
 (e.g. `h1`, `img`, `li`) get S = 0. Pages are identified by origin + path + the
 query parameters chosen with `pageKeyQuery`.
-Not in the thesis: `pageKeyNormalize` applies regex rewrites to page keys and
+Not in the thesis: `operatorSet` selects the 51 thesis operators (`thesis`, used by all replication configs) or the literature library (`literature`, `all`). `pageKeyNormalize` applies regex rewrites to page keys and
 network endpoints. Suites that create data with run-unique names (the
 MediaWiki port, `experiments/subjects/mediawiki`) put those names in URLs;
 without normalisation the trace run and the mutant runs would see different
@@ -122,3 +122,27 @@ pages and no DOM mutant would ever be applied.
   (NSO/NLT/payload/SFM/BSM/RLB), and weak assertions (all others).
 - The speedup in the aggregate is the sum of the per-mutant run times divided by
   the wall time.
+
+## Corrections to the thesis operators found while replicating
+
+These changed the behaviour of thesis operators after the initial reconstruction.
+Mutant counts and outcomes of a study run can differ from earlier runs because of them.
+
+- **DOM mutations are applied while the page is parsed** (complete elements only),
+  not at `DOMContentLoaded`. Tests can act on elements before then (slow pages),
+  so mutants on such elements survived although they were reported as applied.
+  First pilot on MediaWiki: DOM score 11.3 % → 14.0 % on the same 200 mutants.
+- **`SOG.selector.generalize` and `SOS.selector.specialize` never mutate a value,
+  key or event-name argument.** `locator.press('Enter')` became `press("*")` and
+  `locator.fill('Real Name 001')` became `fill('001')`: invalid mutants whose
+  outcome was arbitrary. Only the selector argument is mutated (the
+  `page.fill(selector, value)` form still is).
+- **String-literal rewriting escapes correctly** (newlines, `${`, backticks in
+  template literals), so thesis test operators cannot emit invalid TypeScript.
+
+Known limitation shared by the thesis and some literature operators: the DOM mutator
+re-resolves an element's selector on every DOM change, and the recorder's selectors
+use positional `:nth-of-type`. After a structural mutation (remove, move, swap) a
+selector can match a sibling and the mutation spreads. Literature operators that
+are structural guard against it with a once-per-document flag; the thesis operators
+do not.

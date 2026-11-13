@@ -1,5 +1,10 @@
 import * as ts from 'typescript';
 import { registry, TestOperatorDef } from '../registry';
+import {
+  TextEdit, Site, WAIT_METHODS, ACTION_METHODS, SELECTOR_METHODS, GET_BY, NO_ARG_MATCHERS, lineOf, snippetOf, visit, methodName, unwrap, isExpectCall, MatcherCall, asMatcherCall, rootIdentifier, indentAt, isStringLike, replaceLiteral, site,
+} from './astUtil';
+
+export type { TextEdit, Site } from './astUtil';
 
 /**
  * Test-script layer operators (thesis Sec. 4.2.1, "Test-Script Layer Operators").
@@ -10,136 +15,8 @@ import { registry, TestOperatorDef } from '../registry';
  * AST) keeps formatting, comments and line numbers stable.
  */
 
-export interface TextEdit {
-  start: number;
-  end: number;
-  text: string;
-}
-
-export interface Site {
-  edits: TextEdit[];
-  line: number;
-  snippet: string;
-  description: string;
-}
-
 type Params = Record<string, any>;
 type SiteFinder = (sf: ts.SourceFile, params: Params) => Site[];
-
-const WAIT_METHODS = new Set([
-  'waitForSelector', 'waitForTimeout', 'waitForLoadState', 'waitForURL', 'waitForResponse', 'waitForRequest',
-  'waitForNavigation', 'waitForFunction', 'waitForEvent', 'waitFor',
-]);
-
-const ACTION_METHODS = new Set([
-  'click', 'dblclick', 'fill', 'type', 'press', 'pressSequentially', 'check', 'uncheck', 'selectOption', 'hover',
-  'tap', 'setInputFiles', 'setChecked', 'dragTo', 'clear',
-]);
-
-const SELECTOR_METHODS = new Set([
-  'locator', 'click', 'dblclick', 'fill', 'type', 'press', 'check', 'uncheck', 'hover', 'tap', 'selectOption',
-  'waitForSelector', '$', '$$', '$eval', '$$eval', 'isVisible', 'isHidden', 'isEnabled', 'isDisabled', 'isChecked',
-  'textContent', 'innerText', 'innerHTML', 'inputValue', 'getAttribute', 'focus', 'setInputFiles', 'dispatchEvent',
-]);
-
-const GET_BY = new Set(['getByRole', 'getByText', 'getByLabel', 'getByPlaceholder', 'getByTitle', 'getByAltText', 'getByTestId']);
-
-const NO_ARG_MATCHERS = new Set([
-  'toBeTruthy', 'toBeFalsy', 'toBeDefined', 'toBeUndefined', 'toBeNull', 'toBeNaN', 'toBeVisible', 'toBeHidden',
-  'toBeEnabled', 'toBeDisabled', 'toBeChecked', 'toBeEditable', 'toBeEmpty', 'toBeFocused', 'toBeAttached',
-]);
-
-/* --------------------------------------------------------------- helpers */
-
-function lineOf(sf: ts.SourceFile, pos: number): number {
-  return sf.getLineAndCharacterOfPosition(pos).line + 1;
-}
-
-function snippetOf(sf: ts.SourceFile, node: ts.Node): string {
-  return node.getText(sf).replace(/\s+/g, ' ').slice(0, 140);
-}
-
-function visit(node: ts.Node, cb: (n: ts.Node) => void): void {
-  cb(node);
-  node.forEachChild((c) => visit(c, cb));
-}
-
-function methodName(call: ts.CallExpression): string | null {
-  const e = call.expression;
-  if (ts.isPropertyAccessExpression(e)) return e.name.text;
-  if (ts.isIdentifier(e)) return e.text;
-  return null;
-}
-
-/** Unwrap `await x` and parentheses. */
-function unwrap(e: ts.Expression): ts.Expression {
-  while (ts.isAwaitExpression(e) || ts.isParenthesizedExpression(e)) e = e.expression;
-  return e;
-}
-
-/** Is `e` an `expect(...)`, `expect.soft(...)` or `expect.poll(...)` call? */
-function isExpectCall(e: ts.Expression): e is ts.CallExpression {
-  if (!ts.isCallExpression(e)) return false;
-  const c = e.expression;
-  if (ts.isIdentifier(c)) return c.text === 'expect';
-  if (ts.isPropertyAccessExpression(c) && ts.isIdentifier(c.expression)) {
-    return c.expression.text === 'expect' && ['soft', 'poll'].includes(c.name.text);
-  }
-  return false;
-}
-
-interface MatcherCall {
-  call: ts.CallExpression;
-  access: ts.PropertyAccessExpression;
-  expectCall: ts.CallExpression;
-  notAccess: ts.PropertyAccessExpression | null;
-  name: string;
-}
-
-/** `expect(x)[.not].matcher(args)` */
-function asMatcherCall(n: ts.Node): MatcherCall | null {
-  if (!ts.isCallExpression(n) || !ts.isPropertyAccessExpression(n.expression)) return null;
-  const access = n.expression;
-  const obj = access.expression;
-  if (isExpectCall(obj)) return { call: n, access, expectCall: obj, notAccess: null, name: access.name.text };
-  if (ts.isPropertyAccessExpression(obj) && obj.name.text === 'not' && isExpectCall(obj.expression)) {
-    return { call: n, access, expectCall: obj.expression, notAccess: obj, name: access.name.text };
-  }
-  return null;
-}
-
-function rootIdentifier(e: ts.Expression): string | null {
-  let cur: ts.Expression = e;
-  while (true) {
-    if (ts.isCallExpression(cur)) cur = cur.expression;
-    else if (ts.isPropertyAccessExpression(cur)) cur = cur.expression;
-    else if (ts.isElementAccessExpression(cur)) cur = cur.expression;
-    else if (ts.isParenthesizedExpression(cur) || ts.isAwaitExpression(cur)) cur = cur.expression;
-    else break;
-  }
-  if (ts.isIdentifier(cur)) return cur.text;
-  if (cur.kind === ts.SyntaxKind.ThisKeyword) return 'this';
-  return null;
-}
-
-function indentAt(sf: ts.SourceFile, pos: number): string {
-  const text = sf.text;
-  let i = pos;
-  while (i > 0 && text[i - 1] !== '\n') i--;
-  const m = text.slice(i, pos).match(/^\s*/);
-  return m ? m[0] : '';
-}
-
-function isStringLike(n: ts.Node | undefined): n is ts.StringLiteral | ts.NoSubstitutionTemplateLiteral {
-  return !!n && (ts.isStringLiteral(n) || ts.isNoSubstitutionTemplateLiteral(n));
-}
-
-function replaceLiteral(sf: ts.SourceFile, lit: ts.StringLiteral | ts.NoSubstitutionTemplateLiteral, value: string): TextEdit {
-  const raw = lit.getText(sf);
-  const q = raw[0];
-  const escaped = value.replace(/\\/g, '\\\\').split(q).join('\\' + q);
-  return { start: lit.getStart(sf), end: lit.end, text: q + escaped + q };
-}
 
 /* ----------------------------------------------------- CSS selector rules */
 
@@ -233,6 +110,26 @@ export function specializeSelector(sel: string, index = 3): string | null {
   if (/:nth-(child|of-type)\(/.test(sel) || sel.includes(',')) return null;
   if (/::[\w-]+$/.test(sel)) return null;
   return `${sel}:nth-child(${index})`;
+}
+
+/** Methods whose first argument is a value (text, key, option, event name, attribute name) on a locator. */
+const VALUE_FIRST_METHODS = new Set(['fill', 'type', 'press', 'pressSequentially', 'selectOption', 'setInputFiles', 'getAttribute', 'dispatchEvent', 'setChecked']);
+
+/**
+ * Is the first argument of this call a key or a value, not a selector?
+ * `locator.fill(value[, opts])`, `locator.press(key[, opts])`, `locator.dispatchEvent(type)`,
+ * ... and every `keyboard.*` call (`page.keyboard.press('Enter')`). Only the
+ * `page.fill(selector, value[, opts])` form has a selector first.
+ */
+function isKeyArgument(call: ts.CallExpression, name: string): boolean {
+  const e = call.expression;
+  if (ts.isPropertyAccessExpression(e)) {
+    const r = e.expression;
+    if ((ts.isIdentifier(r) && r.text === 'keyboard') || (ts.isPropertyAccessExpression(r) && r.name.text === 'keyboard')) return true;
+  }
+  if (!VALUE_FIRST_METHODS.has(name)) return false;
+  const second = call.arguments[1];
+  return !second || ts.isObjectLiteralExpression(second);
 }
 
 /* ------------------------------------------------------------- operators */
@@ -338,7 +235,7 @@ const finders: Record<string, SiteFinder> = {
       const name = methodName(n);
       if (!name || !ts.isPropertyAccessExpression(n.expression)) return;
       const first = n.arguments[0];
-      if (SELECTOR_METHODS.has(name) && isStringLike(first)) {
+      if (SELECTOR_METHODS.has(name) && isStringLike(first) && !isKeyArgument(n, name)) {
         const g = generalizeSelector(first.text);
         if (g) sites.push(site(sf, n, [replaceLiteral(sf, first, g)], `selector "${first.text}" -> "${g}"`));
         return;
@@ -369,7 +266,7 @@ const finders: Record<string, SiteFinder> = {
       const name = methodName(n);
       if (!name || !ts.isPropertyAccessExpression(n.expression)) return;
       const first = n.arguments[0];
-      if (SELECTOR_METHODS.has(name) && isStringLike(first)) {
+      if (SELECTOR_METHODS.has(name) && isStringLike(first) && !isKeyArgument(n, name)) {
         const s = specializeSelector(first.text, index);
         if (s) sites.push(site(sf, n, [replaceLiteral(sf, first, s)], `selector "${first.text}" -> "${s}"`));
         return;
@@ -384,10 +281,6 @@ const finders: Record<string, SiteFinder> = {
     return sites;
   },
 };
-
-function site(sf: ts.SourceFile, node: ts.Node, edits: TextEdit[], description: string): Site {
-  return { edits, line: lineOf(sf, node.getStart(sf)), snippet: snippetOf(sf, node), description };
-}
 
 function matcherSwap(sf: ts.SourceFile, map: Record<string, string>, mode: 'loosen' | 'tighten'): Site[] {
   const sites: Site[] = [];

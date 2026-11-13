@@ -216,6 +216,24 @@ Rules:
 - A mutant that never reports `applied` is SKIPPED.
 - In-process alternatives: `registry.register(def)` and `new OperatorRegistry()`.
 
+Hooks used by the built-in operator library (all available to plugins; see
+`src/operators/lit/` for 250 examples):
+
+| Hook | Layer | Meaning |
+|---|---|---|
+| `applicable(el, params)` / `applicable(endpoint, params)` | dom (element), network | generation-time pre-check on the recorded element / endpoint (status, content type, JSON shape) |
+| `formScoped: true` | dom (element) | acts on a whole form: the mutant targets the enclosing form instead of each control |
+| `phase: 'init'` | dom (page) | `apply` runs at document start, before any page script (patching XHR, timers, `addEventListener`, …); report later with `helpers.report(detail)` |
+| `nodeApply(ctx)` | dom | runs in the test runner with the `BrowserContext`: viewport, CDP throttling, request routing (e.g. rewriting served scripts); `ctx.applied(detail)` reports |
+| `perResource: 'script' \| 'stylesheet'` | dom (page) | one mutant per external resource of the page (`ctx.resourceUrl`) |
+| `variants: n` | dom (page) | n mutants per target, told apart by `params.variant` |
+| `pageApplicable(elements, params)` | dom (page) | pre-check on the page's recorded elements |
+| `observeAll: true` and `ctx.state`, `ctx.matches` | network | the handler also sees requests outside its endpoint (e.g. to reorder responses); `state` is per-mutant |
+| `set`, `refs`, `aliases` | all | catalogue metadata (`thesis` / `literature`, source keys, ids in the sources) |
+
+Each operator of the thesis set keeps its native implementation; plugin and library
+operators are the same thing as far as the engine is concerned.
+
 ### Reporters
 
 The `reporters` option accepts:

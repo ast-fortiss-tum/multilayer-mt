@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import type { ResolvedConfig } from '../config';
-import { registry as defaultRegistry, OperatorRegistry, DomOperatorDef } from '../operators/registry';
+import { registry as defaultRegistry, OperatorRegistry, DomOperatorDef, NetworkOperatorDef } from '../operators/registry';
 import { findSites } from '../operators/test/astMutator';
 import type { ElementInfo, JsonShape, MutantDescriptor, NetworkRecord, OperatorInfo, PwePage, SuiteTrace } from '../types';
 import { walk } from '../util/fs';
@@ -17,7 +17,8 @@ export function enabledOperators(cfg: ResolvedConfig, ops: OperatorInfo[]): Oper
   const inc = cfg.operators.include;
   const exc = new Set(cfg.operators.exclude || []);
   const match = (id: string, pats: string[]) => pats.some((p) => p === id || id.startsWith(p.endsWith('.') ? p : p + '.'));
-  return ops.filter((o) => cfg.layers.includes(o.layer) && (!inc || inc.length === 0 || match(o.id, inc)) && !match(o.id, [...exc]));
+  const inSet = (o: OperatorInfo) => !o.set || cfg.operatorSet === 'all' || cfg.operatorSet === o.set;
+  return ops.filter((o) => cfg.layers.includes(o.layer) && inSet(o) && (!inc || inc.length === 0 || match(o.id, inc)) && !match(o.id, [...exc]));
 }
 
 function paramsFor(cfg: ResolvedConfig, op: OperatorInfo, extra: Record<string, unknown> = {}): Record<string, unknown> {
@@ -89,6 +90,7 @@ export function domApplicable(opId: string, el: ElementInfo, mapping?: Record<st
 }
 
 /** Operators whose effective target is the enclosing form (deduplicated per form). */
+/** Thesis operators that act on a whole form (retargeted to the enclosing form's selector). */
 const FORM_SCOPED = new Set(['TIM.form.reorderFields', 'EVD.submit.delay']);
 
 const SAFE_NODE_TAGS = ['footer', 'aside'];
@@ -131,7 +133,7 @@ function generateDom(cfg: ResolvedConfig, pwe: PwePage[], trace: SuiteTrace, reg
           : op.applicable ? op.applicable(el, params) : true;
         if (!ok) continue;
         let selector = el.selector;
-        if (FORM_SCOPED.has(op.id) && el.tag !== 'form' && el.facts.formSelector) selector = el.facts.formSelector;
+        if ((FORM_SCOPED.has(op.id) || op.formScoped) && el.tag !== 'form' && el.facts.formSelector) selector = el.facts.formSelector;
         push(
           {
             operator: op.id,
@@ -149,10 +151,27 @@ function generateDom(cfg: ResolvedConfig, pwe: PwePage[], trace: SuiteTrace, reg
     for (const op of ops.filter((o) => o.scope === 'page')) {
       const params = paramsFor(cfg, op);
       if (!reg.isBuiltin(op.id)) {
-        push(
-          { operator: op.id, layer: 'dom', target: { kind: 'dom', pageKey: page.pageKey, description: `page ${page.pageKey}` }, params, testFiles: files },
-          `${op.id}|${page.pageKey}`,
-        );
+        if (op.pageApplicable && !op.pageApplicable(els, params)) continue;
+        const n = Math.max(1, Number(params.variants ?? op.variants ?? 1));
+        const withVariant = (v: number) => (n > 1 ? { ...params, variant: v } : params);
+        const vTag = (v: number) => (n > 1 ? ` #${v}` : '');
+        if (op.perResource) {
+          for (const r of (pageResources.get(page.pageKey) || []).filter((x) => x.kind === op.perResource)) {
+            for (let v = 0; v < n; v++) {
+              push(
+                { operator: op.id, layer: 'dom', target: { kind: 'dom', pageKey: page.pageKey, resourceUrl: r.url, description: `${r.kind} ${r.url}${vTag(v)}` }, params: withVariant(v), testFiles: files },
+                `${op.id}|${page.pageKey}|${r.url}|${v}`,
+              );
+            }
+          }
+          continue;
+        }
+        for (let v = 0; v < n; v++) {
+          push(
+            { operator: op.id, layer: 'dom', target: { kind: 'dom', pageKey: page.pageKey, description: `page ${page.pageKey}${vTag(v)}` }, params: withVariant(v), testFiles: files },
+            `${op.id}|${page.pageKey}|${v}`,
+          );
+        }
       } else if (op.id === 'TIM.node.removeSafe') {
         const has = els.some((e) => SAFE_NODE_TAGS.includes(e.tag) || SAFE_NODE_ROLES.includes(e.attrs.role || '') || /\bbanner\b/.test(e.attrs.class || ''));
         push(
@@ -268,6 +287,11 @@ function generateNetwork(cfg: ResolvedConfig, trace: SuiteTrace, reg: OperatorRe
     const u = new URL(rec.url);
     for (const op of ops) {
       const params = paramsFor(cfg, op, inferNetworkParams(op.id, op.defaults, shape));
+      const def = op as NetworkOperatorDef;
+      if (!reg.isBuiltin(op.id) && def.applicable) {
+        const ep = { method: rec.method, url: rec.url, resourceType: rec.resourceType, status: rec.status, contentType: rec.contentType, json: shape };
+        if (!def.applicable(ep, params)) continue;
+      }
       out.push({
         operator: op.id,
         layer: 'network',

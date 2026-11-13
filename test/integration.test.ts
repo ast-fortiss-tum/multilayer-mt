@@ -136,9 +136,11 @@ describe('plugins', () => {
     assert.equal(registry.get('XAM.title.remove').layer, 'dom');
     assert.equal(registry.get('XNS.status.teapot').family, 'XNS');
     assert.equal(registry.isBuiltin('XAM.title.remove'), false);
-    assert.equal(registry.list().length, 55);
+    const total = registry.list().length;
+    assert.equal(registry.list().filter((o) => !o.set).length, 4); // the plugin's operators
+    assert.equal(registry.list().filter((o) => o.set === 'thesis').length, 51);
     // loading twice is idempotent
-    return registry.loadPluginFile(pluginFile).then(() => assert.equal(registry.list().length, 55));
+    return registry.loadPluginFile(pluginFile).then(() => assert.equal(registry.list().length, total));
   });
 
   test('custom test-script operator works through the public API', () => {
@@ -149,7 +151,7 @@ describe('plugins', () => {
   test('invalid definitions are rejected', () => {
     const r = new OperatorRegistry();
     assert.throws(() => r.register({ id: 'bad', layer: 'dom' } as any), /invalid operator id/);
-    assert.throws(() => r.register({ id: 'X.y', layer: 'dom' } as any), /"apply" is required/);
+    assert.throws(() => r.register({ id: 'X.y', layer: 'dom' } as any), /"apply" or "nodeApply" is required/);
     assert.throws(() => r.register({ id: 'SVM.display.none', layer: 'dom', apply: () => null } as any), /already registered/);
   });
 
@@ -240,10 +242,12 @@ describe('CLI', () => {
   const run = (...args: string[]) => spawnSync(process.execPath, [CLI, ...args], { cwd: tmp, encoding: 'utf8' });
 
   test('operators --json', () => {
-    const ops = JSON.parse(execFileSync(process.execPath, [CLI, 'operators', '--json'], { cwd: tmp, encoding: 'utf8' }));
-    assert.equal(ops.length, 51);
-    const withPlugin = JSON.parse(execFileSync(process.execPath, [CLI, 'operators', '--json', '--plugin', path.join(tmp, 'plugin.js')], { cwd: tmp, encoding: 'utf8' }));
-    assert.equal(withPlugin.length, 55);
+    const cli = (...a: string[]) => JSON.parse(execFileSync(process.execPath, [CLI, 'operators', '--json', ...a], { cwd: tmp, encoding: 'utf8', maxBuffer: 64 << 20 }));
+    assert.equal(cli('--set', 'thesis').length, 51);
+    const all = cli();
+    assert.ok(all.length >= 51 && all.every((o: any) => o.id && o.set));
+    assert.equal(cli('--plugin', path.join(tmp, 'plugin.js'), '--set', 'plugin').length, 4);
+    assert.equal(cli('--set', 'literature').length + 51, all.length);
   });
 
   test('sites and mutate on a test file', () => {

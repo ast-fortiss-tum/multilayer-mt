@@ -24,7 +24,7 @@ Pipeline commands (use the config, see "mlmt init"):
 
 Standalone commands:
   init                      create mlmt.config.json in the current directory
-  operators                 list the mutation operators (incl. plugins)
+  operators                 list the mutation operators (--set thesis|literature|plugin, --layer)
   sites <test-file>         list test-script mutation sites of a test file
   mutate <test-file>        print a mutated test file (--operator, --site)
   report <report.json>      re-render the HTML report of a run
@@ -39,6 +39,7 @@ Run options:
   --max-pwe <n>             top-N PWEs per page (e.g. 4, 8, 16)
   --workers <n>             parallel mutant executions
   --layers <list>           subset of dom,network,test
+  --operator-set <set>      thesis (the 51 thesis operators), literature, or all (default)
   --operators <list>        operator ids / family prefixes to include
   --exclude <list>          operator ids / family prefixes to exclude
   --max-mutants <n>         execute a seeded random sample of n mutants
@@ -112,6 +113,7 @@ export function overridesFrom(o: Record<string, any>): UserConfig {
     reporters: o.reporter,
   };
   if (o.operators || o.exclude) c.operators = { include: list(o.operators), exclude: list(o.exclude) };
+  if (o['operator-set'] !== undefined) c.operatorSet = o['operator-set'];
   if (o['all-tests']) c.testSelection = 'all';
   if (o['keep-sandboxes']) c.keepSandboxes = true;
   return c;
@@ -166,13 +168,20 @@ async function main(argv: string[]): Promise<number> {
     case 'operators': {
       await loadPlugins();
       const layer = opts.layer as Layer | undefined;
-      const ops = registry.list(layer).map(({ id, family, layer: l, category, intent, defaults, scope }) => ({ id, family, layer: l, category, intent, defaults, scope, builtin: registry.isBuiltin(id) }));
+      const set = opts.set as string | undefined;
+      if (set && !['thesis', 'literature', 'plugin'].includes(set)) throw new UsageError('--set must be thesis, literature or plugin');
+      const ops = registry
+        .list(layer)
+        .filter((o) => !set || (o.set ?? 'plugin') === set)
+        .map(({ id, family, layer: l, category, intent, defaults, scope, set: st, refs, aliases }) => ({
+          id, family, layer: l, category, intent, defaults, scope, set: st ?? 'plugin', refs: refs ?? [], aliases: aliases ?? [], builtin: registry.isBuiltin(id),
+        }));
       const lines: string[] = [];
       for (const l of ['dom', 'network', 'test'] as Layer[]) {
         const ls = ops.filter((o) => o.layer === l);
         if (!ls.length) continue;
         lines.push(`\n${l.toUpperCase()} (${ls.length})`);
-        for (const o of ls) lines.push(`  ${o.id.padEnd(30)} ${o.category.padEnd(24)} ${o.intent}${o.builtin ? '' : '  [plugin]'}`);
+        for (const o of ls) lines.push(`  ${o.id.padEnd(30)} ${o.category.padEnd(24)} ${o.intent}${o.set === 'plugin' ? '  [plugin]' : o.set === 'literature' ? '  [lit]' : ''}`);
       }
       lines.push(`\nTotal: ${ops.length}`);
       out(ops, lines.join('\n'));
@@ -287,20 +296,30 @@ async function main(argv: string[]): Promise<number> {
   }
 }
 
+/** Exit after stdout and stderr are flushed (piped output is asynchronous; a bare process.exit truncates it). */
+function exitAfterFlush(code: number): void {
+  let pending = 2;
+  const done = () => {
+    if (--pending === 0) process.exit(code);
+  };
+  process.stdout.write('', done);
+  process.stderr.write('', done);
+}
+
 if (require.main === module) {
   main(process.argv.slice(2)).then(
-    (code) => process.exit(code),
+    (code) => exitAfterFlush(code),
     (e) => {
       if (e instanceof UsageError || e instanceof ConfigError) {
         console.error(`mlmt: ${e.message}`);
-        process.exit(EXIT.USAGE);
+        return exitAfterFlush(EXIT.USAGE);
       }
       if (e instanceof AbortError) {
         console.error('mlmt: aborted');
-        process.exit(EXIT.ABORTED);
+        return exitAfterFlush(EXIT.ABORTED);
       }
       console.error('[mlmt] ERROR', e instanceof Error ? e.stack || e.message : e);
-      process.exit(EXIT.ERROR);
+      exitAfterFlush(EXIT.ERROR);
     },
   );
 }

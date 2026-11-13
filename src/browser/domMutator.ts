@@ -17,12 +17,14 @@ export interface DomMutationSpec {
   seed: number;
   /** element (default) or page */
   scope?: 'element' | 'page';
+  /** custom page operators: 'init' runs `custom` at document start (API patching) */
+  phase?: 'init' | 'ready';
   /** name of the exposed binding that receives application reports */
   bindingName?: string;
 }
 
 /** Signature of a custom (plugin) DOM operator, see operators/registry.ts. */
-export type CustomDomApply = (el: Element, params: Record<string, any>, helpers: { rand: () => number }) => string | null;
+export type CustomDomApply = (el: Element, params: Record<string, any>, helpers: { rand: () => number; report: (detail: string) => void }) => string | null;
 
 export function mlmtDomMutator(spec: DomMutationSpec, custom?: CustomDomApply | null): void {
   const w = window as any;
@@ -459,7 +461,7 @@ export function mlmtDomMutator(spec: DomMutationSpec, custom?: CustomDomApply | 
   function applyPageOp(): void {
     if (custom && spec.scope === 'page') {
       if (customPageDone) return;
-      const d = custom(document.documentElement, P, { rand });
+      const d = custom(document.documentElement, P, { rand, report });
       if (d) {
         customPageDone = true;
         report(d);
@@ -498,6 +500,18 @@ export function mlmtDomMutator(spec: DomMutationSpec, custom?: CustomDomApply | 
     }
   }
 
+  if (custom && spec.scope === 'page' && spec.phase === 'init') {
+    // patch browser APIs before any page script runs; the operator reports
+    // through helpers.report when the patched behaviour is actually exercised
+    try {
+      const d = custom(document.documentElement || (document as unknown as Element), P, { rand, report });
+      if (d) report(d);
+    } catch {
+      /* never break the page */
+    }
+    return;
+  }
+
   // ------------------------------------------------------------- scheduler
   const doneEls = new WeakSet<Element>();
   /**
@@ -531,11 +545,15 @@ export function mlmtDomMutator(spec: DomMutationSpec, custom?: CustomDomApply | 
         return;
       }
       const fn: Apply | undefined =
-        elementOps[spec.operator] || (custom && spec.scope !== 'page' ? (el: Element) => custom(el, P, { rand }) : undefined);
+        elementOps[spec.operator] || (custom && spec.scope !== 'page' ? (el: Element) => custom(el, P, { rand, report }) : undefined);
       if (fn) {
         if (!spec.selector) return;
         document.querySelectorAll(spec.selector).forEach((el) => {
           if (doneEls.has(el) || el.hasAttribute(MARK) || !parsed(el)) return;
+          // Every operator is tried once per element, whatever it returns: an operator
+          // may install a hook and report later through helpers.report (returning
+          // null now), and must not be re-run. Operators whose target is not ready
+          // yet watch for it themselves.
           doneEls.add(el);
           const d = fn(el);
           if (d) {

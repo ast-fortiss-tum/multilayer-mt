@@ -82,3 +82,52 @@ test('mutated sources keep line numbers', () => {
     assert.equal(idx(m), idx(SRC), op);
   }
 });
+
+test('SOG / SOS never treat a value, key or event name as a selector', () => {
+  const src = `import { test } from '@playwright/test';
+test('t', async ({ page }) => {
+  const loc = page.locator('#name');
+  await loc.fill('Real Name 001');
+  await loc.type('a.b.c');
+  await loc.press('Enter');
+  await loc.pressSequentially('#hash.value');
+  await loc.selectOption('red.green');
+  await loc.getAttribute('data-x.y');
+  await loc.dispatchEvent('click');
+  await page.keyboard.press('Control.A');
+  await page.fill('#legacy', 'plain value');
+  await page.press('#legacy', 'Enter');
+  await page.getByLabel('Name').fill('x');
+});
+`;
+  for (const op of ['SOG.selector.generalize', 'SOS.selector.specialize']) {
+    const sites = findSites(op, 't.spec.ts', src);
+    const text = sites.map((s) => s.snippet).join('\n');
+    for (const bad of ['Real Name 001', 'a.b.c', "'Enter')", '#hash.value', 'red.green', 'data-x.y', "'click'", 'Control.A', 'plain value']) {
+      // the only legal sites are the selector arguments (#name, #legacy twice)
+      assert.ok(!sites.some((s) => s.edits.some((e) => src.slice(e.start, e.end).includes(bad.replace(/'/g, '')))), `${op} mutates ${bad}`);
+    }
+    assert.ok(sites.length >= 1, `${op} lost its legitimate sites`);
+    assert.ok(text.includes('#name') || text.includes('#legacy'), op);
+  }
+});
+
+test('literal rewriting keeps template literals and escapes valid', () => {
+  const src = 'import { test } from "@playwright/test";\ntest("t", async ({ page }) => {\n  await page.locator(`#a.b`).click();\n  await page.locator(\'#q\').click();\n});\n';
+  const sf = ts.createSourceFile('t.spec.ts', src, ts.ScriptTarget.Latest, true);
+  const { replaceLiteral } = require('../src/operators/test/astUtil');
+  const lits: (ts.StringLiteral | ts.NoSubstitutionTemplateLiteral)[] = [];
+  const walk = (n: ts.Node): void => {
+    if (ts.isStringLiteral(n) || ts.isNoSubstitutionTemplateLiteral(n)) lits.push(n);
+    n.forEachChild(walk);
+  };
+  walk(sf);
+  for (const lit of lits.filter((l) => l.text.startsWith('#'))) {
+    for (const value of ['has `tick` and ${x} and \\ back', "it's \"quoted\"\nnew line"]) {
+      const e = replaceLiteral(sf, lit, value);
+      const out = src.slice(0, e.start) + e.text + src.slice(e.end);
+      const diags = (ts.createSourceFile('x.ts', out, ts.ScriptTarget.Latest, true) as any).parseDiagnostics;
+      assert.equal(diags.length, 0, `invalid TS for ${JSON.stringify(value)}: ${out}`);
+    }
+  }
+});

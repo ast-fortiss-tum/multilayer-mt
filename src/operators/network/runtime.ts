@@ -38,6 +38,7 @@ export async function installNetworkMutation(
   const p = mutant.params as Record<string, any>;
   const rand = mulberry32(seed);
   let cached: { status: number; headers: Record<string, string>; body: Buffer } | null = null;
+  const state: Record<string, any> = {};
 
   const matches = (req: Request) =>
     req.method().toUpperCase() === target.method.toUpperCase() && urlBaseOf(req.url(), normalize) === target.urlBase;
@@ -62,8 +63,9 @@ export async function installNetworkMutation(
     });
   };
 
+  const custom = registry.has(mutant.operator) && !registry.isBuiltin(mutant.operator) ? (registry.get(mutant.operator) as NetworkOperatorDef) : null;
   const handler = async (route: Route, request: Request) => {
-    if (!matches(request)) return route.fallback();
+    if (!matches(request) && !custom?.observeAll) return route.fallback();
     try {
       switch (mutant.operator) {
         case 'NPF.field.drop':
@@ -113,7 +115,7 @@ export async function installNetworkMutation(
         }
         default: {
           const def = registry.has(mutant.operator) ? (registry.get(mutant.operator) as NetworkOperatorDef) : null;
-          if (def?.handle) return await def.handle({ route, request, params: p, applied: onApplied, rand });
+          if (def?.handle) return await def.handle({ route, request, params: p, applied: onApplied, rand, state, matches });
           return route.fallback();
         }
       }
