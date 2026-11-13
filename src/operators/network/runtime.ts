@@ -2,18 +2,11 @@ import type { BrowserContext, Route, Request } from '@playwright/test';
 import type { MutantDescriptor, NetworkTarget } from '../../types';
 import { addField, changeType, dropField, invalidEnum, renameField, reorderArrays, Transformed } from './payload';
 import { mulberry32 } from '../../util/random';
+import { KeyNormalizer, urlBaseOf } from '../../util/pageKey';
 import { registry, NetworkOperatorDef } from '../registry';
 
 export type AppliedCallback = (detail: string) => void;
 
-function urlBaseOf(url: string): string {
-  try {
-    const u = new URL(url);
-    return u.origin + u.pathname;
-  } catch {
-    return url;
-  }
-}
 
 function isJson(contentType: string | undefined): boolean {
   return !!contentType && /json/i.test(contentType);
@@ -39,14 +32,16 @@ export async function installNetworkMutation(
   mutant: MutantDescriptor,
   onApplied: AppliedCallback,
   seed = 42,
+  normalize?: KeyNormalizer,
 ): Promise<void> {
   const target = mutant.target as NetworkTarget;
   const p = mutant.params as Record<string, any>;
   const rand = mulberry32(seed);
   let cached: { status: number; headers: Record<string, string>; body: Buffer } | null = null;
+  const state: Record<string, any> = {};
 
   const matches = (req: Request) =>
-    req.method().toUpperCase() === target.method.toUpperCase() && urlBaseOf(req.url()) === target.urlBase;
+    req.method().toUpperCase() === target.method.toUpperCase() && urlBaseOf(req.url(), normalize) === target.urlBase;
 
   const payloadOp = async (route: Route, fn: (json: unknown) => Transformed) => {
     const response = await route.fetch();
@@ -68,8 +63,9 @@ export async function installNetworkMutation(
     });
   };
 
+  const custom = registry.has(mutant.operator) && !registry.isBuiltin(mutant.operator) ? (registry.get(mutant.operator) as NetworkOperatorDef) : null;
   const handler = async (route: Route, request: Request) => {
-    if (!matches(request)) return route.fallback();
+    if (!matches(request) && !custom?.observeAll) return route.fallback();
     try {
       switch (mutant.operator) {
         case 'NPF.field.drop':
@@ -119,7 +115,7 @@ export async function installNetworkMutation(
         }
         default: {
           const def = registry.has(mutant.operator) ? (registry.get(mutant.operator) as NetworkOperatorDef) : null;
-          if (def?.handle) return await def.handle({ route, request, params: p, applied: onApplied, rand });
+          if (def?.handle) return await def.handle({ route, request, params: p, applied: onApplied, rand, state, matches });
           return route.fallback();
         }
       }

@@ -106,6 +106,7 @@ export async function runPlaywright(cfg: ResolvedConfig, opts: RunOptions): Prom
     MLMT_PROJECT_ROOT: cfg.abs.root,
     MLMT_TEST_DIR: opts.sandbox.testDir,
     MLMT_PAGE_KEY_QUERY: JSON.stringify(cfg.pageKeyQuery),
+    ...(cfg.pageKeyNormalize ? { MLMT_PAGE_KEY_NORMALIZE: JSON.stringify(cfg.pageKeyNormalize) } : {}),
     MLMT_NET_TYPES: JSON.stringify(cfg.network.resourceTypes),
     MLMT_MAX_ELEMENTS: String(cfg.maxElementsPerSnapshot),
     MLMT_SEED: String(cfg.seed),

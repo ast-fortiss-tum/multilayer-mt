@@ -13,7 +13,7 @@ function op(
   defaults: Record<string, unknown> = {},
   scope?: DomScope,
 ): OperatorInfo {
-  return { id, family: id.split('.')[0], layer, category, intent, defaults, scope };
+  return { id, family: id.split('.')[0], layer, category, intent, defaults, scope, set: 'thesis', refs: ['Gozutok25'] };
 }
 
 const D = 'dom' as const;

@@ -1,9 +1,10 @@
 import * as path from 'path';
 import { pathToFileURL } from 'url';
 import type * as TS from 'typescript';
-import type { Request, Route } from '@playwright/test';
-import type { DomScope, ElementInfo, Layer, OperatorInfo } from '../types';
+import type { BrowserContext, Request, Route } from '@playwright/test';
+import type { DomScope, ElementInfo, JsonShape, Layer, OperatorInfo } from '../types';
 import { ALL_OPERATORS } from './catalog';
+import { LITERATURE_OPERATORS } from './lit';
 
 /**
  * Operator registry and plugin API.
@@ -38,6 +39,8 @@ import { ALL_OPERATORS } from './catalog';
 export interface DomApplyHelpers {
   /** Seeded PRNG in [0, 1). */
   rand: () => number;
+  /** Report an application later (e.g. from a patched API when it is called). */
+  report: (detail: string) => void;
 }
 
 export interface DomOperatorDef extends OperatorInfo {
@@ -49,6 +52,11 @@ export interface DomOperatorDef extends OperatorInfo {
    */
   applicable?: (el: ElementInfo, params: Record<string, any>) => boolean;
   /**
+   * Element scope: the operator acts on a whole form, so every control of a
+   * form would yield the same mutant; the target is the enclosing form.
+   */
+  formScoped?: boolean;
+  /**
    * Browser-side mutation. Serialised with `toString()` and injected into the
    * page, so it must not reference anything outside its own body. Return a
    * short description when applied, or `null` when not applicable.
@@ -56,6 +64,39 @@ export interface DomOperatorDef extends OperatorInfo {
    * Built-in operators leave this undefined (implemented in browser/domMutator).
    */
   apply?: (el: Element, params: Record<string, any>, helpers: DomApplyHelpers) => string | null;
+  /**
+   * Page scope only. 'ready' (default): `apply` runs once the document is
+   * parsed. 'init': `apply` runs at document start, before any page script,
+   * for operators that patch browser APIs (XHR, timers, addEventListener, ...).
+   */
+  phase?: 'init' | 'ready';
+  /** Page scope: one mutant per external script/stylesheet of the page (target.resourceUrl). */
+  perResource?: 'script' | 'stylesheet';
+  /**
+   * Page scope: number of mutants per target, distinguished by `params.variant`
+   * (0..n-1), e.g. one per rewrite site of a script. Overridable with
+   * operatorParams[id].variants.
+   */
+  variants?: number;
+  /** Page scope: generation-time pre-check on the page's recorded elements (default: true). */
+  pageApplicable?: (elements: ElementInfo[], params: Record<string, any>) => boolean;
+  /**
+   * Mutation applied from the test-runner process instead of (or in addition
+   * to) the page: viewport size, CPU throttling, resource routing, ...
+   */
+  nodeApply?: (ctx: DomNodeContext) => Promise<void>;
+}
+
+export interface DomNodeContext {
+  context: BrowserContext;
+  /** Page key the mutant is scoped to ('*' = all pages). */
+  pageKey: string;
+  resourceUrl?: string;
+  params: Record<string, any>;
+  applied: (detail: string) => void;
+  rand: () => number;
+  /** Page key of a URL with the run's pageKeyQuery/pageKeyNormalize settings. */
+  pageKeyOf: (url: string) => string;
 }
 
 export interface NetworkHandlerContext {
@@ -65,16 +106,34 @@ export interface NetworkHandlerContext {
   /** Report that the mutation was applied (otherwise the mutant is SKIPPED). */
   applied: (detail: string) => void;
   rand: () => number;
+  /** Mutable state shared by all requests of one mutant run (e.g. held responses). */
+  state: Record<string, any>;
+  /** Matches requests of the mutant's endpoint (for operators that coordinate several requests). */
+  matches: (request: Request) => boolean;
+}
+
+/** What the trace knows about an endpoint (generation-time applicability). */
+export interface EndpointInfo {
+  method: string;
+  url: string;
+  resourceType: string;
+  status: number;
+  contentType: string;
+  json?: JsonShape;
 }
 
 export interface NetworkOperatorDef extends OperatorInfo {
   layer: 'network';
+  /** Generation-time pre-check on the recorded endpoint (default: true). */
+  applicable?: (ep: EndpointInfo, params: Record<string, any>) => boolean;
   /**
    * Called for every request matching the mutant's endpoint. Must settle the
    * route (`fulfill`, `abort`, `continue` or `fallback`).
    * Built-in operators leave this undefined (implemented in network/runtime).
    */
   handle?: (ctx: NetworkHandlerContext) => Promise<void>;
+  /** Also call `handle` for requests outside the endpoint (it must `fallback()` them itself). */
+  observeAll?: boolean;
 }
 
 export interface TestSite {
@@ -102,11 +161,11 @@ type Input<T extends OperatorDef> = Omit<T, 'family' | 'layer' | 'defaults' | 'c
 
 function base(id: string, layer: Layer, d: { defaults?: Record<string, unknown>; category?: string; intent?: string }) {
   if (!/^[A-Za-z][\w-]*(\.[\w-]+)+$/.test(id)) throw new Error(`invalid operator id "${id}" (expected FAMILY.name[.variant])`);
-  return { id, family: id.split('.')[0], layer, defaults: d.defaults || {}, category: d.category || 'Custom', intent: d.intent || '' };
+  return { id, family: id.split('.')[0], layer, defaults: d.defaults || {}, category: d.category || 'Custom', intent: d.intent || '', scope: (d as any).scope };
 }
 
 export function defineDomOperator(o: Input<DomOperatorDef> & { scope?: DomScope }): DomOperatorDef {
-  if (!o.apply) throw new Error(`DOM operator ${o.id}: "apply" is required`);
+  if (!o.apply && !o.nodeApply) throw new Error(`DOM operator ${o.id}: "apply" or "nodeApply" is required`);
   return { ...o, ...base(o.id, 'dom', o), scope: o.scope || 'element' } as DomOperatorDef;
 }
 export function defineNetworkOperator(o: Input<NetworkOperatorDef>): NetworkOperatorDef {
@@ -142,8 +201,9 @@ export class OperatorRegistry {
   private ops = new Map<string, OperatorDef>();
   private loaded = new Set<string>();
 
-  constructor(builtins: OperatorInfo[] = ALL_OPERATORS) {
+  constructor(builtins: OperatorInfo[] = ALL_OPERATORS, library: OperatorDef[] = LITERATURE_OPERATORS) {
     for (const o of builtins) this.ops.set(o.id, { ...o, scope: o.scope } as OperatorDef);
+    for (const o of library) this.register({ ...o, set: 'literature' } as OperatorDef);
   }
 
   /** Register a custom operator (plain objects are normalised and validated). */
@@ -190,6 +250,7 @@ export class OperatorRegistry {
     const all = [...this.ops.values()];
     return layer ? all.filter((o) => o.layer === layer) : all;
   }
+  /** One of the 51 thesis operators (implemented natively in domMutator/runtime/astMutator). */
   isBuiltin(id: string): boolean {
     return ALL_OPERATORS.some((o) => o.id === id);
   }

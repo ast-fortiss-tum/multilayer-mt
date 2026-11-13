@@ -2,7 +2,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { pathToFileURL } from 'url';
 import type { Layer } from './types';
-import type { PageKeyQuery } from './util/pageKey';
+import type { KeyNormalizer, PageKeyQuery } from './util/pageKey';
 
 /** A reporter: built-in name, module path, or (programmatic use) a function. */
 export type ReporterSpec = 'json' | 'html' | 'markdown' | 'console' | string | ReporterFn | [string, Record<string, unknown>];
@@ -27,6 +27,11 @@ export interface MlmtConfig {
   baselineWorkers?: number;
   layers: Layer[];
   /** Operator ids or family prefixes (e.g. "SVM", "NSO.status.override"). */
+  /**
+   * Built-in operators to use: the 51 thesis operators, the literature library
+   * (docs/OPERATORS.md), or both. Plugin operators are always available.
+   */
+  operatorSet: 'thesis' | 'literature' | 'all';
   operators: { include?: string[]; exclude?: string[] };
   /** Per-operator parameter overrides. */
   operatorParams: Record<string, Record<string, unknown>>;
@@ -36,6 +41,11 @@ export interface MlmtConfig {
   reporters: ReporterSpec[];
   /** Which query parameters identify a page ('all', 'none' or a list). */
   pageKeyQuery: PageKeyQuery;
+  /**
+   * Regex rewrites `[pattern, replacement]` applied to page keys and network
+   * endpoints, for URLs that embed run-specific ids (e.g. generated page titles).
+   */
+  pageKeyNormalize?: KeyNormalizer;
   network: {
     /** Playwright resource types whose requests are network-mutation targets. */
     resourceTypes: string[];
@@ -86,6 +96,7 @@ export const DEFAULT_CONFIG: MlmtConfig = {
   testDir: 'tests',
   testFilePattern: '\\.(spec|test)\\.(c|m)?(j|t)sx?$',
   maxPwe: 100,
+  operatorSet: 'all',
   workers: 4,
   layers: ['dom', 'network', 'test'],
   operators: {},
@@ -186,8 +197,22 @@ export function validateConfig(c: MlmtConfig): void {
     errs.push(`layers must be a non-empty subset of ["dom","network","test"] (got ${JSON.stringify(c.layers)})`);
   }
   if (!['covering', 'all'].includes(c.testSelection)) errs.push(`testSelection must be "covering" or "all"`);
+  if (!['thesis', 'literature', 'all'].includes(c.operatorSet)) errs.push(`operatorSet must be "thesis", "literature" or "all"`);
   if (!(c.pageKeyQuery === 'all' || c.pageKeyQuery === 'none' || (Array.isArray(c.pageKeyQuery) && c.pageKeyQuery.every((x) => typeof x === 'string')))) {
     errs.push(`pageKeyQuery must be "all", "none" or a list of parameter names`);
+  }
+  if (c.pageKeyNormalize !== undefined) {
+    if (!Array.isArray(c.pageKeyNormalize) || !c.pageKeyNormalize.every((r) => Array.isArray(r) && r.length === 2 && r.every((x) => typeof x === 'string'))) {
+      errs.push('pageKeyNormalize must be a list of [pattern, replacement] string pairs');
+    } else {
+      for (const [p] of c.pageKeyNormalize) {
+        try {
+          new RegExp(p);
+        } catch {
+          errs.push(`pageKeyNormalize: invalid regex ${JSON.stringify(p)}`);
+        }
+      }
+    }
   }
   for (const k of ['testFilePattern'] as const) {
     try {

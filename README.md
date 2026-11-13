@@ -75,10 +75,34 @@ npx mlmt run --threshold 60 --json > result.json   # CI gate: exit code 3 below 
 | `mlmt init` | scaffold a config |
 | `mlmt run` | full pipeline |
 | `mlmt trace` / `pwe` / `generate` | individual stages |
-| `mlmt operators [--plugin m.js]` | list operators (built-in + plugins) |
+| `mlmt operators [--set thesis\|literature] [--layer L] [--plugin m.js]` | list operators (built-in + library + plugins) |
 | `mlmt sites <test>` / `mlmt mutate <test> --operator X --site n` | test-script mutations on single files |
 | `mlmt report <report.json>` | re-render the HTML report |
 | `mlmt aggregate <r1.json> …` | Markdown tables of thesis Ch. 5 across runs |
+
+## Operator library
+
+Besides the 51 operators of the thesis, MultilayerMT ships **251 operators from the web
+mutation testing literature** (MAEWU, webMuJava, Mutandis, AjaxMutator, Ma11y,
+HTTPMutator, RESTest, Gremlin, Stryker, …): DOM and CSS mutations, browser-API
+and timer faults, accessibility and presentation faults, 65 network/HTTP/API faults
+(response and request side), 43 rewrites of the application's served JavaScript, and
+33 test-script mutations. Every operator cites its sources and the identifiers it has
+in them; the full catalogue, the source operators that cannot be injected into a
+running app, and the references are in **[docs/OPERATORS.md](docs/OPERATORS.md)**.
+
+```bash
+npx mlmt operators --set literature --layer network       # list
+npx mlmt run --operator-set thesis                        # the 51 thesis operators only
+npx mlmt run --operator-set literature --layers network   # library only, one layer
+npx mlmt run --operators A11,HTM,JSM.eq                   # families or ids (any set)
+```
+
+`operatorSet` defaults to `all`. The library is large — on MediaWiki at PWE-8 the thesis
+set generates about 4,200 mutants and the whole library about 30,000, most of them
+JavaScript rewrites (one per script, page and variant) — so select operators or
+sample with `--max-mutants`. Study configs that must stay comparable with the thesis
+set `"operatorSet": "thesis"`.
 
 Every command supports `--json`. Exit codes: 0 ok, 1 error, 2 usage/config, 3 below threshold, 130 interrupted.
 

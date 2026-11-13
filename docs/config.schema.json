@@ -33,6 +33,15 @@
       }
     },
     "pageKeyQuery": { "anyOf": [{ "enum": ["all", "none"] }, { "type": "array", "items": { "type": "string" } }] },
+    "operatorSet": {
+      "description": "Built-in operators: the 51 thesis operators, the literature library (docs/OPERATORS.md), or both.",
+      "enum": ["thesis", "literature", "all"]
+    },
+    "pageKeyNormalize": {
+      "description": "Regex rewrites [pattern, replacement] applied to page keys and network endpoints, for URLs that embed run-specific ids.",
+      "type": "array",
+      "items": { "type": "array", "items": { "type": "string" }, "minItems": 2, "maxItems": 2 }
+    },
     "network": {
       "type": "object", "additionalProperties": false,
       "properties": {

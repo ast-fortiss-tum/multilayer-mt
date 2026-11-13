@@ -5,6 +5,7 @@
   "testDir": "tests",
   "maxPwe": 8,
   "workers": 4,
+  "operatorSet": "thesis",
   "layers": ["dom", "network", "test"],
   "pageKeyQuery": "all",
   "network": { "resourceTypes": ["xhr", "fetch", "document"] },

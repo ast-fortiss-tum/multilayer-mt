@@ -152,3 +152,39 @@ test('mutations are scoped to their page', async () => {
   assert.equal(await page.isVisible('#btn'), true);
   await ctx.close();
 });
+
+test('mutations are in place before DOMContentLoaded (tests act on parsing pages)', async () => {
+  // Serve the page in two chunks: the target arrives first, the rest 1.5 s later.
+  const http = await import('http');
+  let release!: () => void;
+  const gate = new Promise<void>((r) => (release = r));
+  const server = http.createServer(async (_req, res) => {
+    res.writeHead(200, { 'content-type': 'text/html' });
+    res.write('<!doctype html><html><head></head><body><textarea id="ta"></textarea><a id="lnk" href="#">Save page</a><p>' + ' '.repeat(2048) + '</p>');
+    await Promise.race([gate, new Promise((r) => setTimeout(r, 1500))]);
+    res.end('<p>rest</p></body></html>');
+  });
+  await new Promise<void>((r) => server.listen(0, '127.0.0.1', r));
+  const url = `http://127.0.0.1:${(server.address() as any).port}/p`;
+  try {
+    for (const [operator, selector, check] of [
+      ['SVM.display.none', '#ta', (p: Page) => p.isHidden('#ta')],
+      ['CDM.text.delete', '#lnk', async (p: Page) => (await p.textContent('#lnk')) !== 'Save page'],
+    ] as const) {
+      const ctx = await browser.newContext();
+      const op = DOM_OPERATORS.find((o) => o.id === operator)!;
+      const spec: DomMutationSpec = { operator, pageKey: url, pageKeyQuery: 'all', selector, params: op.defaults, seed: 3 };
+      await ctx.addInitScript({ content: `(${mlmtDomMutator.toString()})(${JSON.stringify(spec)});` });
+      const page = await ctx.newPage();
+      page.goto(url).catch(() => undefined);
+      await page.waitForSelector('#lnk', { state: 'attached' });
+      await page.waitForTimeout(200);
+      assert.equal(await page.evaluate(() => document.readyState), 'loading', 'page must still be parsing');
+      assert.equal(await check(page), true, `${operator} not applied while parsing`);
+      await ctx.close();
+    }
+  } finally {
+    release();
+    server.close();
+  }
+});

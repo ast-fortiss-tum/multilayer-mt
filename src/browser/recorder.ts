@@ -9,6 +9,8 @@
  */
 export interface RecorderSpec {
   pageKeyQuery: 'all' | 'none' | string[];
+  /** see util/pageKey.ts KeyNormalizer */
+  pageKeyNormalize?: Array<[string, string]>;
   maxElements: number;
 }
 
@@ -24,7 +26,9 @@ export function mlmtRecorder(spec: RecorderSpec): void {
     else if (Array.isArray(mode)) entries = entries.filter(([k]) => mode.includes(k));
     entries.sort((a, b) => (a[0] + '=' + a[1]).localeCompare(b[0] + '=' + b[1]));
     const q = entries.length ? '?' + entries.map(([k, v]) => k + '=' + v).join('&') : '';
-    return u.origin + u.pathname + q;
+    let key = u.origin + u.pathname + q;
+    for (const [p, r] of spec.pageKeyNormalize || []) key = key.replace(new RegExp(p, 'g'), r);
+    return key;
   }
   const pageKey = () => pageKeyOf(location.href, spec.pageKeyQuery);
 
@@ -86,6 +90,7 @@ export function mlmtRecorder(spec: RecorderSpec): void {
     'id', 'name', 'type', 'role', 'placeholder', 'aria-label', 'aria-labelledby', 'aria-describedby', 'href',
     'src', 'alt', 'required', 'pattern', 'min', 'max', 'minlength', 'maxlength', 'for', 'routerlink',
     'ng-reflect-router-link', 'to', 'data-route', 'data-href', 'class', 'onclick', 'value',
+    'action', 'method', 'formaction', 'formmethod', 'readonly', 'tabindex', 'title', 'style', 'disabled', 'checked',
   ];
   function implicitRole(el: Element): string | null {
     const tag = el.tagName;
@@ -146,6 +151,10 @@ export function mlmtRecorder(spec: RecorderSpec): void {
           el.tagName === 'LABEL' ||
           (!!id && Array.from(document.querySelectorAll('label[for]')).some((l) => l.getAttribute('for') === id)),
         implicitRole: implicitRole(el),
+        formHiddenCount: form ? form.querySelectorAll('input[type=hidden]').length : 0,
+        formReadonlyCount: form ? form.querySelectorAll('input[readonly], textarea[readonly]').length : 0,
+        isLeaf: el.childElementCount === 0,
+        inLink: !!el.closest('a[href]'),
       },
     };
   }

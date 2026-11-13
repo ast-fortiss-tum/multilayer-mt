@@ -9,18 +9,22 @@ export interface DomMutationSpec {
   operator: string;
   pageKey: string;
   pageKeyQuery: 'all' | 'none' | string[];
+  /** see util/pageKey.ts KeyNormalizer */
+  pageKeyNormalize?: Array<[string, string]>;
   selector?: string;
   resourceUrl?: string;
   params: Record<string, any>;
   seed: number;
   /** element (default) or page */
   scope?: 'element' | 'page';
+  /** custom page operators: 'init' runs `custom` at document start (API patching) */
+  phase?: 'init' | 'ready';
   /** name of the exposed binding that receives application reports */
   bindingName?: string;
 }
 
 /** Signature of a custom (plugin) DOM operator, see operators/registry.ts. */
-export type CustomDomApply = (el: Element, params: Record<string, any>, helpers: { rand: () => number }) => string | null;
+export type CustomDomApply = (el: Element, params: Record<string, any>, helpers: { rand: () => number; report: (detail: string) => void }) => string | null;
 
 export function mlmtDomMutator(spec: DomMutationSpec, custom?: CustomDomApply | null): void {
   const w = window as any;
@@ -40,7 +44,9 @@ export function mlmtDomMutator(spec: DomMutationSpec, custom?: CustomDomApply | 
     else if (Array.isArray(mode)) entries = entries.filter(([k]) => mode.includes(k));
     entries.sort((a, b) => (a[0] + '=' + a[1]).localeCompare(b[0] + '=' + b[1]));
     const q = entries.length ? '?' + entries.map(([k, v]) => k + '=' + v).join('&') : '';
-    return u.origin + u.pathname + q;
+    let key = u.origin + u.pathname + q;
+    for (const [p, r] of spec.pageKeyNormalize || []) key = key.replace(new RegExp(p, 'g'), r);
+    return key;
   }
 
   if (window.top !== window) return; // only the main frame
@@ -455,7 +461,7 @@ export function mlmtDomMutator(spec: DomMutationSpec, custom?: CustomDomApply | 
   function applyPageOp(): void {
     if (custom && spec.scope === 'page') {
       if (customPageDone) return;
-      const d = custom(document.documentElement, P, { rand });
+      const d = custom(document.documentElement, P, { rand, report });
       if (d) {
         customPageDone = true;
         report(d);
@@ -494,8 +500,33 @@ export function mlmtDomMutator(spec: DomMutationSpec, custom?: CustomDomApply | 
     }
   }
 
+  if (custom && spec.scope === 'page' && spec.phase === 'init') {
+    // patch browser APIs before any page script runs; the operator reports
+    // through helpers.report when the patched behaviour is actually exercised
+    try {
+      const d = custom(document.documentElement || (document as unknown as Element), P, { rand, report });
+      if (d) report(d);
+    } catch {
+      /* never break the page */
+    }
+    return;
+  }
+
   // ------------------------------------------------------------- scheduler
   const doneEls = new WeakSet<Element>();
+  /**
+   * While the document is still being parsed, an element is complete once a
+   * node follows it (or one of its ancestors): the parser appends in document
+   * order. Tests can act on elements before DOMContentLoaded, so mutations
+   * must be in place by then, but never on half-parsed elements.
+   */
+  function parsed(el: Element): boolean {
+    if (document.readyState !== 'loading') return true;
+    for (let n: Node | null = el; n && n !== document.documentElement; n = n.parentNode) {
+      if (n.nextSibling) return true;
+    }
+    return false;
+  }
   function applyNow(): void {
     try {
       if (cssOps[spec.operator]) {
@@ -514,11 +545,15 @@ export function mlmtDomMutator(spec: DomMutationSpec, custom?: CustomDomApply | 
         return;
       }
       const fn: Apply | undefined =
-        elementOps[spec.operator] || (custom && spec.scope !== 'page' ? (el: Element) => custom(el, P, { rand }) : undefined);
+        elementOps[spec.operator] || (custom && spec.scope !== 'page' ? (el: Element) => custom(el, P, { rand, report }) : undefined);
       if (fn) {
         if (!spec.selector) return;
         document.querySelectorAll(spec.selector).forEach((el) => {
-          if (doneEls.has(el) || el.hasAttribute(MARK)) return;
+          if (doneEls.has(el) || el.hasAttribute(MARK) || !parsed(el)) return;
+          // Every operator is tried once per element, whatever it returns: an operator
+          // may install a hook and report later through helpers.report (returning
+          // null now), and must not be re-run. Operators whose target is not ready
+          // yet watch for it themselves.
           doneEls.add(el);
           const d = fn(el);
           if (d) {
@@ -528,7 +563,8 @@ export function mlmtDomMutator(spec: DomMutationSpec, custom?: CustomDomApply | 
         });
         return;
       }
-      applyPageOp();
+      // page-level operators restructure the document: wait until it is parsed
+      if (document.readyState !== 'loading') applyPageOp();
     } catch (e) {
       // never break the page because of the mutator itself
     }
@@ -546,8 +582,11 @@ export function mlmtDomMutator(spec: DomMutationSpec, custom?: CustomDomApply | 
 
   function start(): void {
     applyNow();
-    const obs = new MutationObserver(() => schedule());
-    obs.observe(document.documentElement, { childList: true, subtree: true });
+    // During parsing apply synchronously (observer callbacks run as microtasks,
+    // before the test can act on newly parsed elements); afterwards batch.
+    const obs = new MutationObserver(() => (document.readyState === 'loading' ? applyNow() : schedule()));
+    obs.observe(document, { childList: true, subtree: true });
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', applyNow, { once: true });
   }
 
   if (spec.operator === 'SFM.script.fail' || spec.operator === 'SFM.stylesheet.fail') {
@@ -555,6 +594,5 @@ export function mlmtDomMutator(spec: DomMutationSpec, custom?: CustomDomApply | 
     const obs = new MutationObserver(() => applyPageOp());
     obs.observe(document, { childList: true, subtree: true });
   }
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start, { once: true });
-  else start();
+  start();
 }

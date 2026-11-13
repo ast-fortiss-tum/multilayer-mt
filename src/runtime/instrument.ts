@@ -15,8 +15,8 @@ import { mlmtRecorder } from '../browser/recorder';
 import { installNetworkMutation, installResourceFailure } from '../operators/network/runtime';
 import { registry, DomOperatorDef } from '../operators/registry';
 import type { ElementInfo, InteractionRecord, JsonShape, MutantDescriptor, NetworkRecord, ResourceRecord, TestTrace } from '../types';
-import { pageKeyOf, PageKeyQuery } from '../util/pageKey';
-import { hash32 } from '../util/random';
+import { KeyNormalizer, normalizeKey, pageKeyOf, PageKeyQuery } from '../util/pageKey';
+import { hash32, mulberry32 } from '../util/random';
 
 type Target = Page | BrowserContext;
 
@@ -30,6 +30,8 @@ let bindingCounter = 0;
 
 export interface RecorderOptions {
   pageKeyQuery?: PageKeyQuery;
+  /** Rewrite rules for page keys and endpoints (see KeyNormalizer). */
+  pageKeyNormalize?: KeyNormalizer;
   /** Playwright resource types to record (default xhr, fetch, document). */
   resourceTypes?: string[];
   maxElementsPerSnapshot?: number;
@@ -78,6 +80,7 @@ export function shapeOf(json: unknown): JsonShape {
  */
 export async function attachRecorder(target: Target, opts: RecorderOptions = {}): Promise<RecorderHandle> {
   const pageKeyQuery = opts.pageKeyQuery ?? 'all';
+  const norm = opts.pageKeyNormalize;
   const resourceTypes = opts.resourceTypes ?? ['xhr', 'fetch', 'document'];
   const snapshots: Record<string, Record<string, ElementInfo>> = {};
   const interactions: InteractionRecord[] = [];
@@ -118,7 +121,7 @@ export async function attachRecorder(target: Target, opts: RecorderOptions = {})
     }
   });
   await target.addInitScript({
-    content: `(${mlmtRecorder.toString()})(${JSON.stringify({ pageKeyQuery, maxElements: opts.maxElementsPerSnapshot ?? 3000 })});`,
+    content: `(${mlmtRecorder.toString()})(${JSON.stringify({ pageKeyQuery, pageKeyNormalize: norm, maxElements: opts.maxElementsPerSnapshot ?? 3000 })});`,
   });
 
   const onResponse = (response: import('@playwright/test').Response) => {
@@ -144,10 +147,10 @@ export async function attachRecorder(target: Target, opts: RecorderOptions = {})
       const headers = response.headers();
       const contentType = headers['content-type'] || '';
       const rec: NetworkRecord = {
-        pageKey: frameUrl && /^https?:/.test(frameUrl) ? pageKeyOf(frameUrl, pageKeyQuery) : pageKeyOf(url, pageKeyQuery),
+        pageKey: frameUrl && /^https?:/.test(frameUrl) ? pageKeyOf(frameUrl, pageKeyQuery, norm) : pageKeyOf(url, pageKeyQuery, norm),
         method: req.method(),
         url,
-        endpoint: `${req.method()} ${u.origin}${u.pathname}`,
+        endpoint: `${req.method()} ${normalizeKey(u.origin + u.pathname, norm)}`,
         resourceType: rt,
         status: response.status(),
         contentType,
@@ -192,6 +195,7 @@ export interface MutationHandle {
 
 export interface ApplyOptions {
   pageKeyQuery?: PageKeyQuery;
+  pageKeyNormalize?: KeyNormalizer;
   seed?: number;
 }
 
@@ -215,25 +219,36 @@ export async function applyMutant(target: Target, mutant: MutantDescriptor, opts
       operator: mutant.operator,
       pageKey: mutant.target.pageKey,
       pageKeyQuery: opts.pageKeyQuery ?? 'all',
+      pageKeyNormalize: opts.pageKeyNormalize,
       selector: mutant.target.selector,
       resourceUrl: mutant.target.resourceUrl,
       params: mutant.params,
       seed,
       scope: def.scope,
+      phase: def.phase,
       bindingName: name,
     };
-    const script = domScript(spec, def);
-    await target.addInitScript({ content: script });
+    const builtin = registry.isBuiltin(mutant.operator);
+    const script = builtin || def.apply ? domScript(spec, def) : null;
+    if (script) await target.addInitScript({ content: script });
+    if (!builtin && def.nodeApply) {
+      const ctx = isPage(target) ? target.context() : target;
+      await def.nodeApply({
+        context: ctx, pageKey: mutant.target.pageKey, resourceUrl: mutant.target.resourceUrl, params: mutant.params || {},
+        applied: onApplied, rand: mulberry32(seed),
+        pageKeyOf: (url: string) => pageKeyOf(url, opts.pageKeyQuery ?? 'all', opts.pageKeyNormalize),
+      });
+    }
     if (mutant.operator === 'SFM.script.fail' || mutant.operator === 'SFM.stylesheet.fail') {
       await installResourceFailure(target as BrowserContext, mutant.target.resourceUrl, mutant.operator === 'SFM.script.fail' ? 'script' : 'stylesheet', onApplied);
     }
     // apply to documents that are already loaded
     const pages = isPage(target) ? [target] : target.pages();
     for (const p of pages) {
-      if (p.url().startsWith('http')) await p.evaluate(script).catch(() => undefined);
+      if (script && p.url().startsWith('http')) await p.evaluate(script).catch(() => undefined);
     }
   } else if (mutant.layer === 'network') {
-    await installNetworkMutation(target as BrowserContext, mutant, onApplied, seed);
+    await installNetworkMutation(target as BrowserContext, mutant, onApplied, seed, opts.pageKeyNormalize);
   } else {
     throw new Error(`applyMutant: ${mutant.layer}-layer mutants are source transformations; use mutateTestSource()`);
   }

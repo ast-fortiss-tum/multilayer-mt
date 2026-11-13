@@ -18,7 +18,7 @@ import { createRequire } from 'module';
 import type { BrowserContext, TestInfo } from '@playwright/test';
 import { registry } from '../operators/registry';
 import type { MutantDescriptor } from '../types';
-import type { PageKeyQuery } from '../util/pageKey';
+import type { KeyNormalizer, PageKeyQuery } from '../util/pageKey';
 import { hash32 } from '../util/random';
 import { applyMutant, attachRecorder } from './instrument';
 
@@ -32,6 +32,7 @@ const MODE = process.env.MLMT_MODE || 'off';
 const OUT_DIR = process.env.MLMT_OUT_DIR || '';
 const TEST_DIR = process.env.MLMT_TEST_DIR || '';
 const PAGE_KEY_QUERY: PageKeyQuery = process.env.MLMT_PAGE_KEY_QUERY ? JSON.parse(process.env.MLMT_PAGE_KEY_QUERY) : 'all';
+const PAGE_KEY_NORMALIZE: KeyNormalizer | undefined = process.env.MLMT_PAGE_KEY_NORMALIZE ? JSON.parse(process.env.MLMT_PAGE_KEY_NORMALIZE) : undefined;
 const NET_TYPES: string[] = process.env.MLMT_NET_TYPES ? JSON.parse(process.env.MLMT_NET_TYPES) : ['xhr', 'fetch', 'document'];
 const MAX_ELEMENTS = Number(process.env.MLMT_MAX_ELEMENTS || 3000);
 const SEED = Number(process.env.MLMT_SEED || 42);
@@ -54,7 +55,7 @@ function outFile(prefix: string, testInfo: TestInfo): string {
 async function setup(context: BrowserContext, testInfo: TestInfo): Promise<(() => Promise<void>) | null> {
   if (!OUT_DIR) return null;
   if (MODE === 'trace') {
-    const rec = await attachRecorder(context, { pageKeyQuery: PAGE_KEY_QUERY, resourceTypes: NET_TYPES, maxElementsPerSnapshot: MAX_ELEMENTS });
+    const rec = await attachRecorder(context, { pageKeyQuery: PAGE_KEY_QUERY, pageKeyNormalize: PAGE_KEY_NORMALIZE, resourceTypes: NET_TYPES, maxElementsPerSnapshot: MAX_ELEMENTS });
     return async () => {
       const trace = await rec.stop({ testFile: relTestFile(testInfo), testTitle: testInfo.titlePath.slice(1).join(' > '), status: testInfo.status || 'unknown' });
       fs.mkdirSync(OUT_DIR, { recursive: true });
@@ -63,7 +64,7 @@ async function setup(context: BrowserContext, testInfo: TestInfo): Promise<(() =
   }
   if (MODE === 'mutant' && mutant && mutant.layer !== 'test') {
     await registry.loadPlugins(PLUGINS);
-    const handle = await applyMutant(context, mutant, { pageKeyQuery: PAGE_KEY_QUERY, seed: SEED });
+    const handle = await applyMutant(context, mutant, { pageKeyQuery: PAGE_KEY_QUERY, pageKeyNormalize: PAGE_KEY_NORMALIZE, seed: SEED });
     return async () => {
       fs.mkdirSync(OUT_DIR, { recursive: true });
       fs.writeFileSync(

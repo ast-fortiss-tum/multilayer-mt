@@ -27,6 +27,12 @@ export interface OperatorInfo {
   defaults: Record<string, unknown>;
   /** DOM only. */
   scope?: DomScope;
+  /** Operator set: the 51 thesis operators or the literature extension. Plugins: undefined. */
+  set?: 'thesis' | 'literature';
+  /** Sources (keys of docs/OPERATORS.md#references), e.g. ["Yandrapally21"]. */
+  refs?: string[];
+  /** Identifiers of the same operator in the sources, e.g. ["MAEWU:TMM", "Oliveira15:MLWP"]. */
+  aliases?: string[];
 }
 
 /* ------------------------------------------------------------------------- */
@@ -58,6 +64,11 @@ export interface ElementInfo {
     hasImgWithAlt: boolean;
     associatedLabel: boolean;
     implicitRole: string | null;
+    /** Added for the literature operators (absent in traces recorded before). */
+    formHiddenCount?: number;
+    formReadonlyCount?: number;
+    isLeaf?: boolean;
+    inLink?: boolean;
   };
 }
 
